@@ -1,2 +1,11 @@
 <p>navbar works!</p>
-<div style="border:1px;"><p-menubar [model]="items"></p-menubar></div>
+<div><p-menubar [model]="items"></p-menubar></div>
+<div *ngIf="clickedLogin()">
+    <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false">
+        <p class="m-0">This is our modal.</p>
+            <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+            </ng-template>
+    </p-dialog>
+</div>
