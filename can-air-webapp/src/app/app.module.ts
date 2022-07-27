@@ -18,13 +18,13 @@ import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import {SidebarModule} from 'primeng/sidebar';
 import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';//Goes into component's .ts files
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {DropdownModule} from 'primeng/dropdown';
 import {RippleModule} from 'primeng/ripple';
 import {CardModule} from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AutoCompleteModule } from "primeng/autocomplete";
+import {ToolbarModule} from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import {AutoCompleteModule } from "primeng/autocomplete";
     RippleModule,
     CardModule,
     BrowserAnimationsModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
