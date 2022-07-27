@@ -3,9 +3,20 @@
 <div *ngIf="clickedLogin()">
     <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false">
-        <p class="m-0">This is our modal.</p>
-            <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
-            </ng-template>
+        <ng-template pTemplate="header">Login</ng-template>
+        <ng-template pTemplate="body">
+            <div style="margin: 5px;">
+                <input id="float-input" type="text" pInputText placeholder="Username"> 
+                <!-- <label for="float-input">Username</label> -->
+            </div>
+            <div style="margin: 5px;">
+                <input id="float-input" type="password" pInputText placeholder="Password"> 
+                <!-- <label for="float-input">Password</label> -->
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
     </p-dialog>
 </div>
