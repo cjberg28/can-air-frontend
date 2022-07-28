@@ -17,7 +17,7 @@ import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import {SidebarModule} from 'primeng/sidebar';
-import {MenubarModule} from 'primeng/menubar';
+import {Menubar, MenubarModule} from 'primeng/menubar';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {DropdownModule} from 'primeng/dropdown';
 import {RippleModule} from 'primeng/ripple';
@@ -25,6 +25,8 @@ import {CardModule} from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AutoCompleteModule } from "primeng/autocomplete";
 import {ToolbarModule} from 'primeng/toolbar';
+import { MenuItem } from 'primeng/api';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -56,7 +58,14 @@ import {ToolbarModule} from 'primeng/toolbar';
     CardModule,
     BrowserAnimationsModule,
     AutoCompleteModule,
-    ToolbarModule
+    ToolbarModule,
+    ProgressSpinnerModule,
+    RouterModule.forRoot([
+      { path: 'home', component: HomepageComponent },
+      { path: 'my-flights', component: MyflightspageComponent},
+      { path: 'flights', component: SearchresultspageComponent},
+      { path: 'reserve', component: ReserveflightpageComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

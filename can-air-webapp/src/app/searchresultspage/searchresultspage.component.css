@@ -1,0 +1,14 @@
+#search-results-image {
+    background-size: cover;
+    background-image: url('../../assets/search-results.png');
+    width: auto;
+    height: 100%;
+    background-position: center;
+}
+
+
+#search-results-text{
+    padding: 50px 10px 50px 50px;
+    font-style: italic;
+    color: black;
+}

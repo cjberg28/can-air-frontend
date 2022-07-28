@@ -29,6 +29,22 @@
     
                 </span>
             </div>
+            <p-button label="Search" (click)="searchFlights()"></p-button>
+            <!-- <p-progressSpinner *ngIf="isProgressSpinnerActivated"></p-progressSpinner> -->
+            <div *ngIf="isProgressSpinnerActivated" style="display: flex; align-items: center;">
+                <p-dialog [(visible)]="isProgressSpinnerActivated" [modal]="true" [style]="{width: '15vw'}"
+                [draggable]="false" [resizable]="false" [closable]="false">
+                    
+                    <ng-template pTemplate="body" >
+                        <div class="text-xl" style="display:flex; justify-content: center; align-items: center; margin-bottom: 35px;">
+                            Searching For Flights
+                        </div>
+                        <div style="display:flex; justify-content: center; align-items: center">
+                            <p-progressSpinner></p-progressSpinner>
+                        </div>
+                    </ng-template>
+                </p-dialog>
+            </div>
             
         </p-card>
 

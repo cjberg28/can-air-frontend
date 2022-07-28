@@ -1,1 +1,144 @@
-<p>searchresultspage works!</p>
+<div id="search-results-image">
+    <div id="search-results-text">
+      <div class="text-8xl">
+        Available Flights
+      </div>
+    </div>
+  
+    <div style="margin: 20px">
+      <p-card >
+          <p-table #itemTable [columns]="cols" [value]="flights" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+          [filterDelay]="0" [globalFilterFields]="['flightNumber', 'departing', 'arriving', 'zoneId']"
+          [totalRecords]="totalRecords" [pageLinks]="3" [loading]="loading" > <!-- styleClass="p-datatable-gridlines"-->
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th pSortableColumn="flightNumber">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Flight Number<p-sortIcon field="flightNumber"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="departing">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Departing<p-sortIcon field="departing"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="arriving">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Arriving<p-sortIcon field="arriving"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="departureDate">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Departure Date<p-sortIcon field="departureDate"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="roundTrip">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Round Trip<p-sortIcon field="roundTrip"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="returnDate">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Return Date<p-sortIcon field="returnDate"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="departureTime">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Departure Time<p-sortIcon field="departureTime"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="arrivalTime">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Arrival Time<p-sortIcon field="arrivalTime"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                      <th pSortableColumn="price">
+                          <div>
+                              <div class="flex justify-content-center align-items-center">
+                                  Price<p-sortIcon field="price"></p-sortIcon>
+                      
+                                </div>
+                          </div>
+                      </th>
+                  </tr>
+              </ng-template>
+              <!-- body of the table -->
+              <ng-template pTemplate="body" let-flight>
+                <tr>
+                    <td>
+                        <div>
+                            <p-splitButton label="{{flight.flightNumber}}" [model]="this.flightOptions" ></p-splitButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.departing}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.arriving}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.departureDate}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.roundTrip}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.returnDate}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.departureTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.arrivalTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{flight.price}}
+                        </div>
+                    </td>
+
+                </tr>
+              </ng-template>
+          </p-table>
+        </p-card>
+    </div>
+  </div>
+  

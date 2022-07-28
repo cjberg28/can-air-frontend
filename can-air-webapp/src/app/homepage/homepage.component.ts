@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -13,8 +14,9 @@ export class HomepageComponent implements OnInit {
   isRoundTrip?: boolean;
   returnDate?: Date;
   airports: string[] = [];
+  isProgressSpinnerActivated: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.airports = [
@@ -26,6 +28,11 @@ export class HomepageComponent implements OnInit {
       'ORD - Chicago',
       'LHR - London'
     ]
+  }
+
+  searchFlights() {
+    this.isProgressSpinnerActivated = true;
+    setTimeout(() => {this.router.navigate(['flights']);}, 2000);
   }
 
   

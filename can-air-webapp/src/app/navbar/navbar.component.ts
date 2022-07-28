@@ -2,6 +2,8 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { UrlSerializer } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { User } from '../models/User';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,11 @@ export class NavbarComponent implements OnInit {
   //declare variables to hold username and password
   username: string = '';
   password: string = '';
-  constructor() {
+
+  //progress spinner boolean
+  isProgressSpinner: boolean = false;
+  isCloseable: boolean = true;
+  constructor(private router: Router) {
 
   }
 
@@ -26,22 +32,40 @@ export class NavbarComponent implements OnInit {
     //cleans the username and password field onInit
     this.username= '';
     this.password = '';
-
-    this.items = [{
-      label: 'Home'
-    },
-    { label: 'My Flights' },
-    {
-      label: 'Login',
-      command: () => { this.giveLoginDialogBox(); }
-    },
-    {
-      label: this.getUsername(),
-      items: [{
-        label: 'Sign Out',
-        command: () => { this.logout(); }
-      }]
-    }
+    
+    this.items = [
+      // {
+      //   label: 'CAN AIR'
+      // },
+      {
+      label: 'Home',
+      icon: 'pi pi-home',
+      command: () => {
+        this.router.navigate(['home'])
+      }
+      },
+      { label: 'My Flights',
+        icon: 'pi pi-send',
+        command: () => {
+          this.router.navigate(['my-flights'])
+        } 
+      },
+      {
+        label: 'Login',
+        icon: 'pi pi-lock',
+        command: () => { this.giveLoginDialogBox(); }
+      },
+      {
+        label: this.getUsername(),
+        icon: 'pi pi-user',
+        items: [{
+          label: 'Sign Out',
+          command: () => { 
+            this.logout();
+            this.isProgressSpinner = false;
+          }
+        }]
+      }
 
 
     ];
@@ -54,8 +78,7 @@ export class NavbarComponent implements OnInit {
   giveLoginDialogBox(): void {
     // alert('Logging in');
     this.showModalDialog();
-    this.clickedLogin();
-    this.currentUser = new User("Atul Mishra");
+    
     this.ngOnInit();
   }
 
@@ -97,11 +120,24 @@ export class NavbarComponent implements OnInit {
     //   this.ngOnInit();
     // }
     if(this.username === 'amishra' && this.password==='hello'){
-      this.displayModal=false;
-      this.ngOnInit();
+      this.isProgressSpinner = true;
+      this.isCloseable = false;
+      setTimeout(() =>{
+        this.displayModal=false;
+        this.clickedLogin();
+        this.currentUser = new User("Atul Mishra");
+        this.ngOnInit();
+      }, 1000);
+      
     }
     else{
       alert('Incorrect username or password')
+    }
+  }
+
+  loginAuthenticated() {
+    if(this.username === 'amishra' && this.password==='hello'){
+      this.getUsername();
     }
   }
 
