@@ -1,7 +1,90 @@
-<div>
-    <div id="my-flights-text">
-        <div class="text-8xl">
-            View Flights
-        </div>
+<div id="my-flights-image">
+  <div id="my-flights-text">
+    <div class="text-8xl">
+      My Flights
     </div>
+  </div>
+
+  <div style="margin: 10px 10px 10px 10px">
+    <p-card >
+        <p-table>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="flightNumber">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Flight Number<p-sortIcon field="flightNumber"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="departing">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Departing<p-sortIcon field="departing"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="arriving">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Arriving<p-sortIcon field="arriving"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="departureDate">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Departure Date<p-sortIcon field="departureDate"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="roundTrip">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Round Trip<p-sortIcon field="roundTrip"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="returnDate">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Return Date<p-sortIcon field="returnDate"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="departureTime">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Departure Time<p-sortIcon field="departureTime"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="arrivalTime">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Arrival Time<p-sortIcon field="arrivalTime"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="price">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Price<p-sortIcon field="price"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+        </p-table>
+      </p-card>
+  </div>
 </div>

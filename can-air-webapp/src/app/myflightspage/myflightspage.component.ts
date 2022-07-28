@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./myflightspage.component.css']
 })
 export class MyflightspageComponent implements OnInit {
-
+  flights: any;
+  
   constructor() { }
 
   ngOnInit(): void {
