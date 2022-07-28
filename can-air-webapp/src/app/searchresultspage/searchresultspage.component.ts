@@ -38,7 +38,7 @@ export class SearchresultspageComponent implements OnInit {
 
     this.totalRecords = this.flights.length;
     this.flightOptions = [
-      {label: 'Reserve Flight', icon: 'pi pi-save', command: () => {}}
+      {label: 'Reserve Flight', icon: 'pi pi-pencil', command: () => {}}
     ]
   }
 
