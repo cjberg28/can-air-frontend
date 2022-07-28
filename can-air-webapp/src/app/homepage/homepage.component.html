@@ -1,1 +1,37 @@
-<p>homepage works!</p>
+<div id="home-page-image">
+    <div id="snobby-text">
+        <div class="text-xl card">
+            Here at CAN Air, we endeavour to provide you with the most luxurious flight at the best price.
+        </div>
+        <div class="text-xl card" style="margin-top: 10px;" >
+            Not convinced? Give us a try and find out.
+        </div>
+    </div>
+
+    <div id="view-flight-text">
+        <div class="text-8xl">
+            View Flights
+        </div>
+    </div>
+    <div id="search-flights-card">
+        <p-card class="flex-auto justify-content-center" >
+            <span><p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="departing"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="arriving"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-calendar [(ngModel)]="departureDate" placeholder="Departure Date"></p-calendar></span>
+            <div class="field-checkbox" style="margin:20px;">
+                <span style="margin-right: 10px;">Round Trip?</span>
+                <span>
+                    <p-checkbox [(ngModel)]="isRoundTrip" [binary]="true" inputId="binary"></p-checkbox>
+                </span>
+                <!-- <label for="binary">{{isRoundTrip}}</label> -->
+                <span style="margin-left: 20px;">
+                    <p-calendar [(ngModel)]="returnDate" *ngIf="isRoundTrip" placeholder="Return Date"></p-calendar>
+    
+                </span>
+            </div>
+            
+        </p-card>
+
+    </div>
+</div>
+

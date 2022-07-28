@@ -15,12 +15,18 @@ export class NavbarComponent implements OnInit {
   isUserLoggedIn: boolean = false;
   displayModal: boolean = false;
 
-
+  //declare variables to hold username and password
+  username: string = '';
+  password: string = '';
   constructor() {
 
   }
 
   ngOnInit(): void {
+    //cleans the username and password field onInit
+    this.username= '';
+    this.password = '';
+
     this.items = [{
       label: 'Home'
     },
@@ -43,9 +49,6 @@ export class NavbarComponent implements OnInit {
 
 
   }
-
-
-
 
 
   giveLoginDialogBox(): void {
@@ -84,6 +87,23 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  login() {
+    //on the backend, check if username and password match
+    //if they do, return the full user
+    //if they don't, return null
+    //then check if null or not
+    // if((loginService.getUser(username, password) != null){
+    //   this.displayModal = false;
+    //   this.ngOnInit();
+    // }
+    if(this.username === 'amishra' && this.password==='hello'){
+      this.displayModal=false;
+      this.ngOnInit();
+    }
+    else{
+      alert('Incorrect username or password')
+    }
+  }
 
 
 

@@ -1,0 +1,21 @@
+#home-page-image {
+    background-size: cover;
+    background-image: url('../../assets/background-image.png');
+    width: auto;
+    height: 100%;
+    background-position: center;
+}
+
+#snobby-text {
+    padding: 50px 10px 50px 50px;
+}
+
+#view-flight-text {
+    padding: 50px 10px 50px 50px;
+    font-style: italic;
+}
+
+#search-flights-card {
+    width: 50vw;
+    padding: 10px 10px 10px 35px;
+}

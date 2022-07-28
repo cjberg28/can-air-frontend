@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AutoCompleteModule } from "primeng/autocomplete";
 import {ToolbarModule} from 'primeng/toolbar';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import {ToolbarModule} from 'primeng/toolbar';
     HomepageComponent,
     MyflightspageComponent,
     SearchresultspageComponent,
-    ReserveflightpageComponent
+    ReserveflightpageComponent,
+    
   ],
   imports: [
     BrowserModule,
