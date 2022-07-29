@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Flight } from '../models/Flight';
+import { FlightserviceService } from '../services/flightservice.service';
 
 @Component({
   selector: 'app-homepage',
@@ -17,8 +18,26 @@ export class HomepageComponent implements OnInit {
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
   flightFormData: Flight = new Flight();
+  service :FlightserviceService;
 
-  constructor(private router: Router) { }
+  //to parse names and ids... not sure what to do with this though
+  airportMap: Map<string, number> = new Map<string, number>([
+    ["MSP", 1],
+    ["LAX", 2],
+    ["DTW", 3],
+    ["YYZ", 4],
+    ["PHL", 5],
+    ["ORD", 6],
+    ["LHR", 7]
+  ]);
+
+  searchParameters: Map<string, object> = new Map<string, object>([
+    
+  ]);
+
+  constructor(private router: Router, service :FlightserviceService ) {
+    this.service = service
+   }
 
   ngOnInit(): void {
     this.airports = [
