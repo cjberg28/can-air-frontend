@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Flight } from '../models/Flight';
+
+
 
 @Component({
   selector: 'app-searchresultspage',
@@ -16,7 +19,10 @@ export class SearchresultspageComponent implements OnInit {
   totalRecords: number = 0;
   loading: boolean = true;
   flightOptions!: Array<MenuItem>;
-  constructor() { }
+
+  constructor(private router: Router) {
+
+   }
 
   ngOnInit(): void {
     this.loading = false;
@@ -38,7 +44,11 @@ export class SearchresultspageComponent implements OnInit {
 
     this.totalRecords = this.flights.length;
     this.flightOptions = [
-      {label: 'Reserve Flight', icon: 'pi pi-pencil', command: () => {}}
+      {label: 'Reserve Flight',
+       icon: 'pi pi-pencil',
+       command: () => {
+        this.router.navigate(['reserve'])
+      }}
     ]
   }
 

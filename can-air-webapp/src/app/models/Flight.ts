@@ -5,7 +5,7 @@ export class Flight {
     departing: string;
     arriving: string;
     departureDate: Date;
-    roundTrip: boolean;
+    isRoundTrip: boolean;
     returnDate: string;
     departureTime: string;
     arrivalTime: string;
@@ -17,7 +17,7 @@ export class Flight {
         departing: string = 'LAX',
         arriving: string = 'DTW',
         departureDate: Date = new Date('2022-12-31'),
-        roundTrip: boolean = false,
+        isRoundTrip: boolean = false,
         returnDate: string = '',
         departureTime: string = '09:00',
         arrivalTime: string = '13:00',
@@ -27,7 +27,7 @@ export class Flight {
         this.departing = departing;
         this.arriving = arriving;
         this.departureDate = departureDate;
-        this.roundTrip = roundTrip;
+        this.isRoundTrip = isRoundTrip;
         this.returnDate = returnDate;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;

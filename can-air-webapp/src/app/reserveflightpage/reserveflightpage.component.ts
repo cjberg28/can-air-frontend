@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomepageComponent } from '../homepage/homepage.component';
+import { Flight } from '../models/Flight';
 
 @Component({
   selector: 'app-reserveflightpage',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReserveflightpageComponent implements OnInit {
 
-  constructor() { }
+  flightFormDataFromHome: Flight = new Flight();
+  homeComponent: HomepageComponent;
+
+  constructor(homeComponent: HomepageComponent) {
+    this.homeComponent = homeComponent;
+   }
 
   ngOnInit(): void {
+    this.flightFormDataFromHome = this.homeComponent.flightFormData;
   }
 
 }

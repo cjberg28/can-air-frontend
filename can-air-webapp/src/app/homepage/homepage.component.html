@@ -15,17 +15,17 @@
     </div>
     <div id="search-flights-card">
         <p-card class="flex-auto justify-content-center" >
-            <span><p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="departing"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="arriving"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-calendar [(ngModel)]="departureDate" placeholder="Departure Date"></p-calendar></span>
+            <span><p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departing"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arriving"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-calendar [(ngModel)]="flightFormData.departureDate" placeholder="Departure Date"></p-calendar></span>
             <div class="field-checkbox" style="margin:20px;">
                 <span style="margin-right: 10px;">Round Trip?</span>
                 <span>
-                    <p-checkbox [(ngModel)]="isRoundTrip" [binary]="true" inputId="binary"></p-checkbox>
+                    <p-checkbox [(ngModel)]="flightFormData.isRoundTrip" [binary]="true" inputId="binary"></p-checkbox>
                 </span>
                 <!-- <label for="binary">{{isRoundTrip}}</label> -->
                 <span style="margin-left: 20px;">
-                    <p-calendar [(ngModel)]="returnDate" *ngIf="isRoundTrip" placeholder="Return Date"></p-calendar>
+                    <p-calendar [(ngModel)]="flightFormData.returnDate" *ngIf="flightFormData.isRoundTrip" placeholder="Return Date"></p-calendar>
     
                 </span>
             </div>

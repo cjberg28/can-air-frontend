@@ -64,10 +64,11 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
       { path: 'home', component: HomepageComponent },
       { path: 'my-flights', component: MyflightspageComponent},
       { path: 'flights', component: SearchresultspageComponent},
-      { path: 'reserve', component: ReserveflightpageComponent}
+      { path: 'reserve', component: ReserveflightpageComponent},
+      { path: '', component: HomepageComponent}
     ])
   ],
-  providers: [],
+  providers: [HomepageComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

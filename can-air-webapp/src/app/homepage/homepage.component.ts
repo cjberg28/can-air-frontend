@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Flight } from '../models/Flight';
 
 @Component({
   selector: 'app-homepage',
@@ -8,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  departing?: string;
-  arriving?: string;
-  departureDate?: Date;
-  isRoundTrip?: boolean;
-  returnDate?: Date;
+  // departing?: string;
+  // arriving?: string;
+  // departureDate?: Date;
+  // isRoundTrip?: boolean;
+  // returnDate?: Date;
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
+  flightFormData: Flight = new Flight();
 
   constructor(private router: Router) { }
 
