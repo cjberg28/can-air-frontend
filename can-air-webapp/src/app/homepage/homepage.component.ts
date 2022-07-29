@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Flight } from '../models/Flight';
-import { FlightserviceService } from '../services/flightservice.service';
+
 
 @Component({
   selector: 'app-homepage',
@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
   flightFormData: Flight = new Flight();
-  service :FlightserviceService;
+  
 
   //to parse names and ids... not sure what to do with this though
   airportMap: Map<string, number> = new Map<string, number>([
@@ -35,8 +35,8 @@ export class HomepageComponent implements OnInit {
     
   ]);
 
-  constructor(private router: Router, service :FlightserviceService ) {
-    this.service = service
+  constructor(private router: Router) {
+    
    }
 
   ngOnInit(): void {
