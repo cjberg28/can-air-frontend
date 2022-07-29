@@ -8,45 +8,47 @@
   <div id="container" class="flex justify-content-center" style="margin:20px">
 
     <div class="flex justify-content-start align-item-center">
-      <p-card id="saved-information" header="Reserve Flight">
+      <p-card class="card-info" id="saved-information" header="Reserve Flight">
         <div>
             <div>Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
-        <div>Departing: {{flightFormDataFromHome.departing}}</div>
-        <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
-        <div>Departure Date: {{flightFormDataFromHome.departureDate}}</div>
-        <div>Round Trip: {{flightFormDataFromHome.isRoundTrip}}</div>
-        <div>Return Date: {{flightFormDataFromHome.returnDate}}</div>
-        <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
-        <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
-        <div>Price: {{flightFormDataFromHome.price}}</div>
-        </div>
-
-        <div>
-            
-            <div style="margin: 10px;">
-                <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="First Name">
-                </span>
-                <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="Last Name">
-                </span>
-              </div>
-              <div style="margin: 10px;">
-                <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="Phone Number">
-                </span>
-                <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="Email">
-                </span>
-              </div>
-              <div style="margin: 10px;">
-                <span style="margin: 10px;">
-                  <p-calendar placeholder="Date of Birth"></p-calendar>
-                </span>
-                <span style="margin: 10px;"></span>
-              </div>
+            <div>Departing: {{flightFormDataFromHome.departing}}</div>
+            <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
+            <div>Departure Date: {{flightFormDataFromHome.departureDate}}</div>
+            <div>Round Trip: {{flightFormDataFromHome.isRoundTrip}}</div>
+            <div>Return Date: {{flightFormDataFromHome.returnDate}}</div>
+            <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
+            <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
+            <div>Price: {{flightFormDataFromHome.price}}</div>
         </div>
       </p-card>
+
+      <p-card class="card-info">
+        <div>
+            <div style="margin: 10px;">
+              <span style="margin: 10px;">
+                <input type="text" pInputText placeholder="First Name">
+              </span>
+              <span style="margin: 10px;">
+                <input type="text" pInputText placeholder="Last Name">
+              </span>
+            </div>
+            <div style="margin: 10px;">
+              <span style="margin: 10px;">
+                <input type="text" pInputText placeholder="Phone Number">
+              </span>
+              <span style="margin: 10px;">
+                <input type="text" pInputText placeholder="Email">
+              </span>
+            </div>
+            <div style="margin: 10px;">
+              <span style="margin: 10px;">
+                <p-calendar placeholder="Date of Birth"></p-calendar>
+              </span>
+              <span style="margin: 10px;"></span>
+            </div>
+        </div>
+      </p-card>
+
     </div>
 
 
