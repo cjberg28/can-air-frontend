@@ -42,7 +42,7 @@
     </p-dialog>
 </div>
 
-<div *ngIf="clickedLogout()">
+<div *ngIf="isUserLoggedOut">
     <p-dialog header="Header" [(visible)]="displayModal2" [modal]="true" [style]="{width: '25vw'}"
         [draggable]="false" [resizable]="false" [closable]="isCloseable">
         
