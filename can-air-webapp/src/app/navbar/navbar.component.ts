@@ -69,6 +69,7 @@ export class NavbarComponent implements OnInit {
           label: 'Sign Out',
           icon: 'pi pi-power-off',
           command: () => { 
+            
             this.logout();
             this.isProgressSpinner = false;
           }
@@ -111,13 +112,14 @@ export class NavbarComponent implements OnInit {
     //Router link to Home component.
   }
 
-  clickedLogout(): boolean {
-    this.isUserLoggedOut = true;
-    if (this.currentUser != undefined) {//If the user hasn't logged in...
-      this.displayModal2 = true;
-    }
-    return this.isUserLoggedOut;
-  }
+  // clickedLogout(): boolean {
+    
+  //   if (this.currentUser != undefined) {//If the user hasn't logged in...
+  //     this.isUserLoggedOut = true;
+  //     this.displayModal2 = true;
+  //   }
+  //   return this.isUserLoggedOut;
+  // }
 
   clickedLogin(): boolean {
     this.isUserLoggedIn = true;//this.isUserLoggedIn = !this.isUserLoggedIn;
