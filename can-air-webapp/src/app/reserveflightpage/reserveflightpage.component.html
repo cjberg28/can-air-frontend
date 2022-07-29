@@ -1,52 +1,53 @@
 
 <div id="reserve-flight-image">
 
-    <p-card id="parent-card"   
-    [style]="{'width': '400px', 'margin-bottom': '2em'}" styleClass="p-card-shadow">
+    <p-card id="parent-card">
 
         <ng-template pTemplate="header"> 
             <div></div>
         </ng-template>
 
-        <span>
-            <p-card id="saved-information" header="Reserve Flight">
-                <div>Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
-                <div>Departing: {{flightFormDataFromHome.departing}}</div>
-                <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
-                <div>Departure Date: {{flightFormDataFromHome.departureDate}}</div>
-                <div>Round Trip: {{flightFormDataFromHome.isRoundTrip}}</div>
-                <div>Return Date: {{flightFormDataFromHome.returnDate}}</div>
-                <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
-                <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
-                <div>Price: {{flightFormDataFromHome.price}}</div>
-            </p-card>
-        </span>
-        <span>
-            <p-card id="contact-information">
-                <div>
-                    <span>
-                        <input type="text" pInputText placeholder="First Name">
-                    </span>
-                    <span>
-                        <input type="text" pInputText placeholder="Last Name">
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <input type="text" pInputText placeholder="Phone Number">
-                    </span>
-                    <span>
-                        <input type="text" pInputText placeholder="Email">
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <p-calendar></p-calendar>
-                    </span>
-                    <span></span>
-                </div>
-            </p-card>
-        </span>
+        <ng-template pTemplate="body">
+            <span>
+                <p-card id="saved-information" header="Reserve Flight">
+                    <div>Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
+                    <div>Departing: {{flightFormDataFromHome.departing}}</div>
+                    <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
+                    <div>Departure Date: {{flightFormDataFromHome.departureDate}}</div>
+                    <div>Round Trip: {{flightFormDataFromHome.isRoundTrip}}</div>
+                    <div>Return Date: {{flightFormDataFromHome.returnDate}}</div>
+                    <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
+                    <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
+                    <div>Price: {{flightFormDataFromHome.price}}</div>
+                </p-card>
+            </span>
+            <span>
+                <p-card id="contact-information">
+                    <div>
+                        <span>
+                            <input type="text" pInputText placeholder="First Name">
+                        </span>
+                        <span>
+                            <input type="text" pInputText placeholder="Last Name">
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <input type="text" pInputText placeholder="Phone Number">
+                        </span>
+                        <span>
+                            <input type="text" pInputText placeholder="Email">
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <p-calendar></p-calendar>
+                        </span>
+                        <span></span>
+                    </div>
+                </p-card>
+            </span>
+        </ng-template>
 
     </p-card>
 
