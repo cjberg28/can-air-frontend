@@ -13,9 +13,9 @@
             <div>Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
             <div>Departing: {{flightFormDataFromHome.departing}}</div>
             <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
-            <div>Departure Date: {{flightFormDataFromHome.departureDate}}</div>
-            <div>Round Trip: {{flightFormDataFromHome.isRoundTrip}}</div>
-            <div>Return Date: {{flightFormDataFromHome.returnDate}}</div>
+            <div>Departure Date: {{flightFormDataFromHome.departureDate | date:'mediumDate'}}</div>
+            <div>Round Trip: {{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</div>
+            <div *ngIf="flightFormDataFromHome.isRoundTrip">Return Date: {{flightFormDataFromHome.returnDate | date:'mediumDate'}}</div>
             <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
             <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
             <div>Price: {{flightFormDataFromHome.price}}</div>
