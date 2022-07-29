@@ -36,9 +36,6 @@ export class NavbarComponent implements OnInit {
     this.password = '';
     
     this.items = [
-      // {
-      //   label: 'CAN AIR'
-      // },
       {
       label: 'Home',
       icon: 'pi pi-home',
@@ -79,15 +76,10 @@ export class NavbarComponent implements OnInit {
           
         ]
       }
-
-
     ];
-
-
-
   }
 
-
+// METHODS 
   giveLoginDialogBox(): void {
     // alert('Logging in');
     this.showModalDialog();
@@ -108,10 +100,12 @@ export class NavbarComponent implements OnInit {
 
     this.currentUser = undefined;
     this.displayModal = false;
-    
+    this.isUserLoggedOut = true;
+    this.displayModal2 = true;
     setTimeout(() =>{
       this.ngOnInit();
       this.router.navigate(['home'])
+      this.displayModal2 = false;
     }, 1000);
     
     //Router link to Home component.

@@ -25,7 +25,7 @@
                 <!-- <label for="float-input">Username</label> -->
             </div>
             <div style="margin: 5px;">
-                <input id="float-input" type="password" pInputText placeholder="Password" [(ngModel)]="password"> 
+                <input id="float-input" type="password" pInputText placeholder="Password" [(ngModel)]="password" (keydown.enter)="login()"> 
                 <!-- <label for="float-input">Password</label> -->
             </div>
 
@@ -36,19 +36,19 @@
                 strokeWidth="6" fill="var(--surface-ground)" animationDuration="1.5s"></p-progressSpinner>
             </span>
             <p-button icon="pi pi-user-plus" label="Sign Up" styleClass="p-button-text"></p-button>
-            <p-button icon="pi pi-check" (click)="login()" label="Login" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check"  (click)="login()"  label="Login" styleClass="p-button-text"></p-button>
         
         </ng-template>
     </p-dialog>
 </div>
 
-<div *ngIf="clickedLogout()">
-    <p-dialog header="Header" [(visible)]="displayModal2" [modal]="true" [style]="{width: '25vw'}"
+<div *ngIf="isUserLoggedOut">
+    <p-dialog header="Logging Out" [(visible)]="displayModal2" [modal]="true" [style]="{width: '25vw'}"
         [draggable]="false" [resizable]="false" [closable]="isCloseable">
         
         <ng-template pTemplate="body">
            
-            <div>Thank you for using Can Air.</div>
+            <div class="text-xl">Thank you for using Can Air.</div>
 
         </ng-template>
         <ng-template pTemplate="footer">
