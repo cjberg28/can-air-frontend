@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { FlightApiService } from './flight-api.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +42,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -68,7 +71,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
       { path: '', component: HomepageComponent}
     ])
   ],
-  providers: [HomepageComponent],
+  providers: [FlightApiService, HomepageComponent  
+   
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

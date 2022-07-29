@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Flight } from '../models/Flight';
+import { FlightApiService } from '../flight-api.service';
+
 
 
 @Component({
@@ -35,7 +37,7 @@ export class HomepageComponent implements OnInit {
     
   ]);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: FlightApiService) {
     
    }
 
@@ -54,6 +56,7 @@ export class HomepageComponent implements OnInit {
   searchFlights() {
     this.isProgressSpinnerActivated = true;
     setTimeout(() => {this.router.navigate(['flights']);}, 2000);
+    console.log(this.flightFormData);
   }
 
   

@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
   currentUser?: User;
   isUserLoggedIn: boolean = false;
   displayModal: boolean = false;
+  isUserLoggedOut: boolean = false;
+  displayModal2: boolean = false;
 
   //declare variables to hold username and password
   username: string = '';
@@ -58,13 +60,24 @@ export class NavbarComponent implements OnInit {
       {
         label: this.getUsername(),
         icon: 'pi pi-user',
-        items: [{
+        items: [
+          {
+            label: 'Account Settings',
+            icon: 'pi pi-cog',
+            command: () => {
+              
+            }
+          },
+          {
           label: 'Sign Out',
+          icon: 'pi pi-power-off',
           command: () => { 
             this.logout();
             this.isProgressSpinner = false;
           }
-        }]
+          }
+          
+        ]
       }
 
 
@@ -91,11 +104,25 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    alert('Logging out');
+    // alert('Logging out');
+
     this.currentUser = undefined;
     this.displayModal = false;
-    this.ngOnInit();
+    
+    setTimeout(() =>{
+      this.ngOnInit();
+      this.router.navigate(['home'])
+    }, 1000);
+    
     //Router link to Home component.
+  }
+
+  clickedLogout(): boolean {
+    this.isUserLoggedOut = true;
+    if (this.currentUser != undefined) {//If the user hasn't logged in...
+      this.displayModal2 = true;
+    }
+    return this.isUserLoggedOut;
   }
 
   clickedLogin(): boolean {
