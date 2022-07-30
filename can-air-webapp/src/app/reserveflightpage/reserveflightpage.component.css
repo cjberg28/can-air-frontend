@@ -11,6 +11,7 @@
 .card-info{
     display: flex;
     flex-direction: row;
+    
 }
 
 #my-flights-text{
@@ -18,3 +19,4 @@
     font-style: italic;
     
 }
+

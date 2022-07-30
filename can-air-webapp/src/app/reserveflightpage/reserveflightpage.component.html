@@ -7,50 +7,56 @@
 
   <div id="container" class="flex justify-content-center" style="margin:20px">
 
-    <div class="flex justify-content-start align-item-center">
-      <p-card class="card-info" id="saved-information" header="Reserve Flight">
-        <div>
-            <div style="margin: 5px;">Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
-            <div style="margin: 5px;">Departing: {{flightFormDataFromHome.departing}} at {{flightFormDataFromHome.departureTime}}</div>
-            <div style="margin: 5px;">Arriving: {{flightFormDataFromHome.arriving}} at {{flightFormDataFromHome.arrivalTime}}</div>
-            <div style="margin: 5px;">Departure Date: {{flightFormDataFromHome.departureDate | date:'mediumDate'}}</div>
-            <div style="margin: 5px;">Round Trip: {{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</div>
-            <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip">Return Date: {{flightFormDataFromHome.returnDate | date:'mediumDate'}}</div>
-            <div style="margin: 5px;">Return Departure Time: {{flightFormDataFromHome.returnDepartureTime}}</div>
-            <div style="margin: 5px;">Return Arrival Time: {{flightFormDataFromHome.returnArrivalTime}}</div>
-            <div style="margin: 5px;">Price: {{flightFormDataFromHome.price}}</div>
-        </div>
-      </p-card>
+    <div class="flex justify-content-start align-item-center" >
+      <div id="container-for-flight-details" >
+        <p-card class="card-info p-" id="saved-information" header="Flight Details" [style]="{width: '300px', height: '400px'}" styleClass="p-card-shadow">
+          <div >
+              <div style="margin: 5px;"><span class="font-bold">Flight Number:</span> <span style="margin-left: 10px;">{{flightFormDataFromHome.flightNumber}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Departing:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.departing}} at {{flightFormDataFromHome.departureTime}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Arriving:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.arriving}} at {{flightFormDataFromHome.arrivalTime}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Departure Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.departureDate | date:'mediumDate'}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Round Trip:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnDate | date:'mediumDate'}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Departure Time:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnDepartureTime}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Arrival Time:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnArrivalTime}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Price:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.price}}</span></div>
+          </div>
+          
+        </p-card>
+      </div>
 
-      <p-card class="card-info">
-        <div>
-            <div style="margin: 10px;">
-              <span style="margin: 10px;">
-                <input type="text" pInputText placeholder="First Name">
-              </span>
-              <span style="margin: 10px;">
-                <input type="text" pInputText placeholder="Last Name">
-              </span>
-            </div>
-            <div style="margin: 10px;">
-              <span style="margin: 10px;">
-                <input type="text" pInputText placeholder="Phone Number">
-              </span>
-              <span style="margin: 10px;">
-                <input type="text" pInputText placeholder="Email">
-              </span>
-            </div>
-            <div style="margin: 10px;">
-              <span style="margin: 10px;">
-                <p-calendar placeholder="Date of Birth"></p-calendar>
-              </span>
-              <span style="margin: 10px;"></span>
-            </div>
-        </div>
-        <div class="flex justify-content-end align-item-end" style="padding-top: 50px; padding-right: 10px;">
-          <p-button label="Reserve" (click)="reserveFlight()"></p-button>
-        </div>
-      </p-card>
+      <div style="margin: 0 0 0 10px;">
+        <p-card class="card-info" header="Passenger Information">
+          <div>
+              <div style="margin: 10px;">
+                <span style="margin: 10px;">
+                  <input type="text" pInputText placeholder="First Name">
+                </span>
+                <span style="margin: 10px;">
+                  <input type="text" pInputText placeholder="Last Name">
+                </span>
+              </div>
+              <div style="margin: 10px;">
+                <span style="margin: 10px;">
+                  <input type="text" pInputText placeholder="Phone Number">
+                </span>
+                <span style="margin: 10px;">
+                  <input type="text" pInputText placeholder="Email">
+                </span>
+              </div>
+              <div style="margin: 10px;">
+                <span style="margin: 10px;">
+                  <p-calendar placeholder="Date of Birth"></p-calendar>
+                </span>
+                <span style="margin: 10px;"></span>
+              </div>
+          </div>
+          <div class="flex justify-content-end align-item-end" style="padding-top: 50px; padding-right: 10px;">
+            <p-button label="Reserve" (click)="reserveFlight()"></p-button>
+          </div>
+        </p-card>
+      </div>
+      
 
     </div>
 
