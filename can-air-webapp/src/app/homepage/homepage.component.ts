@@ -59,6 +59,48 @@ export class HomepageComponent implements OnInit {
     console.log(this.flightFormData);
   }
 
-  
+  requiredFieldsFilled() {
+    let today = new Date();
+    today.setDate(today.getDate());
+    let yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate()-1);
+    let isDisabled: boolean = true;
+
+    
+    console.log('checking departing ' + (this.flightFormData.departing != ''));
+    console.log("checking arriving " + (this.flightFormData.arriving != ''));
+    console.log('checking departure date ' + (this.flightFormData.departureDate > yesterday));
+    console.log('checking roundTrip ' + this.flightFormData.isRoundTrip);
+    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
+      && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip != true){
+      isDisabled = false;
+      
+      console.log(isDisabled + ' first 3 fields');
+      // if(this.flightFormData.returnDate < today){
+      //   isDisabled = true;
+      // }
+    }
+
+    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
+      && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip == true){
+      isDisabled = true;
+
+    }
+
+    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
+    && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip == true 
+    && this.flightFormData.returnDate > yesterday){
+    isDisabled = false;
+    
+    }
+
+
+    //Making today and yesterday variables to compare flightFormData's default return date
+    //which is set to yesterday's date
+   
+
+    
+    return isDisabled;
+  }
 
 }
