@@ -12,6 +12,7 @@ import { SearchresultspageComponent } from '../searchresultspage/searchresultspa
 export class ReserveflightpageComponent implements OnInit {
 
   flightFormDataFromHome: Flight = new Flight();
+  cardNumber: number = 0;
 
 
   constructor(private searchPage: SearchresultspageComponent, private router: Router) {

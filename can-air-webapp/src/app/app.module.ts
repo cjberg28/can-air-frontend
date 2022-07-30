@@ -29,6 +29,8 @@ import {AutoCompleteModule } from "primeng/autocomplete";
 import {ToolbarModule} from 'primeng/toolbar';
 import { MenuItem } from 'primeng/api';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
   ],
   imports: [
     HttpClientModule,
+    OverlayPanelModule,
+    InputNumberModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
