@@ -15,18 +15,18 @@
     </div>
     <div id="search-flights-card">
         
-        <p-card class="flex-auto justify-content-center" >
-            <span><p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departing"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arriving"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-calendar [(ngModel)]="flightFormData.departureDate" placeholder="Departure Date"></p-calendar></span>
-            <div class="field-checkbox" style="margin:20px;">
-                <span style="margin-right: 10px;">Round Trip?</span>
+        <p-card class="flex-auto justify-content-center" [style]="{width: '45vw'}">
+            <span><p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departing" [style]="{width: '12vw'}"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arriving" [style]="{width: '12vw'}"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-calendar [(ngModel)]="flightFormData.departureDate" placeholder="Departure Date" [style]="{width: '12vw'}"></p-calendar></span>
+            <div class="field-checkbox" style="margin: 35px 25px 25px 5px;">
+                <span style="margin-right: 10px;" >Round Trip?</span>
                 <span>
                     <p-checkbox  [(ngModel)]="flightFormData.isRoundTrip" [binary]="true" inputId="binary"></p-checkbox>
                 </span>
                 <!-- <label for="binary">{{isRoundTrip}}</label> -->
                 <span style="margin-left: 20px;">
-                    <p-calendar [required]="true" [(ngModel)]="flightFormData.returnDate" *ngIf="flightFormData.isRoundTrip" placeholder="Return Date"></p-calendar>
+                    <p-calendar [required]="true" [(ngModel)]="flightFormData.returnDate" *ngIf="flightFormData.isRoundTrip" placeholder="Return Date" [style]="{width: '12vw'}"></p-calendar>
     
                 </span>
             </div>
