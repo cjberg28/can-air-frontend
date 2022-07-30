@@ -71,7 +71,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
       { path: '', component: HomepageComponent}
     ])
   ],
-  providers: [FlightApiService, HomepageComponent  
+  providers: [FlightApiService, HomepageComponent, SearchresultspageComponent  
    
   ],
   bootstrap: [AppComponent]

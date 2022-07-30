@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
+import { SearchresultspageComponent } from '../searchresultspage/searchresultspage.component';
 
 @Component({
   selector: 'app-reserveflightpage',
@@ -10,14 +12,19 @@ import { Flight } from '../models/Flight';
 export class ReserveflightpageComponent implements OnInit {
 
   flightFormDataFromHome: Flight = new Flight();
-  homeComponent: HomepageComponent;
 
-  constructor(homeComponent: HomepageComponent) {
-    this.homeComponent = homeComponent;
+
+  constructor(private searchPage: SearchresultspageComponent, private router: Router) {
+
    }
 
   ngOnInit(): void {
-    this.flightFormDataFromHome = this.homeComponent.flightFormData;
+    
+    this.flightFormDataFromHome = this.searchPage.flightItem2
+  }
+
+  reserveFlight(){
+    this.router.navigate(['my-flights'])
   }
 
 }

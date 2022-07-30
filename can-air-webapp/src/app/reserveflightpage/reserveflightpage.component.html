@@ -10,15 +10,15 @@
     <div class="flex justify-content-start align-item-center">
       <p-card class="card-info" id="saved-information" header="Reserve Flight">
         <div>
-            <div>Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
-            <div>Departing: {{flightFormDataFromHome.departing}}</div>
-            <div>Arriving: {{flightFormDataFromHome.arriving}}</div>
-            <div>Departure Date: {{flightFormDataFromHome.departureDate | date:'mediumDate'}}</div>
-            <div>Round Trip: {{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</div>
-            <div *ngIf="flightFormDataFromHome.isRoundTrip">Return Date: {{flightFormDataFromHome.returnDate | date:'mediumDate'}}</div>
-            <div>Departure Time: {{flightFormDataFromHome.departureTime}}</div>
-            <div>Arrival Time: {{flightFormDataFromHome.arrivalTime}}</div>
-            <div>Price: {{flightFormDataFromHome.price}}</div>
+            <div style="margin: 5px;">Flight Number: {{flightFormDataFromHome.flightNumber}}</div>
+            <div style="margin: 5px;">Departing: {{flightFormDataFromHome.departing}} at {{flightFormDataFromHome.departureTime}}</div>
+            <div style="margin: 5px;">Arriving: {{flightFormDataFromHome.arriving}} at {{flightFormDataFromHome.arrivalTime}}</div>
+            <div style="margin: 5px;">Departure Date: {{flightFormDataFromHome.departureDate | date:'mediumDate'}}</div>
+            <div style="margin: 5px;">Round Trip: {{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</div>
+            <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip">Return Date: {{flightFormDataFromHome.returnDate | date:'mediumDate'}}</div>
+            <div style="margin: 5px;">Return Departure Time: {{flightFormDataFromHome.returnDepartureTime}}</div>
+            <div style="margin: 5px;">Return Arrival Time: {{flightFormDataFromHome.returnArrivalTime}}</div>
+            <div style="margin: 5px;">Price: {{flightFormDataFromHome.price}}</div>
         </div>
       </p-card>
 
@@ -46,6 +46,9 @@
               </span>
               <span style="margin: 10px;"></span>
             </div>
+        </div>
+        <div class="flex justify-content-end align-item-end" style="padding-top: 50px; padding-right: 10px;">
+          <p-button label="Reserve" (click)="reserveFlight()"></p-button>
         </div>
       </p-card>
 
