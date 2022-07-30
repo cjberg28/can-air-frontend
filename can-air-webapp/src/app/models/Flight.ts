@@ -9,6 +9,9 @@ export class Flight {
     returnDate: Date;
     departureTime: string;
     arrivalTime: string;
+
+    returnDepartureTime: string;
+    returnArrivalTime: string;
     price: string;
     //date stuff
     
@@ -23,6 +26,8 @@ export class Flight {
         returnDate: Date = new Date(),
         departureTime: string = '09:00',
         arrivalTime: string = '13:00',
+        returnDepartureTime: string = '',
+        returnArrivalTime: string = '',
         price: string = '$420') 
         {
             let yesterday = new Date(returnDate);
@@ -36,6 +41,9 @@ export class Flight {
             this.returnDate = yesterday;
             this.departureTime = departureTime;
             this.arrivalTime = arrivalTime;
+
+            this.returnDepartureTime = returnDepartureTime;
+            this.returnArrivalTime = returnArrivalTime;
             this.price = price;
             
 
