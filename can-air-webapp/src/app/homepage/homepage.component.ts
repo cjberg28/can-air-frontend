@@ -27,42 +27,36 @@ export class HomepageComponent implements OnInit {
 
   //to parse names and ids... not sure what to do with this though
   airportMap: Map<string, number> = new Map<string, number>([
-    ["MSP", 1],
-    ["LAX", 2],
-    ["DTW", 3],
-    ["YYZ", 4],
-    ["PHL", 5],
-    ["ORD", 6],
-    ["LHR", 7]
+    ["MSP - Minneapolis/St. Paul", 1],
+    ["LAX - Los Angeles", 2],
+    ["DTW - Detroit", 3],
+    ["YYZ - Toronto", 4],
+    ["PHL - Philadelphia", 5],
+    ["ORD - Chicago", 6],
+    ["LHR - London", 7]
   ]);
 
   searchParameters: Map<string, object> = new Map<string, object>([
     
   ]);
 
-  airportObjects: any;
+  airportObjects: IterableIterator<string> = this.airportMap.keys();
+  
 
   constructor(private router: Router, private service: FlightApiService) {
+
+    
     this.airports = [
-      'MSP - Minneapolis/St. Paul',
-      'LAX - Los Angeles',
-      'DTW - Detroit',
-      'YYZ - Toronto',
-      'PHL - Philadelphia',
-      'ORD - Chicago',
-      'LHR - London'
+      
     ];
 
+    this.flightFormData.departureLocation
     
     
    }
 
-  ngOnInit(): void {
-    
-
-    
-    
-    
+  ngOnInit(): void {    
+    console.log(this.airportObjects)
   }
 
   searchFlights() {
@@ -77,41 +71,30 @@ export class HomepageComponent implements OnInit {
     let yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate()-1);
     let isDisabled: boolean = true;
-
     
-    console.log('checking departing ' + (this.flightFormData.departing != ''));
-    console.log("checking arriving " + (this.flightFormData.arriving != ''));
-    console.log('checking departure date ' + (this.flightFormData.departureDate > yesterday));
-    console.log('checking roundTrip ' + this.flightFormData.isRoundTrip);
-    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
-      && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip != true){
+
+    //Making today and yesterday variables to compare flightFormData's default return date
+    //which is set to yesterday's date
+    
+    if(this.flightFormData.departureLocation != '' && this.flightFormData.arrivalLocation != '' 
+      && this.flightFormData.departureDate > yesterday && this.flightFormData.roundTrip != true){
       isDisabled = false;
       
-      console.log(isDisabled + ' first 3 fields');
-      // if(this.flightFormData.returnDate < today){
-      //   isDisabled = true;
-      // }
     }
 
-    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
-      && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip == true){
+    if(this.flightFormData.departureLocation != '' && this.flightFormData.arrivalLocation != '' 
+      && this.flightFormData.departureDate > yesterday && this.flightFormData.roundTrip == true){
       isDisabled = true;
 
     }
 
-    if(this.flightFormData.departing != '' && this.flightFormData.arriving != '' 
-    && this.flightFormData.departureDate > yesterday && this.flightFormData.isRoundTrip == true 
+    if(this.flightFormData.departureLocation != '' && this.flightFormData.arrivalLocation != '' 
+    && this.flightFormData.departureDate > yesterday && this.flightFormData.roundTrip == true 
     && this.flightFormData.returnDate > yesterday){
     isDisabled = false;
     
     }
 
-
-    //Making today and yesterday variables to compare flightFormData's default return date
-    //which is set to yesterday's date
-   
-
-    
     return isDisabled;
   }
 

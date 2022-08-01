@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { FlightApiService } from '../flight-api.service';
+import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
 
 
@@ -12,10 +14,12 @@ import { Flight } from '../models/Flight';
 })
 export class SearchresultspageComponent implements OnInit {
   flights: Array<any> = [];
-  //flightsApiService: FlightsApiService
-  //filterService: FilterService
-  flightItem: Flight = new Flight();
-  flightItem2: Flight = new Flight(2000, 'LAX', 'MSP', new Date('2022-07-30'), true, new Date('2022-08-01'), '11:30', '15:30', '09:00', '13:00', '$500')
+
+  flightsMatchingCriteria: Array<Flight> = [];
+  flightService: FlightApiService;
+  
+  flightFormDataFromHome: Flight = new Flight();
+  
   cols :any[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
@@ -26,8 +30,9 @@ export class SearchresultspageComponent implements OnInit {
   
   // --------------------------//
 
-  constructor(private router: Router) {
-
+  constructor(private router: Router, service: FlightApiService, private home: HomepageComponent) {
+    this.flightService = service;
+    this.flightFormDataFromHome = home.flightFormData;
    }
 
   ngOnInit(): void {
@@ -41,12 +46,12 @@ export class SearchresultspageComponent implements OnInit {
       {field: 'returnDate', header: 'Return Date'} ,
       {field: 'departureTime', header: 'Departure Time'} ,
       {field: 'arrivalTime', header: 'Arrival Time'} ,
-      {field: 'price', header: 'Price'}  
+      {field: 'price', header: 'Price'} 
     ];
+    // this.findAllFlights();
+    this.findFlightsByCriteria();
 
-    this.flights = [
-      this.flightItem, this.flightItem2
-    ]
+    
 
     this.totalRecords = this.flights.length;
     this.flightOptions = [
@@ -57,8 +62,16 @@ export class SearchresultspageComponent implements OnInit {
         }
       }
     ];
-    this.flightItem.departing = 'MSP';
-    this.flightItem.arriving = 'LAX'
+    
+  }
+
+  findAllFlights(): void{
+    this.flightService.getAll().subscribe(resp => {this.flights = resp;})
+    console.log(this.flights)
+  }
+
+  findFlightsByCriteria(): void {
+    this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => this.flightsMatchingCriteria)
   }
 
 }

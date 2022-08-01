@@ -25,8 +25,8 @@
                 </span>
             </div>
             <span>
-                <p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departing" [style]="{width: '12vw'}"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arriving" [style]="{width: '12vw'}"></p-dropdown></span>
+                <p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departureLocation" [style]="{width: '12vw'}"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arrivalLocation" [style]="{width: '12vw'}"></p-dropdown></span>
             <span style="margin-left: 5px;"><p-calendar [(ngModel)]="flightFormData.departureDate" placeholder="Departure Date" [style]="{width: '12vw'}"></p-calendar></span>
             
             
@@ -34,10 +34,10 @@
                 
                 <span style="margin-right: 10px;" >Round Trip?</span>
                 <span>
-                    <p-checkbox  [(ngModel)]="flightFormData.isRoundTrip" [binary]="true" inputId="binary"></p-checkbox>
+                    <p-checkbox  [(ngModel)]="flightFormData.roundTrip" [binary]="true" inputId="binary"></p-checkbox>
                 </span>
                 <!-- <label for="binary">{{isRoundTrip}}</label> -->
-                <span *ngIf="flightFormData.isRoundTrip" class="font-bold" style="margin-left: 20px;">
+                <span *ngIf="flightFormData.roundTrip" class="font-bold" style="margin-left: 20px;">
                     <span style="margin: 0 10px 0 0;">Return Date </span>
                     <p-calendar [required]="true" [(ngModel)]="flightFormData.returnDate"  placeholder="Return Date" [style]="{width: '12vw'}"></p-calendar>
     

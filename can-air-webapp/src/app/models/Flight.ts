@@ -1,18 +1,20 @@
 import { Time } from "@angular/common";
 
 export class Flight {
-    flightNumber :number;
-    departing: string;
-    arriving: string;
-    departureDate: Date;
-    isRoundTrip: boolean;
+    flightId :number;
+    departureLocation: string;
+    arrivalLocation: string;
+    departureDate: Date
+    departureDepartureTime: Time;
+    departureArrivalTime: Time;
     returnDate: Date;
-    departureTime: string;
-    arrivalTime: string;
+    returnDepartureTime: Time;
+    returnArrivalTime: Time
+    flightPrice: string;
+    seatsRemaining: number;
+    roundTrip: boolean;
 
-    returnDepartureTime: string;
-    returnArrivalTime: string;
-    price: string;
+    
     //date stuff
     
 
@@ -24,27 +26,29 @@ export class Flight {
         departureDate: Date = new Date(),
         isRoundTrip: boolean = false,
         returnDate: Date = new Date(),
-        departureTime: string = '09:00',
-        arrivalTime: string = '13:00',
-        returnDepartureTime: string = '',
-        returnArrivalTime: string = '',
+        departureTime: Time = {hours: 9, minutes: 30 },
+        arrivalTime: Time = {hours: 12, minutes: 0o0},
+        returnDepartureTime: Time = {hours: 9, minutes: 30},
+        returnArrivalTime: Time = {hours: 12, minutes: 0o0},
+        seatsRemaining: number = 50,
         price: string = '$420') 
         {
             let yesterday = new Date(returnDate);
             yesterday.setDate(yesterday.getDate()-1);
 
-            this.flightNumber = flightNumber;
-            this.departing = departing;
-            this.arriving = arriving;
+            this.flightId = flightNumber;
+            this.departureLocation = departing;
+            this.arrivalLocation = arriving;
             this.departureDate = departureDate;
-            this.isRoundTrip = isRoundTrip;
+            this.roundTrip = isRoundTrip;
             this.returnDate = yesterday;
-            this.departureTime = departureTime;
-            this.arrivalTime = arrivalTime;
+            this.departureDepartureTime = departureTime;
+            this.departureArrivalTime = arrivalTime;
 
             this.returnDepartureTime = returnDepartureTime;
             this.returnArrivalTime = returnArrivalTime;
-            this.price = price;
+            this.seatsRemaining = seatsRemaining;
+            this.flightPrice = price;
             
 
  

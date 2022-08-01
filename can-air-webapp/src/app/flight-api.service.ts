@@ -9,7 +9,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class FlightApiService {
 
   
-  baseUrl: string = "http://localhost:8080/can-air/flights"
+  baseUrl: string = "http://localhost:8080/flights"
   airportMap: Map<string, number> = new Map<string, number>([
     ["MSP", 1],
     ["LAX", 2],
@@ -29,9 +29,11 @@ export class FlightApiService {
   }
 
   getFlightsMatchingCriteria(flightFormData: Flight): Observable<any>{
-    let departId = this.airportMap.get(flightFormData.departing.substring(0, 3));
-    let arriveId = this.airportMap.get(flightFormData.arriving.substring(0, 3));
-    let url: string = this.baseUrl + `?departing=${departId}&arriving=${arriveId}&depDate=${flightFormData.departureDate}&roundTrip=${flightFormData.isRoundTrip}&retDate=${flightFormData.returnDate}`;
+    let departId = this.airportMap.get(flightFormData.departureLocation.substring(0, 3));
+    let arriveId = this.airportMap.get(flightFormData.arrivalLocation.substring(0, 3));
+    console.log(flightFormData);
+    console.log(departId, arriveId)
+    let url: string = this.baseUrl + `?departing=${departId}&arriving=${arriveId}&depDate=${flightFormData.departureDate}&roundTrip=${flightFormData.roundTrip}&retDate=${flightFormData.returnDate}`;
 
     return this.http.get(url);
   }

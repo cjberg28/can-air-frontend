@@ -107,17 +107,17 @@
                 <tr>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            <p-splitButton label="CAN {{flight.flightNumber}}" [model]="this.flightOptions" ></p-splitButton>
+                            <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" ></p-splitButton>
                         </div>
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.departing}}
+                            {{flight.departureLocation}}
                         </div>
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.arriving}} 
+                            {{flight.arrivalLocation}} 
                         </div>
                     </td>
                     <td>
@@ -127,12 +127,12 @@
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.departureTime}}
+                            {{flight.departureDepartureTime}}
                         </div>
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.arrivalTime}}
+                            {{flight.departureArrivalTime}}
                         </div>
                     </td>
                     <td>
@@ -141,7 +141,7 @@
                         </div>
                     </td>
                     <td>
-                        <div *ngIf="flightItem.isRoundTrip" class="flex justify-content-center align-items-center">
+                        <div *ngIf="flight.roundTrip" class="flex justify-content-center align-items-center">
                             {{(flight.returnDate | date:'mediumDate')}}
                         </div>
                     </td>
@@ -157,7 +157,7 @@
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.price}}
+                            {{flight.flightPrice}}
                         </div>
                     </td>
 

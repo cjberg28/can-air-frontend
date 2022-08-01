@@ -11,17 +11,19 @@ import { SearchresultspageComponent } from '../searchresultspage/searchresultspa
 })
 export class ReserveflightpageComponent implements OnInit {
 
+  flightsFromHome: Array<Flight> = [];
   flightFormDataFromHome: Flight = new Flight();
   cardNumber: number = 0;
 
 
   constructor(private searchPage: SearchresultspageComponent, private router: Router) {
-
+    this.flightsFromHome = this.searchPage.flights;
+    
    }
 
   ngOnInit(): void {
     
-    this.flightFormDataFromHome = this.searchPage.flightItem2
+    
   }
 
   reserveFlight(){
