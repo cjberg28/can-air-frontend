@@ -17,8 +17,8 @@
               <div style="margin: 5px;"><span class="font-bold">Departure Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.departureDate | date:'mediumDate'}}</span></div>
               <div style="margin: 5px;"><span class="font-bold">Round Trip:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.isRoundTrip ? 'Yes' : 'No'}}</span></div>
               <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnDate | date:'mediumDate'}}</span></div>
-              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Departure Time:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnDepartureTime}}</span></div>
-              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Arrival Time:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnArrivalTime}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Departing:</span> {{flightFormDataFromHome.arriving}} at <span>{{flightFormDataFromHome.returnDepartureTime}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.isRoundTrip"><span class="font-bold">Return Arriving:</span>  {{flightFormDataFromHome.departing}} at <span>{{flightFormDataFromHome.returnArrivalTime}}</span></div>
               <div style="margin: 5px;"><span class="font-bold">Price:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.price}}</span></div>
           </div>
           

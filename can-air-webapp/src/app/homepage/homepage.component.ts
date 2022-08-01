@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Flight } from '../models/Flight';
 import { FlightApiService } from '../flight-api.service';
+import { FilterService } from 'primeng/api';
+import { Dropdown } from 'primeng/dropdown';
 
 
 
@@ -11,7 +13,8 @@ import { FlightApiService } from '../flight-api.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-
+  
+  
   // departing?: string;
   // arriving?: string;
   // departureDate?: Date;
@@ -37,11 +40,9 @@ export class HomepageComponent implements OnInit {
     
   ]);
 
-  constructor(private router: Router, private service: FlightApiService) {
-    
-   }
+  airportObjects: any;
 
-  ngOnInit(): void {
+  constructor(private router: Router, private service: FlightApiService) {
     this.airports = [
       'MSP - Minneapolis/St. Paul',
       'LAX - Los Angeles',
@@ -50,7 +51,18 @@ export class HomepageComponent implements OnInit {
       'PHL - Philadelphia',
       'ORD - Chicago',
       'LHR - London'
-    ]
+    ];
+
+    
+    
+   }
+
+  ngOnInit(): void {
+    
+
+    
+    
+    
   }
 
   searchFlights() {

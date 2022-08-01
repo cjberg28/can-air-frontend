@@ -6,16 +6,26 @@
     background-position: center;
 }
 
-#snobby-text {
+#top-text {
     padding: 50px 10px 50px 50px;
+    font-family: var(--font-family);
 }
 
 #view-flight-text {
     padding: 50px 10px 50px 50px;
     font-style: italic;
+    font-family: var(--font-family);
 }
 
 #search-flights-card {
     width: 50vw;
     padding: 10px 10px 10px 35px;
+}
+
+#ddDeparting input:not(:focus):valid~.floating-label{
+    top: -20px;
+    bottom: 10px;
+    left: 10px;
+    font-size: 20px;
+    opacity: 1;
 }
