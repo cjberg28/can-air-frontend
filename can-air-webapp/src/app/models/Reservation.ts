@@ -8,7 +8,7 @@ export class Reservation {
     lastName: string;
     phone: string;
     email: string;
-    DOB: Date;
+    dob: Date;
     // ------------------------
     departureDate: Date;
     departureLocation: any;
@@ -17,12 +17,13 @@ export class Reservation {
     returnDate: Date;
     departureDepartureTime: Time = {hours: 10, minutes: 30};
     departureArrivalTime: Time = {hours: 12, minutes: 35};
-
+    returnDepartureTime: any;
+    returnArrivalTime: any;
 
 
     constructor(resId: number = 0, flId: number = 0, uId: number = 0,
         firstName: string = '', lastName: string = '', phone: string = '', email: string = 'abc@gmail.com',
-        DOB: Date = new Date(), depDate: Date = new Date(), depLoc: any = 0, arrLoc: any = 0, returnTrip: boolean = false,
+        dob: Date = new Date(), depDate: Date = new Date(), depLoc: any = 0, arrLoc: any = 0, returnTrip: boolean = false,
         retDate: Date = new Date()){
         this.reservationId = resId;
         this.flightId = flId;
@@ -31,7 +32,7 @@ export class Reservation {
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
-        this.DOB = DOB;
+        this.dob = dob;
         this.departureDate = depDate;
         this.returnTrip = returnTrip;
         this.returnDate = retDate;

@@ -7,6 +7,7 @@ import { Dropdown } from 'primeng/dropdown';
 import { SearchresultspageComponent } from '../searchresultspage/searchresultspage.component';
 import { DataService } from '../data.service';
 import { DatePipe } from '@angular/common';
+import { Person } from '../models/Person';
 
 
 
@@ -30,6 +31,7 @@ export class HomepageComponent implements OnInit {
   flightFormData: Flight = new Flight();
   homeData: Flight = new Flight();
   searchDisabled: boolean = true;
+  authorizedPerson: Person;
   
 
   //to parse names and ids... not sure what to do with this though
@@ -53,13 +55,13 @@ export class HomepageComponent implements OnInit {
   
   
   constructor(private router: Router, private service: FlightApiService, private data: DataService, private datePipe: DatePipe) {    
-    
+    this.authorizedPerson = new Person();
     
    }
 
   ngOnInit(): void {    
     this.data.currentFlight.subscribe(resp => this.flightFormData = resp)
-    // console.log(this.airportNames)
+    this.data.authorizedPerson.subscribe(resp => this.authorizedPerson)
   }
   
   searchFlights() {
@@ -113,7 +115,8 @@ export class HomepageComponent implements OnInit {
 
   sendData(){
     
-    this.data.getFlightFromHome(this.flightFormData)
+    this.data.getFlightFromHome(this.flightFormData);
+    this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 
   

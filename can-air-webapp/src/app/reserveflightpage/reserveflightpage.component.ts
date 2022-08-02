@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Airports } from '../models/Airports';
 import { Flight } from '../models/Flight';
+import { Person } from '../models/Person';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ReserveflightpageComponent implements OnInit {
   cardNumber: number = 0;
 
   subscription!: Subscription;
+  authorizedPerson: Person;
 
   airportMapFlipped: Map<number, string> = new Map<number, string>([
     [1, "MSP - Minneapolis/St. Paul"],
@@ -55,20 +57,17 @@ export class ReserveflightpageComponent implements OnInit {
   constructor(private router: Router, private data: DataService) {
     //this.flightsFromHome = this.searchPage.flights;
     //this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
-    
+    this.authorizedPerson = new Person();
    }
 
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
-    console.log(this.flightFormDataFromHome.departureLocation);
-    console.log(this.airportMapFlipped.get(this.flightFormDataFromHome.departureLocation))
+    this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+    
     
   }
 
-  convertIdToName(id: number) {
-
-  }
-
+  
   reserveFlight(){
     this.flightFormDataFromHome.seatsRemaining --;
     this.sendData();
@@ -81,5 +80,6 @@ export class ReserveflightpageComponent implements OnInit {
 
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
+    this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 }

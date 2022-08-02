@@ -13,6 +13,7 @@ export class LoginAPIService {
   baseUrl: string = 'localhost:8080'
   constructor(private http: HttpClient) { }
 
+  //post request to /users returns person object
   authenticateUser(loginCreds: LoginCreds){
     return this.http.post(`${this.baseUrl}/users`, loginCreds);
   }

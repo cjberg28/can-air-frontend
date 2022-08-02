@@ -4,6 +4,11 @@ import { MenuItem } from 'primeng/api';
 import { User } from '../models/User';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { LoginAPIService } from '../login-api.service';
+import { LoginCreds } from '../models/LoginCreds';
+import { Person } from '../models/Person';
+import { DataService } from '../data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +24,11 @@ export class NavbarComponent implements OnInit {
   isUserLoggedOut: boolean = false;
   displayModal2: boolean = false;
 
+  loginCreds: LoginCreds;
+  subscription!: Subscription;
+  
+  authorizedPerson: Person;
+
   //declare variables to hold username and password
   username: string = '';
   password: string = '';
@@ -26,14 +36,19 @@ export class NavbarComponent implements OnInit {
   //progress spinner boolean
   isProgressSpinner: boolean = false;
   isCloseable: boolean = true;
-  constructor(private router: Router) {
-
+  constructor(private router: Router, private loginService: LoginAPIService, 
+    private data: DataService) {
+    this.loginCreds = new LoginCreds();
+    this.authorizedPerson = new Person();
   }
 
   ngOnInit(): void {
     //cleans the username and password field onInit
+    this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+
     this.username= '';
     this.password = '';
+
     
     this.items = [
       {
@@ -76,8 +91,7 @@ export class NavbarComponent implements OnInit {
           }
           
         ]
-      }
-    ];
+      }];
   }
 
 // METHODS 
@@ -89,17 +103,17 @@ export class NavbarComponent implements OnInit {
   }
 
   getUsername(): string {
-    if (this.currentUser == undefined) {//If the user hasn't logged in...
+    if (this.authorizedPerson == new Person()) {//If the user hasn't logged in...
       return "Not Signed In";
     } else {
-      return "Hello, " + this.currentUser.username;
+      return `Hello ${this.authorizedPerson.firstName} ${this.authorizedPerson.lastName}`
     }
   }
 
   logout(): void {
     // alert('Logging out');
 
-    this.currentUser = undefined;
+    this.authorizedPerson = new Person();
     this.displayModal = false;
     this.isUserLoggedOut = true;
     this.displayModal2 = true;
@@ -138,17 +152,15 @@ export class NavbarComponent implements OnInit {
     //if they do, return the full user
     //if they don't, return null
     //then check if null or not
-    // if((loginService.getUser(username, password) != null){
-    //   this.displayModal = false;
-    //   this.ngOnInit();
-    // }
-    if(this.username === 'amishra' && this.password==='hello'){
+    if((this.loginService.authenticateUser(this.loginCreds) != null)){
+    
       this.isProgressSpinner = true;
       this.isCloseable = false;
       setTimeout(() =>{
         this.displayModal=false;
         this.clickedLogin();
-        this.currentUser = new User("Atul Mishra");
+        this.loginService.authenticateUser(this.loginCreds);
+        this.saveDate();
         this.ngOnInit();
       }, 1000);
       
@@ -159,9 +171,13 @@ export class NavbarComponent implements OnInit {
   }
 
   loginAuthenticated() {
-    if(this.username === 'amishra' && this.password==='hello'){
+    if(this.authorizedPerson != null){
       this.getUsername();
     }
+  }
+
+  saveDate() {
+    this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 
 

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../data.service';
 import { FlightApiService } from '../flight-api.service';
 import { Flight } from '../models/Flight';
+import { Person } from '../models/Person';
 import { Reservation } from '../models/Reservation';
 
 @Component({
@@ -24,9 +25,11 @@ export class MyflightspageComponent implements OnInit {
   loading: boolean = true;
 
   myReservations: Array<Reservation> = [];
+
+  authorizedPerson: Person;
   
   constructor(private router: Router,  private data: DataService) {
-    
+    this.authorizedPerson = new Person();
    }
 
   ngOnInit(): void {
@@ -36,6 +39,8 @@ export class MyflightspageComponent implements OnInit {
     const testRes = new Reservation(1, 2, 3, 'Atul', 'Mishra', '111-111-1111', 'abc@123.com', new Date('1989-03-09'), new Date('2022-08-18'), 'MSP', 'LAX', true, new Date('2022-08-20'));
     
     this.myReservations.push(testRes);
+
+    this.subscription = this.data.authorizedPerson.subscribe(resp => {this.authorizedPerson = resp;})
   }
 
   onSelect(selectedFlight: Flight) {
@@ -47,6 +52,7 @@ export class MyflightspageComponent implements OnInit {
 
   sendData() {
     this.data.getFlightFromHome(this.flightFormDataFromHome);
+    this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 
 }

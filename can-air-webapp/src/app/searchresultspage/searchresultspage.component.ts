@@ -6,6 +6,7 @@ import { DataService } from '../data.service';
 import { FlightApiService } from '../flight-api.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
+import { Person } from '../models/Person';
 import { ReturnedFlight } from '../models/ReturnedFlight';
 
 
@@ -33,8 +34,8 @@ export class SearchresultspageComponent implements OnInit {
   flightOptions!: Array<MenuItem>;
 
   subscription!: Subscription;
-  // matchingFlights!: Map<string, Array<Flight>>;
-
+ 
+  authorizedPerson: Person;
 
 
   airportMapFlipped: Map<number, string> = new Map<number, string>([
@@ -60,13 +61,13 @@ export class SearchresultspageComponent implements OnInit {
   constructor(private router: Router, service: FlightApiService, private data: DataService) {
     this.flightService = service;
 
-    
+    this.authorizedPerson = new Person();
     
    }
 
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp;})
-
+    this.subscription = this.data.authorizedPerson.subscribe(resp => {this.authorizedPerson = resp;})
     this.loading = false;
     this.cols = [
       {field: 'flightId', header: 'Flight Number'}, 
@@ -124,7 +125,8 @@ export class SearchresultspageComponent implements OnInit {
   }
 
   sendData(){
-    this.data.getFlightFromHome(this.flightFormDataFromHome)
+    this.data.getFlightFromHome(this.flightFormDataFromHome);
+    this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 
 }

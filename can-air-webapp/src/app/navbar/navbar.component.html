@@ -21,11 +21,11 @@
         <ng-template pTemplate="header">Login</ng-template>
         <ng-template pTemplate="body">
             <div style="margin: 5px;">
-                <input id="float-input" type="text" pInputText placeholder="Username" [(ngModel)]="username"> 
+                <input id="float-input" type="text" pInputText placeholder="Username" [(ngModel)]="loginCreds.username"> 
                 <!-- <label for="float-input">Username</label> -->
             </div>
             <div style="margin: 5px;">
-                <input id="float-input" type="password" pInputText placeholder="Password" [(ngModel)]="password" (keydown.enter)="login()"> 
+                <input id="float-input" type="password" pInputText placeholder="Password" [(ngModel)]="loginCreds.password" (keydown.enter)="login()"> 
                 <!-- <label for="float-input">Password</label> -->
             </div>
 
