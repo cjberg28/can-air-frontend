@@ -19,7 +19,7 @@ import { ReturnedFlight } from '../models/ReturnedFlight';
 export class SearchresultspageComponent implements OnInit {
   flightFormDataFromHome!: Flight;
 
-
+  flightId: number = 0;
   
   flights: Array<Flight> = [];
 
@@ -65,7 +65,7 @@ export class SearchresultspageComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp; console.log(resp)})
+    this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp;})
 
     this.loading = false;
     this.cols = [
@@ -90,6 +90,7 @@ export class SearchresultspageComponent implements OnInit {
       {label: 'Reserve Flight',
        icon: 'pi pi-pencil',
        command: () => {
+        
         this.router.navigate(['reserve'])
         }
       }
@@ -99,13 +100,13 @@ export class SearchresultspageComponent implements OnInit {
 
   findAllFlights(): void{
     this.flightService.getAll().subscribe(resp => {this.flights = resp;})
-    console.log(this.flights)
+    // console.log(this.flights)
   }
 
   findFlightsByCriteria(): void {
-    console.log(this.flightFormDataFromHome)
+    // console.log(this.flightFormDataFromHome)
     this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => {
-      console.log(resp as Array<any>)
+      
       if(resp[0] == true){
         this.flights = resp[1];
       }
@@ -114,12 +115,10 @@ export class SearchresultspageComponent implements OnInit {
       }
     });
     
-    
-    
+  }
 
-    
-    
-    
+  onSelect(selectedFlight: Flight) {
+    this.flightId = selectedFlight.flightId;
   }
 
   sendData(){

@@ -20,7 +20,7 @@ export class ReserveflightpageComponent implements OnInit {
   subscription!: Subscription;
 
   constructor(private searchPage: SearchresultspageComponent, private router: Router, private data: DataService) {
-    this.flightsFromHome = this.searchPage.flights;
+    //this.flightsFromHome = this.searchPage.flights;
     
    }
 

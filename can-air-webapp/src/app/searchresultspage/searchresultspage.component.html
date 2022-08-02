@@ -107,7 +107,7 @@
                 <tr>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" ></p-splitButton>
+                            <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" (click)="onSelect(flight)"></p-splitButton>
                         </div>
                     </td>
                     <td>
