@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit {
     if (this.currentUser == undefined) {//If the user hasn't logged in...
       return "Not Signed In";
     } else {
-      return "Hello, " + this.currentUser.name;
+      return "Hello, " + this.currentUser.username;
     }
   }
 

@@ -34,6 +34,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import { DatePipe } from '@angular/common';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { DatePipe } from '@angular/common';
     MyflightspageComponent,
     SearchresultspageComponent,
     ReserveflightpageComponent,
+    
     
   ],
   imports: [

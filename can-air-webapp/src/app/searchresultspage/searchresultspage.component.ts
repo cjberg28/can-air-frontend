@@ -120,6 +120,7 @@ export class SearchresultspageComponent implements OnInit {
     console.log(selectedFlight);
     console.log(this.flightFormDataFromHome)
     this.sendData();
+    
   }
 
   sendData(){
