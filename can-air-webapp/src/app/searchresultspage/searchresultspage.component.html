@@ -7,7 +7,7 @@
   
     <div style="margin: 20px">
       <p-card >
-          <p-table #itemTable [columns]="cols" [value]="flightsMatchingCriteria" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+          <p-table #itemTable [columns]="cols" [value]="flights" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
           [filterDelay]="0" [globalFilterFields]="['flightNumber', 'departing', 'arriving', 'zoneId']"
           [totalRecords]="totalRecords" [pageLinks]="3" [loading]="loading" > <!-- styleClass="p-datatable-gridlines"-->
               <ng-template pTemplate="header">

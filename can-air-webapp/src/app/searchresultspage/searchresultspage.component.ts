@@ -6,6 +6,7 @@ import { DataService } from '../data.service';
 import { FlightApiService } from '../flight-api.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
+import { ReturnedFlight } from '../models/ReturnedFlight';
 
 
 
@@ -20,7 +21,7 @@ export class SearchresultspageComponent implements OnInit {
 
 
   
-  flights: Array<Flight> = [new Flight()];
+  flights: Array<Flight> = [];
 
   flightsMatchingCriteria: Array<any> = [];
   flightService: FlightApiService;
@@ -32,12 +33,9 @@ export class SearchresultspageComponent implements OnInit {
   flightOptions!: Array<MenuItem>;
 
   subscription!: Subscription;
-  matchingFlights!: Map<boolean, Array<Flight>>;
+  // matchingFlights!: Map<string, Array<Flight>>;
 
-  // -- FOR TESTING PURPOSES -- //
 
-  
-  // --------------------------//
 
   // airportMapFlipped: Map<number, string> = new Map<number, string>([
   //   [1, "MSP - Minneapolis/St. Paul"],
@@ -106,12 +104,20 @@ export class SearchresultspageComponent implements OnInit {
 
   findFlightsByCriteria(): void {
     console.log(this.flightFormDataFromHome)
-    this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => {this.matchingFlights = resp; console.log(this.matchingFlights)})
+    this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => {
+      console.log(resp as Array<any>)
+      if(resp[0] == true){
+        this.flights = resp[1];
+      }
+      else{
+        console.log('No Matching Flights Found')
+      }
+    });
     
     
-    if(this.matchingFlights != undefined && this.matchingFlights.has(true)){
-      // this.flights = this.matchingFlights.get()
-    }
+    
+
+    
     
     
   }

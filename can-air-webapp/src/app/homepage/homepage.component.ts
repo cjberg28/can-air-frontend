@@ -64,7 +64,7 @@ export class HomepageComponent implements OnInit {
   searchFlights() {
     
     this.isProgressSpinnerActivated = true;
-    setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 6000);
+    setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 2000);
     console.log(this.flightFormData.departureLocation);
     console.log(this.flightFormData.arrivalLocation);
   }
