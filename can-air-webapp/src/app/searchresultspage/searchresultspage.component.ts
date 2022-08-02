@@ -118,7 +118,10 @@ export class SearchresultspageComponent implements OnInit {
   }
 
   onSelect(selectedFlight: Flight) {
-    this.flightId = selectedFlight.flightId;
+    this.flightFormDataFromHome = selectedFlight;
+    console.log(selectedFlight);
+    console.log(this.flightFormDataFromHome)
+    this.sendData();
   }
 
   sendData(){
