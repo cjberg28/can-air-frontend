@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../data.service';
 import { FlightApiService } from '../flight-api.service';
 import { Flight } from '../models/Flight';
+import { Reservation } from '../models/Reservation';
 
 @Component({
   selector: 'app-myflightspage',
@@ -21,6 +22,8 @@ export class MyflightspageComponent implements OnInit {
   cols :any[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
+
+  myReservations: Array<Reservation> = [];
   
   constructor(private router: Router,  private data: DataService) {
     
@@ -30,6 +33,9 @@ export class MyflightspageComponent implements OnInit {
     this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp; console.log(resp)})
     this.myFlights.push(this.flightFormDataFromHome);
     console.log(this.myFlights)
+    const testRes = new Reservation(1, 2, 3, 'Atul', 'Mishra', '111-111-1111', 'abc@123.com', new Date('1989-03-09'), new Date('2022-08-18'), 'MSP', 'LAX', true, new Date('2022-08-20'));
+    
+    this.myReservations.push(testRes);
   }
 
   onSelect(selectedFlight: Flight) {

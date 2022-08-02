@@ -7,7 +7,7 @@
 
   <div style="margin: 20px">
     <p-card >
-        <p-table #itemTable [columns]="cols" [value]="myFlights" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+        <p-table #itemTable [columns]="cols" [value]="myReservations" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
         [filterDelay]="0" [globalFilterFields]="['flightNumber', 'departing', 'arriving', 'zoneId']"
         [totalRecords]="totalRecords" [pageLinks]="3"  >
             <ng-template pTemplate="header">
@@ -16,6 +16,14 @@
                         <div>
                             <div class="flex justify-content-center align-items-center">
                                 Flight Number<p-sortIcon field="flightId"></p-sortIcon>
+                    
+                              </div>
+                        </div>
+                    </th>
+                    <th pSortableColumn="ticketHolder">
+                        <div>
+                            <div class="flex justify-content-center align-items-center">
+                                Ticket Holder<p-sortIcon field="ticketHolder"></p-sortIcon>
                     
                               </div>
                         </div>
@@ -92,14 +100,7 @@
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="flightPrice">
-                        <div>
-                            <div class="flex justify-content-center align-items-center">
-                                Price<p-sortIcon field="price"></p-sortIcon>
                     
-                              </div>
-                        </div>
-                    </th>
                 </tr>
             </ng-template>
             <!-- body of table-->
@@ -108,6 +109,40 @@
                     <td>
                         <div class="flex justify-content-center align-items-center">
                             <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" (click)="onSelect(flight)"></p-splitButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            <div>
+                                
+                                <div class="flex justify-content-end">
+                                    <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '300px'}" [dismissable]="true" [showCloseIcon]="true">
+                                      
+                                      <ng-template pTemplate>
+                                          <div>
+                                            <div style="margin-bottom: 12px;" class="font-bold">Ticket Holder Information</div>
+                                      <div>
+                                        Name: {{flight.firstName + ' ' + flight.lastName}}
+                                      </div>
+                                      <div>
+                                        Phone: {{flight.phone}}
+                                      </div>
+                                      <div>
+                                        Email: {{flight.email}}
+                                      </div>
+                                      <div >
+                                        Date of Birth: {{flight.DOB | date: 'mediumDate'}}
+                                        
+                                      </div>
+                                      
+                                  </div>
+                                      </ng-template>
+                                  </p-overlayPanel>
+                                    
+                                    <p-button label="{{flight.firstName}} {{flight.lastName}}" (click)="op.toggle($event)"></p-button>
+                                  </div>
+
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -155,11 +190,7 @@
                             {{flight.returnArrivalTime}}
                         </div>
                     </td>
-                    <td>
-                        <div class="flex justify-content-center align-items-center">
-                            {{flight.flightPrice}}
-                        </div>
-                    </td>
+                    
 
                 </tr>
               </ng-template>   
