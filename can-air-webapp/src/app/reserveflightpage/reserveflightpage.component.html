@@ -9,16 +9,16 @@
 
     <div class="flex justify-content-start align-item-center" >
       <div id="container-for-flight-details" >
-        <p-card class="card-info p-" id="saved-information" header="Flight Details" [style]="{width: '420px', height: '400px'}" styleClass="p-card-shadow">
+        <p-card class="card-info p-" id="saved-information" header="Flight Details" [style]="{width: '300px', height: '400px'}" styleClass="p-card-shadow">
           <div >
               <div style="margin: 5px;"><span class="font-bold">Flight Number:</span> <span style="margin-left: 10px;">{{flightFormDataFromHome.flightId}}</span></div>
-              <div style="margin: 5px;"><span class="font-bold">Departing:</span>  <span style="margin-left: 10px;">{{airportMapFlipped.get(flightFormDataFromHome.departureLocation)}} at {{flightFormDataFromHome.departureDepartureTime}}</span></div>
-              <div style="margin: 5px;"><span class="font-bold">Arriving:</span>  <span style="margin-left: 10px;">{{airportMapFlipped.get(flightFormDataFromHome.arrivalLocation)}} at {{flightFormDataFromHome.departureArrivalTime}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Departing:</span>  <span style="margin-left: 10px;">{{airportMapFlipped.get(flightFormDataFromHome.departureLocation)?.substring(0,3)}} at {{flightFormDataFromHome.departureDepartureTime}}</span></div>
+              <div style="margin: 5px;"><span class="font-bold">Arriving:</span>  <span style="margin-left: 10px;">{{airportMapFlipped.get(flightFormDataFromHome.arrivalLocation)?.substring(0,3)}} at {{flightFormDataFromHome.departureArrivalTime}}</span></div>
               <div style="margin: 5px;"><span class="font-bold">Departure Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.departureDate | date:'mediumDate'}}</span></div>
               <div style="margin: 5px;"><span class="font-bold">Round Trip:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.roundTrip ? 'Yes' : 'No'}}</span></div>
               <div style="margin: 5px;" *ngIf="flightFormDataFromHome.roundTrip"><span class="font-bold">Return Date:</span>  <span style="margin-left: 10px;">{{flightFormDataFromHome.returnDate | date:'mediumDate'}}</span></div>
-              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.roundTrip"><span class="font-bold">Return Departing:</span> {{airportMapFlipped.get(flightFormDataFromHome.arrivalLocation)}} at <span>{{flightFormDataFromHome.returnDepartureTime}}</span></div>
-              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.roundTrip"><span class="font-bold">Return Arriving:</span>  {{airportMapFlipped.get(flightFormDataFromHome.departureLocation)}} at <span>{{flightFormDataFromHome.returnArrivalTime}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.roundTrip"><span class="font-bold">Return Departing:</span> {{airportMapFlipped.get(flightFormDataFromHome.arrivalLocation)?.substring(0,3)}} at <span>{{flightFormDataFromHome.returnDepartureTime}}</span></div>
+              <div style="margin: 5px;" *ngIf="flightFormDataFromHome.roundTrip"><span class="font-bold">Return Arriving:</span>  {{airportMapFlipped.get(flightFormDataFromHome.departureLocation)?.substring(0,3)}} at <span>{{flightFormDataFromHome.returnArrivalTime}}</span></div>
               <div style="margin: 5px;"><span class="font-bold">Price:</span>  <span style="margin-left: 10px;">${{flightFormDataFromHome.flightPrice}}</span></div>
           </div>
           

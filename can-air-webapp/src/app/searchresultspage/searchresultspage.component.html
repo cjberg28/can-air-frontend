@@ -112,12 +112,12 @@
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.departureLocation}}
+                            {{(airportMapFlipped.get(flight.departureLocation))?.substring(0, 3)}}
                         </div>
                     </td>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            {{flight.arrivalLocation}} 
+                            {{airportMapFlipped.get(flight.arrivalLocation)?.substring(0,3)}} 
                         </div>
                     </td>
                     <td>

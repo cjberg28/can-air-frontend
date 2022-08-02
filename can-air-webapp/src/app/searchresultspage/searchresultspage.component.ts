@@ -37,25 +37,25 @@ export class SearchresultspageComponent implements OnInit {
 
 
 
-  // airportMapFlipped: Map<number, string> = new Map<number, string>([
-  //   [1, "MSP - Minneapolis/St. Paul"],
-  //   [2, "LAX - Los Angeles"],
-  //   [3, "DTW - Detroit"],
-  //   [4, "YYZ - Toronto"],
-  //   [5, "PHL - Philadelphia"],
-  //   [6, "ORD - Chicago"],
-  //   [7, "LHR - London"]
-  // ]);
-
-  airportMap: Map<string, number> = new Map<string, number>([
-    ["MSP - Minneapolis/St. Paul", 1],
-    ["LAX - Los Angeles", 2],
-    ["DTW - Detroit", 3],
-    ["YYZ - Toronto", 4],
-    ["PHL - Philadelphia", 5],
-    ["ORD - Chicago", 6],
-    ["LHR - London", 7]
+  airportMapFlipped: Map<number, string> = new Map<number, string>([
+    [1, "MSP - Minneapolis/St. Paul"],
+    [2, "LAX - Los Angeles"],
+    [3, "DTW - Detroit"],
+    [4, "YYZ - Toronto"],
+    [5, "PHL - Philadelphia"],
+    [6, "ORD - Chicago"],
+    [7, "LHR - London"]
   ]);
+
+  // airportMap: Map<string, number> = new Map<string, number>([
+  //   ["MSP - Minneapolis/St. Paul", 1],
+  //   ["LAX - Los Angeles", 2],
+  //   ["DTW - Detroit", 3],
+  //   ["YYZ - Toronto", 4],
+  //   ["PHL - Philadelphia", 5],
+  //   ["ORD - Chicago", 6],
+  //   ["LHR - London", 7]
+  // ]);
 
   constructor(private router: Router, service: FlightApiService, private data: DataService) {
     this.flightService = service;
