@@ -9,6 +9,7 @@
 
 #search-results-text{
     padding: 50px 10px 50px 50px;
+    font-family: var(--font-family);
     font-style: italic;
     color: black;
 }

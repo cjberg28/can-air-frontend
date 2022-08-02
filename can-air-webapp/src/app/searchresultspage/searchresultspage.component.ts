@@ -79,11 +79,9 @@ export class SearchresultspageComponent implements OnInit {
       {field: 'departureArrivalTime', header: 'Arrival Time'} ,
       {field: 'flightPrice', header: 'Price'} 
     ];
-    // this.findAllFlights();
-    // console.log(this.flightFormDataFromHome)
-    this.findFlightsByCriteria();
-
     
+
+    this.findFlightsByCriteria();
 
     this.totalRecords = this.flights.length;
     this.flightOptions = [

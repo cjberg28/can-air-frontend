@@ -1,5 +1,5 @@
 <div id="my-flights-image">
-  <div id="my-flights-text">
+  <div id="my-flights-text" class="flex justify-content-center">
     <div class="text-8xl">
       My Flights
     </div>
@@ -7,29 +7,31 @@
 
   <div style="margin: 20px">
     <p-card >
-        <p-table>
+        <p-table #itemTable [columns]="cols" [value]="myFlights" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+        [filterDelay]="0" [globalFilterFields]="['flightNumber', 'departing', 'arriving', 'zoneId']"
+        [totalRecords]="totalRecords" [pageLinks]="3"  >
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="flightNumber">
+                    <th pSortableColumn="flightId">
                         <div>
                             <div class="flex justify-content-center align-items-center">
-                                Flight Number<p-sortIcon field="flightNumber"></p-sortIcon>
+                                Flight Number<p-sortIcon field="flightId"></p-sortIcon>
                     
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="departing">
+                    <th pSortableColumn="departureLocation">
                         <div>
                             <div class="flex justify-content-center align-items-center">
-                                Departing<p-sortIcon field="departing"></p-sortIcon>
+                                Departing<p-sortIcon field="departureLocation"></p-sortIcon>
                     
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="arriving">
+                    <th pSortableColumn="departureArrivingLocation">
                         <div>
                             <div class="flex justify-content-center align-items-center">
-                                Arriving<p-sortIcon field="arriving"></p-sortIcon>
+                                Arriving<p-sortIcon field="departureArrivingLocation"></p-sortIcon>
                     
                               </div>
                         </div>
@@ -58,7 +60,7 @@
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="departureTime">
+                    <th pSortableColumn="departureDepartureTime">
                         <div>
                             <div class="flex justify-content-center align-items-center">
                                 Departure Time<p-sortIcon field="departureTime"></p-sortIcon>
@@ -66,7 +68,7 @@
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="arrivalTime">
+                    <th pSortableColumn="departureArrivalTime">
                         <div>
                             <div class="flex justify-content-center align-items-center">
                                 Arrival Time<p-sortIcon field="arrivalTime"></p-sortIcon>
@@ -74,7 +76,7 @@
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="price">
+                    <th pSortableColumn="flightPrice">
                         <div>
                             <div class="flex justify-content-center align-items-center">
                                 Price<p-sortIcon field="price"></p-sortIcon>
@@ -84,6 +86,67 @@
                     </th>
                 </tr>
             </ng-template>
+            <!-- body of table-->
+            <ng-template pTemplate="body" let-flight>
+                <tr>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" (click)="onSelect(flight)"></p-splitButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.departureLocation}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.arrivalLocation}} 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.departureDate | date:'mediumDate'}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.departureDepartureTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.departureArrivalTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{(flight.roundTrip)? 'Yes':'No'}}
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="flight.roundTrip" class="flex justify-content-center align-items-center">
+                            {{(flight.returnDate | date:'mediumDate')}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.returnDepartureTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.returnArrivalTime}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center align-items-center">
+                            {{flight.flightPrice}}
+                        </div>
+                    </td>
+
+                </tr>
+              </ng-template>   
         </p-table>
       </p-card>
   </div>

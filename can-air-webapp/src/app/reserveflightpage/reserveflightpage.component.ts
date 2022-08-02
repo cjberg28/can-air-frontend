@@ -70,10 +70,15 @@ export class ReserveflightpageComponent implements OnInit {
   }
 
   reserveFlight(){
-    this.router.navigate(['my-flights'])
+    this.sendData();
+    this.router.navigate(['my-flights']);
   }
 
   cancelToGoHome() {
-    this.router.navigate(['home'])
+    this.router.navigate(['home']);
+  }
+
+  sendData(){
+    this.data.getFlightFromHome(this.flightFormDataFromHome);
   }
 }

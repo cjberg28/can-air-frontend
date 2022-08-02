@@ -1,5 +1,5 @@
 <div id="reserve-flight-image">
-  <div id="my-flights-text">
+  <div id="my-flights-text" class="flex justify-content-center">
     <div class="text-8xl">
       Reserve Flight
     </div>
@@ -80,7 +80,9 @@
           </div>
               </ng-template>
           </p-overlayPanel>
-            <p-button label="Cancel" (click)="cancelToGoHome()"></p-button>
+            <div style="padding-right: 30px;">
+              <p-button label="Cancel" (click)="cancelToGoHome()"></p-button>
+            </div>
             <p-button label="Reserve" (click)="op.toggle($event)"></p-button>
           </div>
         </p-card>
