@@ -12,26 +12,26 @@
           [totalRecords]="totalRecords" [pageLinks]="3" [loading]="loading" > <!-- styleClass="p-datatable-gridlines"-->
               <ng-template pTemplate="header">
                   <tr>
-                      <th pSortableColumn="flightNumber">
+                      <th pSortableColumn="flightId">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Flight Number<p-sortIcon field="flightNumber"></p-sortIcon>
+                                  Flight Number<p-sortIcon field="flightId"></p-sortIcon>
                       
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="departing">
+                      <th pSortableColumn="departureLocation">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Departing<p-sortIcon field="departing"></p-sortIcon>
+                                  Departing<p-sortIcon field="departureLocation"></p-sortIcon>
                       
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="arriving">
+                      <th pSortableColumn="arrivalLocation">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Arriving<p-sortIcon field="arriving"></p-sortIcon>
+                                  Arriving<p-sortIcon field="arrivalLocation"></p-sortIcon>
                       
                                 </div>
                           </div>
@@ -44,18 +44,18 @@
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="departureTime">
+                      <th pSortableColumn="departureDepartureTime">
                         <div>
                             <div class="flex justify-content-center align-items-center">
-                                Departure Time<p-sortIcon field="departureTime"></p-sortIcon>
+                                Departure Time<p-sortIcon field="departureDepartureTime"></p-sortIcon>
                     
                               </div>
                         </div>
                     </th>
-                    <th pSortableColumn="arrivalTime">
+                    <th pSortableColumn="departureArrivalTime">
                         <div>
                             <div class="flex justify-content-center align-items-center">
-                                Arrival Time<p-sortIcon field="arrivalTime"></p-sortIcon>
+                                Arrival Time<p-sortIcon field="departureArrivalTime"></p-sortIcon>
                     
                               </div>
                         </div>
@@ -76,26 +76,26 @@
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="departureTime">
+                      <th pSortableColumn="returnDepartureTime">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Return Departure Time<p-sortIcon field="departureTime"></p-sortIcon>
+                                  Return Departure Time<p-sortIcon field="returnDepartureTime"></p-sortIcon>
                       
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="arrivalTime">
+                      <th pSortableColumn="returnArrivalTime">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Return Arrival Time<p-sortIcon field="arrivalTime"></p-sortIcon>
+                                  Return Arrival Time<p-sortIcon field="returnArrivalTime"></p-sortIcon>
                       
                                 </div>
                           </div>
                       </th>
-                      <th pSortableColumn="price">
+                      <th pSortableColumn="flightPrice">
                           <div>
                               <div class="flex justify-content-center align-items-center">
-                                  Price<p-sortIcon field="price"></p-sortIcon>
+                                  Price<p-sortIcon field="flightPrice"></p-sortIcon>
                       
                                 </div>
                           </div>

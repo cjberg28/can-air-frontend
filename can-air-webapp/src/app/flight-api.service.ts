@@ -32,12 +32,13 @@ export class FlightApiService {
   getFlightsMatchingCriteria(flightFormData: Flight): Observable<any>{
     let departId = this.airportMap.get(flightFormData.departureLocation.substring(0, 3));
     let arriveId = this.airportMap.get(flightFormData.arrivalLocation.substring(0, 3));
-    let depDate = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd');
+    let depDate:string = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd') + '';
+    
     // let retDateDefault = this.datepipe.transform((new Flight()).returnDate, 'yyyy-MM-dd')
-    let retDate = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd');
+    let retDate:string = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd') + '';
     let url: string;
-    console.log(departId, arriveId)
-    console.log(depDate == retDate)
+    // console.log(departId, arriveId)
+    console.log(depDate , retDate)
     if(flightFormData.roundTrip == false){
       url = this.baseUrl + `/search?departing=${departId}&arriving=${arriveId}&depDate=${depDate}&roundTrip=${flightFormData.roundTrip}`
     }

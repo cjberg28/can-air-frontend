@@ -58,15 +58,15 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {    
     this.data.currentFlight.subscribe(resp => this.flightFormData = resp)
-    console.log(this.airportNames)
+    // console.log(this.airportNames)
   }
   
   searchFlights() {
     
     this.isProgressSpinnerActivated = true;
     setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 2000);
-    console.log(this.flightFormData.departureLocation);
-    console.log(this.flightFormData.arrivalLocation);
+    // console.log(this.flightFormData.departureLocation);
+    // console.log(this.flightFormData.arrivalLocation);
   }
 
   requiredFieldsFilled() {
