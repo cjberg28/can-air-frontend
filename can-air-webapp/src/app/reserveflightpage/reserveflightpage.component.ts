@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DataService } from '../data.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
 import { SearchresultspageComponent } from '../searchresultspage/searchresultspage.component';
@@ -12,17 +14,18 @@ import { SearchresultspageComponent } from '../searchresultspage/searchresultspa
 export class ReserveflightpageComponent implements OnInit {
 
   flightsFromHome: Array<Flight> = [];
-  flightFormDataFromHome: Flight = new Flight();
+  flightFormDataFromSearch: Flight = new Flight();
   cardNumber: number = 0;
 
+  subscription!: Subscription;
 
-  constructor(private searchPage: SearchresultspageComponent, private router: Router) {
+  constructor(private searchPage: SearchresultspageComponent, private router: Router, private data: DataService) {
     this.flightsFromHome = this.searchPage.flights;
     
    }
 
   ngOnInit(): void {
-    
+    this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromSearch = resp)
     
   }
 

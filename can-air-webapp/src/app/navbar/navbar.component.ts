@@ -123,7 +123,7 @@ export class NavbarComponent implements OnInit {
 
   clickedLogin(): boolean {
     this.isUserLoggedIn = true;//this.isUserLoggedIn = !this.isUserLoggedIn;
-    console.log(this.isUserLoggedIn);
+    // console.log(this.isUserLoggedIn);
     return this.isUserLoggedIn;
   }
 

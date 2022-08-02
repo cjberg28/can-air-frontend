@@ -1,18 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Flight } from '../models/Flight';
 import { FlightApiService } from '../flight-api.service';
 import { FilterService } from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
+import { SearchresultspageComponent } from '../searchresultspage/searchresultspage.component';
+import { DataService } from '../data.service';
+import { DatePipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css'],
+ 
 })
 export class HomepageComponent implements OnInit {
+  
   
   
   // departing?: string;
@@ -23,6 +28,7 @@ export class HomepageComponent implements OnInit {
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
   flightFormData: Flight = new Flight();
+  homeData: Flight = new Flight();
   
 
   //to parse names and ids... not sure what to do with this though
@@ -42,27 +48,25 @@ export class HomepageComponent implements OnInit {
 
   airportObjects: IterableIterator<string> = this.airportMap.keys();
   
-
-  constructor(private router: Router, private service: FlightApiService) {
-
-    
-    this.airports = [
-      
-    ];
-
-    this.flightFormData.departureLocation
+  airportNames = Array.from(this.airportObjects);
+  
+  
+  constructor(private router: Router, private service: FlightApiService, private data: DataService, private datePipe: DatePipe) {    
     
     
    }
 
   ngOnInit(): void {    
-    console.log(this.airportObjects)
+    this.data.currentFlight.subscribe(resp => this.flightFormData = resp)
+    console.log(this.airportNames)
   }
-
+  
   searchFlights() {
+    
     this.isProgressSpinnerActivated = true;
-    setTimeout(() => {this.router.navigate(['flights']);}, 2000);
-    console.log(this.flightFormData);
+    setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 6000);
+    console.log(this.flightFormData.departureLocation);
+    console.log(this.flightFormData.arrivalLocation);
   }
 
   requiredFieldsFilled() {
@@ -95,7 +99,16 @@ export class HomepageComponent implements OnInit {
     
     }
 
+
     return isDisabled;
   }
 
+  sendData(){
+    
+    this.data.getFlightFromHome(this.flightFormData)
+  }
+
+  
+  
+  
 }

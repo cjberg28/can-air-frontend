@@ -25,8 +25,8 @@
                 </span>
             </div>
             <span>
-                <p-dropdown [options]="airports" placeholder="Departing" [(ngModel)]="flightFormData.departureLocation" [style]="{width: '12vw'}"></p-dropdown></span>
-            <span style="margin-left: 5px;"><p-dropdown [options]="airports" placeholder="Arriving" [(ngModel)]="flightFormData.arrivalLocation" [style]="{width: '12vw'}"></p-dropdown></span>
+                <p-dropdown [options]="airportNames" placeholder="Departing" [(ngModel)]="flightFormData.departureLocation" [style]="{width: '12vw'}"></p-dropdown></span>
+            <span style="margin-left: 5px;"><p-dropdown [options]="airportNames" placeholder="Arriving" [(ngModel)]="flightFormData.arrivalLocation" [style]="{width: '12vw'}"></p-dropdown></span>
             <span style="margin-left: 5px;"><p-calendar [(ngModel)]="flightFormData.departureDate" placeholder="Departure Date" [style]="{width: '12vw'}"></p-calendar></span>
             
             

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Flight } from './models/Flight';
 import { catchError, Observable, throwError } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class FlightApiService {
     ["LHR", 7]
   ]);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datepipe: DatePipe) {
    
   }
 
@@ -31,10 +32,20 @@ export class FlightApiService {
   getFlightsMatchingCriteria(flightFormData: Flight): Observable<any>{
     let departId = this.airportMap.get(flightFormData.departureLocation.substring(0, 3));
     let arriveId = this.airportMap.get(flightFormData.arrivalLocation.substring(0, 3));
-    console.log(flightFormData);
+    let depDate = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd');
+    // let retDateDefault = this.datepipe.transform((new Flight()).returnDate, 'yyyy-MM-dd')
+    let retDate = this.datepipe.transform(flightFormData.departureDate, 'yyyy-MM-dd');
+    let url: string;
     console.log(departId, arriveId)
-    let url: string = this.baseUrl + `?departing=${departId}&arriving=${arriveId}&depDate=${flightFormData.departureDate}&roundTrip=${flightFormData.roundTrip}&retDate=${flightFormData.returnDate}`;
-
+    console.log(depDate == retDate)
+    if(flightFormData.roundTrip == false){
+      url = this.baseUrl + `/search?departing=${departId}&arriving=${arriveId}&depDate=${depDate}&roundTrip=${flightFormData.roundTrip}`
+    }
+    else {
+      url = this.baseUrl + `/search?departing=${departId}&arriving=${arriveId}&depDate=${depDate}&roundTrip=${flightFormData.roundTrip}&retDate=${retDate}`;
+    }
+    console.log(url)
+    
     return this.http.get(url);
   }
 

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { DataService } from '../data.service';
 import { FlightApiService } from '../flight-api.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Flight } from '../models/Flight';
@@ -10,45 +12,77 @@ import { Flight } from '../models/Flight';
 @Component({
   selector: 'app-searchresultspage',
   templateUrl: './searchresultspage.component.html',
-  styleUrls: ['./searchresultspage.component.css']
+  styleUrls: ['./searchresultspage.component.css'],
+   
 })
 export class SearchresultspageComponent implements OnInit {
-  flights: Array<any> = [];
+  flightFormDataFromHome!: Flight;
 
-  flightsMatchingCriteria: Array<Flight> = [];
+
+  
+  flights: Array<Flight> = [new Flight()];
+
+  flightsMatchingCriteria: Array<any> = [];
   flightService: FlightApiService;
   
-  flightFormDataFromHome: Flight = new Flight();
-  
+  // flightFormDataFromHome: Flight;
   cols :any[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
   flightOptions!: Array<MenuItem>;
+
+  subscription!: Subscription;
+  matchingFlights!: Map<boolean, Array<Flight>>;
 
   // -- FOR TESTING PURPOSES -- //
 
   
   // --------------------------//
 
-  constructor(private router: Router, service: FlightApiService, private home: HomepageComponent) {
+  // airportMapFlipped: Map<number, string> = new Map<number, string>([
+  //   [1, "MSP - Minneapolis/St. Paul"],
+  //   [2, "LAX - Los Angeles"],
+  //   [3, "DTW - Detroit"],
+  //   [4, "YYZ - Toronto"],
+  //   [5, "PHL - Philadelphia"],
+  //   [6, "ORD - Chicago"],
+  //   [7, "LHR - London"]
+  // ]);
+
+  airportMap: Map<string, number> = new Map<string, number>([
+    ["MSP - Minneapolis/St. Paul", 1],
+    ["LAX - Los Angeles", 2],
+    ["DTW - Detroit", 3],
+    ["YYZ - Toronto", 4],
+    ["PHL - Philadelphia", 5],
+    ["ORD - Chicago", 6],
+    ["LHR - London", 7]
+  ]);
+
+  constructor(private router: Router, service: FlightApiService, private data: DataService) {
     this.flightService = service;
-    this.flightFormDataFromHome = home.flightFormData;
+
+    
+    
    }
 
   ngOnInit(): void {
+    this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp; console.log(resp)})
+
     this.loading = false;
     this.cols = [
-      {field: 'flightNumber', header: 'Flight Number'}, 
-      {field: 'departing', header: 'Departing'}, 
-      {field: 'arriving', header: 'Arriving'}, 
+      {field: 'flightId', header: 'Flight Number'}, 
+      {field: 'departureDepartureLocation', header: 'Departing'}, 
+      {field: 'departureArrivingLocation', header: 'Arriving'}, 
       {field: 'departureDate', header: 'Departure Date'}, 
       {field: 'roundTrip', header: 'Round Trip'},
       {field: 'returnDate', header: 'Return Date'} ,
-      {field: 'departureTime', header: 'Departure Time'} ,
-      {field: 'arrivalTime', header: 'Arrival Time'} ,
-      {field: 'price', header: 'Price'} 
+      {field: 'departureDepartureTime', header: 'Departure Time'} ,
+      {field: 'departureArrivalTime', header: 'Arrival Time'} ,
+      {field: 'flightPrice', header: 'Price'} 
     ];
     // this.findAllFlights();
+    // console.log(this.flightFormDataFromHome)
     this.findFlightsByCriteria();
 
     
@@ -71,7 +105,19 @@ export class SearchresultspageComponent implements OnInit {
   }
 
   findFlightsByCriteria(): void {
-    this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => this.flightsMatchingCriteria)
+    console.log(this.flightFormDataFromHome)
+    this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => {this.matchingFlights = resp; console.log(this.matchingFlights)})
+    
+    
+    if(this.matchingFlights != undefined && this.matchingFlights.has(true)){
+      // this.flights = this.matchingFlights.get()
+    }
+    
+    
+  }
+
+  sendData(){
+    this.data.getFlightFromHome(this.flightFormDataFromHome)
   }
 
 }

@@ -31,6 +31,7 @@ import { MenuItem } from 'primeng/api';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
     
   ],
   imports: [
+    DatePipe,
     HttpClientModule,
     OverlayPanelModule,
     InputNumberModule,
@@ -75,7 +77,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
       { path: '', component: HomepageComponent}
     ])
   ],
-  providers: [FlightApiService, HomepageComponent, SearchresultspageComponent  
+  providers: [FlightApiService, HomepageComponent, SearchresultspageComponent, DatePipe  
    
   ],
   bootstrap: [AppComponent]
