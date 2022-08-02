@@ -73,4 +73,7 @@ export class ReserveflightpageComponent implements OnInit {
     this.router.navigate(['my-flights'])
   }
 
+  cancelToGoHome() {
+    this.router.navigate(['home'])
+  }
 }

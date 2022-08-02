@@ -29,6 +29,7 @@ export class HomepageComponent implements OnInit {
   isProgressSpinnerActivated: boolean = false;
   flightFormData: Flight = new Flight();
   homeData: Flight = new Flight();
+  searchDisabled: boolean = true;
   
 
   //to parse names and ids... not sure what to do with this though
@@ -63,8 +64,15 @@ export class HomepageComponent implements OnInit {
   
   searchFlights() {
     
-    this.isProgressSpinnerActivated = true;
+    if(this.searchDisabled == true){
+
+    }
+    else{
+      this.isProgressSpinnerActivated = true;
     setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 2000);
+    }
+  
+    
     // console.log(this.flightFormData.departureLocation);
     // console.log(this.flightFormData.arrivalLocation);
   }
@@ -99,7 +107,7 @@ export class HomepageComponent implements OnInit {
     
     }
 
-
+    this.searchDisabled = isDisabled
     return isDisabled;
   }
 
