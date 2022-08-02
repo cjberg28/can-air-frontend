@@ -70,6 +70,7 @@ export class ReserveflightpageComponent implements OnInit {
   }
 
   reserveFlight(){
+    this.flightFormDataFromHome.seatsRemaining --;
     this.sendData();
     this.router.navigate(['my-flights']);
   }

@@ -107,7 +107,7 @@ export class NavbarComponent implements OnInit {
       this.ngOnInit();
       this.router.navigate(['home'])
       this.displayModal2 = false;
-    }, 1000);
+    }, 2000);
     
     //Router link to Home component.
   }
