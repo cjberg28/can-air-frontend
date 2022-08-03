@@ -15,8 +15,7 @@ export class LoginAPIService {
 
   //post request to /users returns person object
   authenticateUser(loginCreds: LoginCreds){
-    console.log(loginCreds)
-    console.log(JSON.stringify(loginCreds))
+    
     return this.http.post(this.baseUrl, loginCreds);
   }
 

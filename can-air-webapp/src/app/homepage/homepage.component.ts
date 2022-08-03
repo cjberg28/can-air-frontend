@@ -55,7 +55,7 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {    
     this.data.currentFlight.subscribe(resp => this.flightFormData = resp)
-    this.data.authorizedPerson.subscribe(resp => this.authorizedPerson)
+    // this.data.authorizedPerson.subscribe(resp => this.authorizedPerson)
   }
   
   searchFlights() {
@@ -110,7 +110,7 @@ export class HomepageComponent implements OnInit {
   sendData(){
     
     this.data.getFlightFromHome(this.flightFormData);
-    this.data.getAuthorizedPerson(this.authorizedPerson);
+    
   }
 
   

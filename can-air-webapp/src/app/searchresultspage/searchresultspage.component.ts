@@ -67,7 +67,7 @@ export class SearchresultspageComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp;})
-    this.subscription = this.data.authorizedPerson.subscribe(resp => {this.authorizedPerson = resp;})
+    
     
     this.loading = false;
     this.cols = [
@@ -127,7 +127,7 @@ export class SearchresultspageComponent implements OnInit {
 
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
-    this.data.getAuthorizedPerson(this.authorizedPerson);
+    
   }
 
 }

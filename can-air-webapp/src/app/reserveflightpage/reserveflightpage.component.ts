@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../data.service';
@@ -6,7 +6,9 @@ import { HomepageComponent } from '../homepage/homepage.component';
 import { Airports } from '../models/Airports';
 import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
+import { Reservation } from '../models/Reservation';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { UserAuthService } from '../user-auth.service';
 
 
 @Component({
@@ -16,12 +18,15 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ReserveflightpageComponent implements OnInit {
 
+  
   flightsFromHome: Array<Flight> = [];
   flightFormDataFromHome!: Flight;
   cardNumber: number = 0;
 
   subscription!: Subscription;
-  authorizedPerson: Person;
+  authorizedPerson!: Person;
+
+  reservation!: Reservation;
 
   airportMapFlipped: Map<number, string> = new Map<number, string>([
     [1, "MSP - Minneapolis/St. Paul"],
@@ -55,19 +60,20 @@ export class ReserveflightpageComponent implements OnInit {
     new Airports(6, "ORD - Chicago"), 
     new Airports(7, "LHR - London") ];
 
-  constructor(private router: Router, private data: DataService, private nav: NavbarComponent) {
-    //this.flightsFromHome = this.searchPage.flights;
-    //this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
-    this.authorizedPerson = new Person();
+  constructor(private router: Router, private data: DataService, private auth: UserAuthService) {
+    
+    //this.authorizedPerson = new Person();
    }
 
   ngOnInit(): void {
-    // this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
-    // this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
-
-    // console.log(this.authorizedPerson)
-    this.authorizedPerson = this.nav.authorizedPerson
+    // initialize current flight details
+    this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
     
+    //on init, call the user auth service's authorizedPerson observable object and subscribe to get the latest authorizedPerson
+    this.subscription = this.auth.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+    console.log(this.authorizedPerson)
+    
+    //on init, set reservation.firstName = authorizedPerson.firstName, etc.
     
   }
 
@@ -84,6 +90,8 @@ export class ReserveflightpageComponent implements OnInit {
 
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
-    this.data.getAuthorizedPerson(this.authorizedPerson);
+    
   }
+
+
 }

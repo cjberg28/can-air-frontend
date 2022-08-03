@@ -9,6 +9,7 @@ import { LoginCreds } from '../models/LoginCreds';
 import { Person } from '../models/Person';
 import { DataService } from '../data.service';
 import { Subscription } from 'rxjs';
+import { UserAuthService } from '../user-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -30,27 +31,22 @@ export class NavbarComponent implements OnInit {
   authorizedPerson!: Person;
 
   testPerson: Person = new Person();
-  
-  
-  //declare variables to hold username and password
-  // username: string = '';
-  // password: string = '';
+
+  incorrectCreds: boolean = false;
 
   //progress spinner boolean
   isProgressSpinner: boolean = false;
   isCloseable: boolean = true;
+  
   constructor(private router: Router, private loginService: LoginAPIService, 
-    private data: DataService) {
+    private auth: UserAuthService) {
     this.loginCreds = new LoginCreds();
     
   }
 
   ngOnInit(): void {
-    
-    // this.loginService.authenticateUser(this.loginCreds).subscribe(resp => {
-    //   this.authorizedPerson = resp
-    // })
-    this.data.authorizedPerson.subscribe((resp: any) => {this.authorizedPerson = resp})
+    //get default authorizedPerson from user auth service
+    this.auth.authorizedPerson.subscribe((resp: any) => {this.authorizedPerson = resp})
   
 
     
@@ -100,7 +96,7 @@ export class NavbarComponent implements OnInit {
 
 // METHODS 
   giveLoginDialogBox(): void {
-    // alert('Logging in');
+    
     this.showModalDialog();
     
     this.ngOnInit();
@@ -110,7 +106,6 @@ export class NavbarComponent implements OnInit {
     if (this.authorizedPerson.personId == 0 ) {//If the user hasn't logged in...
       return "Not Signed In";
     } else {
-      //console.log(this.authorizedPerson)
       return `Hello, ${this.authorizedPerson?.firstName} ${this.authorizedPerson?.lastName}`
     }
   }
@@ -149,59 +144,46 @@ export class NavbarComponent implements OnInit {
     //if they don't, return null
     //then check if null or not
     console.log(this.loginCreds)
-    
-    if(this.authorizedPerson != null){
-    
-      this.isProgressSpinner = true;
-      this.isCloseable = false;
-      // console.log(this.authorizedPerson2)
-      this.loginService.authenticateUser(this.loginCreds).subscribe((resp: any) => {
-        console.log(resp); 
-        console.log(resp != null)
-        if(resp != null){
-          this.authorizedPerson.personId = resp.personId;
-          console.log(this.authorizedPerson.personId)
-          this.authorizedPerson.firstName = resp.firstName;
-          this.authorizedPerson.lastName = resp.lastName;
-          this.authorizedPerson.phoneNumber = resp.phoneNumber;
-          this.authorizedPerson.email = resp.email;
-          this.authorizedPerson.dateOfBirth = resp.dateOfBirth;
-        }
-        
-        
-        console.log(this.authorizedPerson)
-        //When you step outside the subscribe block, the person variables reset to default
-        
+    this.loginService.authenticateUser(this.loginCreds).subscribe((resp: any) => {
+      console.log(resp); 
+      console.log(resp != null)
+      if(resp != null){
+        this.authorizedPerson.personId = resp.personId;
+        console.log(this.authorizedPerson.personId)
+        this.authorizedPerson.firstName = resp.firstName;
+        this.authorizedPerson.lastName = resp.lastName;
+        this.authorizedPerson.phoneNumber = resp.phoneNumber;
+        this.authorizedPerson.email = resp.email;
+        this.authorizedPerson.dateOfBirth = resp.dateOfBirth;
+      }
       
-      })
-      this.sendData();
-      setTimeout(() =>{
-        this.displayModal=false;
-        this.clickedLogin();
-        
-        
-        console.log(this.testPerson)
-        console.log(this.authorizedPerson)
-        //this.saveData();
-
-        console.log(this.authorizedPerson)
-        this.ngOnInit();
-      }, 0o100);
-      
-    }
-    else{
-      alert('Incorrect username or password')
-    }
-  }
-
-  loginAuthenticated() {
+      if(this.authorizedPerson.personId != 0){
     
-      this.getUsername();
+        this.isProgressSpinner = true;
+        this.isCloseable = false;    
+          
+        this.sendAuthUser();  //update authorizedPerson in auth user service
+        setTimeout(() =>{
+          this.displayModal=false;
+          this.clickedLogin();
+  
+          // console.log(this.authorizedPerson)
+          this.ngOnInit();
+        }, 1000);
+        
+      }
+      else{
+        this.incorrectCreds = true;
+        this.isProgressSpinner = false;
+        this.isCloseable = true;
+        this.displayModal = true;
+      }
+    })
     
   }
 
-  sendData() {
-    this.data.getAuthorizedPerson(this.authorizedPerson);
+  sendAuthUser() {
+    this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
   

@@ -9,11 +9,11 @@ import { Person } from './models/Person';
 })
 export class DataService {
   private defaultFlight = new BehaviorSubject<Flight>(new Flight());
-  private defaultPerson = new BehaviorSubject<Person>(new Person());
+  
 
   
   currentFlight = this.defaultFlight.asObservable();
-  authorizedPerson = this.defaultPerson.asObservable();
+  
 
   
   constructor() { }
@@ -24,9 +24,4 @@ export class DataService {
     // console.log(this.currentFlight)
   }
 
-  //gets person object from login creds
-  getAuthorizedPerson(authPerson: Person) {
-    this.defaultPerson.next(authPerson)
-    console.log('CONSOLE LOG PERSON: ' + this.defaultPerson.next( authPerson))
-  }
 }

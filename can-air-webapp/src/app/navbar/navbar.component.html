@@ -18,8 +18,13 @@
 <div *ngIf="clickedLogin()">
     <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '25vw'}"
         [draggable]="false" [resizable]="false" [closable]="isCloseable">
-        <ng-template pTemplate="header">Login</ng-template>
+        <ng-template pTemplate="header">
+            <div class="text-xl font-bold" style="margin: 0 0 0 8px">
+                Login
+            </div>
+        </ng-template>
         <ng-template pTemplate="body">
+            <div style="margin: 0 0 15px 5px; color: #D0342C;" *ngIf="incorrectCreds" class="font-semibold">Incorrect username or password. Try again.</div>
             <div style="margin: 5px;">
                 <input id="username" type="text" pInputText placeholder="Username" [(ngModel)]="loginCreds.username"> 
                 <!-- <label for="float-input">Username</label> -->
@@ -61,3 +66,4 @@
         </ng-template>
     </p-dialog>
 </div>
+

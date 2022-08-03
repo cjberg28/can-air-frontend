@@ -40,7 +40,7 @@ export class MyflightspageComponent implements OnInit {
     
     this.myReservations.push(testRes);
 
-    this.subscription = this.data.authorizedPerson.subscribe(resp => {this.authorizedPerson = resp;})
+    // this.subscription = this.data.authorizedPerson.subscribe(resp => {this.authorizedPerson = resp;})
   }
 
   onSelect(selectedFlight: Flight) {
@@ -52,7 +52,7 @@ export class MyflightspageComponent implements OnInit {
 
   sendData() {
     this.data.getFlightFromHome(this.flightFormDataFromHome);
-    this.data.getAuthorizedPerson(this.authorizedPerson);
+    
   }
 
 }
