@@ -19,11 +19,7 @@ export class LoginAPIService {
     return this.http.post(this.baseUrl, loginCreds);
   }
 
-  getPersonByUserId(user: User): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${user.userId}`)
-  }
-
-  getPersonByPersonId(person: Person): Observable<any> {
+  getUserByPersonId(person: Person){
     return this.http.get(`${this.baseUrl}?pId=${person.personId}`)
   }
   

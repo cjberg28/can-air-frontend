@@ -26,7 +26,7 @@ export class ReserveflightpageComponent implements OnInit {
   subscription!: Subscription;
   authorizedPerson!: Person;
 
-  reservation!: Reservation;
+  reservation: Reservation = new Reservation();
 
   airportMapFlipped: Map<number, string> = new Map<number, string>([
     [1, "MSP - Minneapolis/St. Paul"],
@@ -62,7 +62,6 @@ export class ReserveflightpageComponent implements OnInit {
 
   constructor(private router: Router, private data: DataService, private auth: UserAuthService) {
     
-    //this.authorizedPerson = new Person();
    }
 
   ngOnInit(): void {
@@ -74,13 +73,18 @@ export class ReserveflightpageComponent implements OnInit {
     console.log(this.authorizedPerson)
     
     //on init, set reservation.firstName = authorizedPerson.firstName, etc.
-    
+    this.reservation.firstName = this.authorizedPerson.firstName;
+    this.reservation.lastName = this.authorizedPerson.lastName;
+    this.reservation.email = this.authorizedPerson.email;
+    this.reservation.phone = this.authorizedPerson.phoneNumber;
+    this.reservation.dob = this.authorizedPerson.dateOfBirth;
   }
 
   
   reserveFlight(){
     this.flightFormDataFromHome.seatsRemaining --;
     this.sendData();
+    console.log(this.reservation)
     this.router.navigate(['my-flights']);
   }
 
@@ -91,6 +95,10 @@ export class ReserveflightpageComponent implements OnInit {
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
     
+  }
+
+  sendAuthUser() {
+    this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
 

@@ -30,23 +30,23 @@
           <div>
               <div style="margin: 10px;">
                 <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="First Name" required minlength="1">
+                  <input type="text" pInputText placeholder="First Name" [(ngModel)]="reservation.firstName">
                 </span>
                 <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="Last Name" required minlength="1">
-                </span>
-              </div>
-              <div style="margin: 10px;">
-                <span style="margin: 10px;">
-                  <input type="text" pInputText placeholder="Phone Number" required minlength="7">
-                </span>
-                <span style="margin: 10px;">
-                  <input type="email" pInputText placeholder="Email" required>
+                  <input type="text" pInputText placeholder="Last Name" [(ngModel)]="reservation.lastName">
                 </span>
               </div>
               <div style="margin: 10px;">
                 <span style="margin: 10px;">
-                  <p-calendar [required]="true" placeholder="Date of Birth"></p-calendar>
+                  <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="reservation.phone">
+                </span>
+                <span style="margin: 10px;">
+                  <input type="email" pInputText placeholder="Email" [(ngModel)]="reservation.email">
+                </span>
+              </div>
+              <div style="margin: 10px;">
+                <span style="margin: 10px;">
+                  <p-calendar [required]="true" placeholder="Date of Birth" [(ngModel)]="reservation.dob"></p-calendar>
                 </span>
                 <span style="margin: 10px;"></span>
               </div>
@@ -72,8 +72,8 @@
                 <div style="margin: 5px;">
                   <input type="text" pInputText placeholder="Street Address">
                 </div>
-                <div style="margin: 5px;">
-                  <p-button label="Confirm" (click)="reserveFlight()" style="margin-top: 5px"></p-button>
+                <div style="margin: 15px 0 0 0;" class="flex justify-content-end align-item-end">
+                  <p-button label="Confirm" (click)="reserveFlight()" ></p-button>
                 </div>
               </div>
               

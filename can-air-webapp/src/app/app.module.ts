@@ -32,6 +32,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { DatePipe } from '@angular/common';
+import { Validators } from '@angular/forms';
 
 
 
@@ -47,6 +48,7 @@ import { DatePipe } from '@angular/common';
     
   ],
   imports: [
+    
     DatePipe,
     HttpClientModule,
     OverlayPanelModule,

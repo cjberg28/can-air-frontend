@@ -8,7 +8,7 @@ export class Reservation {
     lastName: string;
     phone: string;
     email: string;
-    dob: Date;
+    dob: any;
     // ------------------------
     departureDate: Date;
     departureLocation: any;
@@ -22,8 +22,8 @@ export class Reservation {
 
 
     constructor(resId: number = 0, flId: number = 0, uId: number = 0,
-        firstName: string = '', lastName: string = '', phone: string = '', email: string = 'abc@gmail.com',
-        dob: Date = new Date(), depDate: Date = new Date(), depLoc: any = 0, arrLoc: any = 0, returnTrip: boolean = false,
+        firstName: string = '', lastName: string = '', phone: string = '', email: string = '',
+        dob: any = null, depDate: Date = new Date(), depLoc: any = 0, arrLoc: any = 0, returnTrip: boolean = false,
         retDate: Date = new Date()){
         this.reservationId = resId;
         this.flightId = flId;
