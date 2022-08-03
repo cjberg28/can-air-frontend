@@ -6,6 +6,7 @@ import { HomepageComponent } from '../homepage/homepage.component';
 import { Airports } from '../models/Airports';
 import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @Component({
@@ -54,17 +55,18 @@ export class ReserveflightpageComponent implements OnInit {
     new Airports(6, "ORD - Chicago"), 
     new Airports(7, "LHR - London") ];
 
-  constructor(private router: Router, private data: DataService) {
+  constructor(private router: Router, private data: DataService, private nav: NavbarComponent) {
     //this.flightsFromHome = this.searchPage.flights;
     //this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
     this.authorizedPerson = new Person();
    }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
-    this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+    // this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
+    // this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
 
-    console.log(this.authorizedPerson)
+    // console.log(this.authorizedPerson)
+    this.authorizedPerson = this.nav.authorizedPerson
     
     
   }

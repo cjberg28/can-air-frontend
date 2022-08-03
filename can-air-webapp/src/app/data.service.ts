@@ -15,16 +15,18 @@ export class DataService {
   currentFlight = this.defaultFlight.asObservable();
   authorizedPerson = this.defaultPerson.asObservable();
 
-  person2 = new Person();
+  
   constructor() { }
 
   //gets the current flight that is shared between components
   getFlightFromHome(flightFromHome: Flight){
     this.defaultFlight.next(flightFromHome)
+    // console.log(this.currentFlight)
   }
 
   //gets person object from login creds
   getAuthorizedPerson(authPerson: Person) {
     this.defaultPerson.next(authPerson)
+    console.log('CONSOLE LOG PERSON: ' + this.defaultPerson.next( authPerson))
   }
 }

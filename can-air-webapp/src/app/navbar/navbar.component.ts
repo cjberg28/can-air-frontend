@@ -174,7 +174,7 @@ export class NavbarComponent implements OnInit {
         
       
       })
-      this.saveData();
+      this.sendData();
       setTimeout(() =>{
         this.displayModal=false;
         this.clickedLogin();
@@ -200,7 +200,7 @@ export class NavbarComponent implements OnInit {
     
   }
 
-  saveData() {
+  sendData() {
     this.data.getAuthorizedPerson(this.authorizedPerson);
   }
 
