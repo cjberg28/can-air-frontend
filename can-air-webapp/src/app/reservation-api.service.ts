@@ -9,7 +9,7 @@ import { User } from './models/User';
 })
 export class ReservationApiService {
 
-  baseUrl: string = 'localhost:8080/reservations'
+  baseUrl: string = 'http://localhost:8080/reservations'
   constructor(private http: HttpClient) { }
 
   getAllReservations(): Observable<any> {
@@ -21,7 +21,9 @@ export class ReservationApiService {
     return this.http.get(url);
   }
 
-  
+  getBigReservationDetails(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}?userId=${userId}`);
+  }
 
   saveReservation(reservation: Reservation){
     return this.http.post(this.baseUrl, reservation).pipe(catchError(this.handleError))

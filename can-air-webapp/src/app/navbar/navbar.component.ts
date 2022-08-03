@@ -113,7 +113,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     // alert('Logging out');
 
-    
+    this.authorizedPerson = new Person();
     this.displayModal = false;
     this.isUserLoggedOut = true;
     this.displayModal2 = true;

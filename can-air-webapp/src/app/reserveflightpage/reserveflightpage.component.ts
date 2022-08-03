@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CurrentReservationDetailsService } from '../current-reservation-details.service';
 import { DataService } from '../data.service';
 import { HomepageComponent } from '../homepage/homepage.component';
 import { Airports } from '../models/Airports';
@@ -8,6 +9,7 @@ import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
 import { Reservation } from '../models/Reservation';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ReservationApiService } from '../reservation-api.service';
 import { UserAuthService } from '../user-auth.service';
 
 
@@ -60,7 +62,10 @@ export class ReserveflightpageComponent implements OnInit {
     new Airports(6, "ORD - Chicago"), 
     new Airports(7, "LHR - London") ];
 
-  constructor(private router: Router, private data: DataService, private auth: UserAuthService) {
+  constructor(private router: Router, private data: DataService, 
+    private auth: UserAuthService, private res: ReservationApiService,
+    private currentRes: CurrentReservationDetailsService)
+    {
     
    }
 
@@ -84,7 +89,10 @@ export class ReserveflightpageComponent implements OnInit {
   reserveFlight(){
     this.flightFormDataFromHome.seatsRemaining --;
     this.sendData();
-    console.log(this.reservation)
+    // console.log(this.reservation)
+   
+    this.sendAuthUser();
+    this.sendReservation();
     this.router.navigate(['my-flights']);
   }
 
@@ -101,5 +109,8 @@ export class ReserveflightpageComponent implements OnInit {
     this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
+  sendReservation() {
+    this.currentRes.getCurrentReservation(this.reservation)
+  }
 
 }

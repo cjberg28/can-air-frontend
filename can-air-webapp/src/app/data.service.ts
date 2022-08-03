@@ -9,9 +9,7 @@ import { Person } from './models/Person';
 })
 export class DataService {
   private defaultFlight = new BehaviorSubject<Flight>(new Flight());
-  
-
-  
+    
   currentFlight = this.defaultFlight.asObservable();
   
 
@@ -21,7 +19,7 @@ export class DataService {
   //gets the current flight that is shared between components
   getFlightFromHome(flightFromHome: Flight){
     this.defaultFlight.next(flightFromHome)
-    // console.log(this.currentFlight)
+    
   }
 
 }
