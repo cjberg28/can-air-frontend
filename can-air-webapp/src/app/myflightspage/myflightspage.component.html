@@ -198,45 +198,53 @@
         </p-table>
       </p-card>
   </div>
-  <div *ngIf="true">
-    <p-dialog header="Update Information" [(visible)]="displayModal2" [modal]="true" [style]="{width: '25vw'}"
-    [draggable]="false" [resizable]="false" [closable]="isCloseable">
+  <div *ngIf="clickedUpdate2">
+    <p-dialog header="Update Information" [(visible)]="displayModal2" [modal]="true" [style]="{width: '40vw'}"
+    [draggable]="false" [resizable]="false" [closable]="isCloseable"  [maximizable]="true">
     
         <ng-template pTemplate="header">
-            <div class="text-xl">Passenger Information</div>
+            <div class="text-xl"></div>
         </ng-template> 
         <ng-template pTemplate="body">
             <p-card class="card-info" header="Passenger Information">
                 <div>
-                    <div style="margin: 10px;">
-                      <span style="margin: 10px;">
+                    <div style="margin: 10px;" class="grid">
+                        <span class="col-2 align-item-center">
+                            Name: 
+                        </span>
+                      <span style="margin: 10px;"  class="col-4 align">
                         <input type="text" pInputText placeholder="First Name" [(ngModel)]="mySmallReservation.reservationFirstName">
                       </span>
-                      <span style="margin: 10px;">
+                      <span style="margin: 10px;"  class="col-4">
                         <input type="text" pInputText placeholder="Last Name" [(ngModel)]="mySmallReservation.reservationLastName">
                       </span>
                     </div>
-                    <div style="margin: 10px;">
-                      <span style="margin: 10px;">
+                    <div style="margin: 10px;" class="grid">
+                        <span class="col-2 align-item-center" >Contact Info: </span>
+                      <span style="margin: 10px;" class="col-4">
                         <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="mySmallReservation.reservationPhone">
                       </span>
-                      <span style="margin: 10px;">
+                      <span style="margin: 10px;" class="col-4">
                         <input type="email" pInputText placeholder="Email" [(ngModel)]="mySmallReservation.reservationEmail">
                       </span>
                     </div>
-                    <div style="margin: 10px;">
-                      <span style="margin: 10px;">
+                    <div style="margin: 10px;" class="grid">
+                        <span class="col-2 align-item-center">Date of Birth: </span>
+                      <span style="margin: 10px;" class="col-4">
                         <p-calendar [required]="true" placeholder="Date of Birth" [(ngModel)]="mySmallReservation.reservationDateOfBirth"></p-calendar>
                       </span>
                       <span style="margin: 10px;"></span>
                     </div>
                 </div>
-                <div>               
-                  <div style="padding-right: 30px;">
-                    <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
-                  </div>
-                  <p-button label="Update" (click)="confirmedUpdate()"></p-button>
-                </div>
+                
+                <ng-template pTemplate="footer">
+                    <div class="flex justify-content-end">               
+                        <div style="padding-right: 30px;">
+                          <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
+                        </div>
+                        <p-button label="Update" (click)="confirmedUpdate()"></p-button>
+                      </div>
+                </ng-template>
               </p-card>
 
         </ng-template>

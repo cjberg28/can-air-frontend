@@ -40,8 +40,8 @@ export class MyflightspageComponent implements OnInit {
   isUpdateSuccessful: any = false;
   isDeleteSuccessful: any = false;
 
-  displayModal2: boolean = false;
-  isCloseable: boolean = false;
+  displayModal2: boolean = true;
+  isCloseable: boolean = true;
   clickedUpdate2: boolean = false;
 
   constructor(
@@ -127,17 +127,22 @@ export class MyflightspageComponent implements OnInit {
 
   cancelUpdate() {
     this.displayModal2 = false;
+    this.ngOnInit();
   }
 
   confirmedUpdate() {
     
     this.res
       .updateReservation(this.mySmallReservation)
-      .subscribe((resp: any) => (this.isUpdateSuccessful = resp));
+      .subscribe((resp: any) => {this.isUpdateSuccessful = resp; console.log('Resp after sending put request: ' + resp)});
+      // console.log('small reservation after put'+ this.mySmallReservation)
     this.displayModal2 = false;
+    this.ngOnInit();
   }
 
-  cancelReservation(smallRes: SmallReservation) {}
+  cancelReservation(smallRes: SmallReservation) {
+    this.ngOnInit();
+  }
 
   sendData() {
     this.data.getFlightFromHome(this.flightFormDataFromHome);
