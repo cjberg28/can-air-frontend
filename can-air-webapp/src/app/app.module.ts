@@ -79,7 +79,7 @@ import { DatePipe } from '@angular/common';
       { path: '', component: HomepageComponent}
     ])
   ],
-  providers: [FlightApiService, HomepageComponent, SearchresultspageComponent, DatePipe  
+  providers: [FlightApiService, HomepageComponent, SearchresultspageComponent, DatePipe, NavbarComponent  
    
   ],
   bootstrap: [AppComponent]

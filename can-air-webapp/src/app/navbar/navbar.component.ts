@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit {
 
   items: MenuItem[] = [];
-  currentUser?: User;
+  
   isUserLoggedIn: boolean = false;
   displayModal: boolean = false;
   isUserLoggedOut: boolean = false;
@@ -27,11 +27,14 @@ export class NavbarComponent implements OnInit {
   loginCreds: LoginCreds;
   subscription!: Subscription;
   
-  authorizedPerson: Person;
+  authorizedPerson!: Person;
 
+  testPerson: Person = new Person();
+  
+  
   //declare variables to hold username and password
-  username: string = '';
-  password: string = '';
+  // username: string = '';
+  // password: string = '';
 
   //progress spinner boolean
   isProgressSpinner: boolean = false;
@@ -39,15 +42,16 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginAPIService, 
     private data: DataService) {
     this.loginCreds = new LoginCreds();
-    this.authorizedPerson = new Person();
+    
   }
 
   ngOnInit(): void {
-    //cleans the username and password field onInit
-    this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
-
-    this.username= '';
-    this.password = '';
+    
+    // this.loginService.authenticateUser(this.loginCreds).subscribe(resp => {
+    //   this.authorizedPerson = resp
+    // })
+    this.data.authorizedPerson.subscribe((resp: any) => {this.authorizedPerson = resp})
+  
 
     
     this.items = [
@@ -103,17 +107,18 @@ export class NavbarComponent implements OnInit {
   }
 
   getUsername(): string {
-    if (this.authorizedPerson == new Person()) {//If the user hasn't logged in...
+    if (this.authorizedPerson.personId == 0 ) {//If the user hasn't logged in...
       return "Not Signed In";
     } else {
-      return `Hello ${this.authorizedPerson.firstName} ${this.authorizedPerson.lastName}`
+      //console.log(this.authorizedPerson)
+      return `Hello, ${this.authorizedPerson?.firstName} ${this.authorizedPerson?.lastName}`
     }
   }
 
   logout(): void {
     // alert('Logging out');
 
-    this.authorizedPerson = new Person();
+    
     this.displayModal = false;
     this.isUserLoggedOut = true;
     this.displayModal2 = true;
@@ -126,23 +131,14 @@ export class NavbarComponent implements OnInit {
     //Router link to Home component.
   }
 
-  // clickedLogout(): boolean {
-    
-  //   if (this.currentUser != undefined) {//If the user hasn't logged in...
-  //     this.isUserLoggedOut = true;
-  //     this.displayModal2 = true;
-  //   }
-  //   return this.isUserLoggedOut;
-  // }
-
   clickedLogin(): boolean {
     this.isUserLoggedIn = true;//this.isUserLoggedIn = !this.isUserLoggedIn;
-    // console.log(this.isUserLoggedIn);
+    
     return this.isUserLoggedIn;
   }
 
   showModalDialog(): void {
-    if (this.currentUser == undefined) {//If the user hasn't logged in...
+    if (this.authorizedPerson != null) {//If the user hasn't logged in...
       this.displayModal = true;
     }
   }
@@ -152,17 +148,45 @@ export class NavbarComponent implements OnInit {
     //if they do, return the full user
     //if they don't, return null
     //then check if null or not
-    if((this.loginService.authenticateUser(this.loginCreds) != null)){
+    console.log(this.loginCreds)
+    
+    if(this.authorizedPerson != null){
     
       this.isProgressSpinner = true;
       this.isCloseable = false;
+      // console.log(this.authorizedPerson2)
+      this.loginService.authenticateUser(this.loginCreds).subscribe((resp: any) => {
+        console.log(resp); 
+        console.log(resp != null)
+        if(resp != null){
+          this.authorizedPerson.personId = resp.personId;
+          console.log(this.authorizedPerson.personId)
+          this.authorizedPerson.firstName = resp.firstName;
+          this.authorizedPerson.lastName = resp.lastName;
+          this.authorizedPerson.phoneNumber = resp.phoneNumber;
+          this.authorizedPerson.email = resp.email;
+          this.authorizedPerson.dateOfBirth = resp.dateOfBirth;
+        }
+        
+        
+        console.log(this.authorizedPerson)
+        //When you step outside the subscribe block, the person variables reset to default
+        
+      
+      })
+      this.saveData();
       setTimeout(() =>{
         this.displayModal=false;
         this.clickedLogin();
-        this.loginService.authenticateUser(this.loginCreds);
-        this.saveDate();
+        
+        
+        console.log(this.testPerson)
+        console.log(this.authorizedPerson)
+        //this.saveData();
+
+        console.log(this.authorizedPerson)
         this.ngOnInit();
-      }, 1000);
+      }, 0o100);
       
     }
     else{
@@ -171,14 +195,16 @@ export class NavbarComponent implements OnInit {
   }
 
   loginAuthenticated() {
-    if(this.authorizedPerson != null){
+    
       this.getUsername();
-    }
+    
   }
 
-  saveDate() {
+  saveData() {
     this.data.getAuthorizedPerson(this.authorizedPerson);
   }
+
+  
 
 
 

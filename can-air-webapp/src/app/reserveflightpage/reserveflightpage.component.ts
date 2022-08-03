@@ -63,6 +63,8 @@ export class ReserveflightpageComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe(resp => this.flightFormDataFromHome = resp)
     this.subscription = this.data.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+
+    console.log(this.authorizedPerson)
     
     
   }

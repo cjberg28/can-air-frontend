@@ -20,12 +20,6 @@ import { Person } from '../models/Person';
 export class HomepageComponent implements OnInit {
   
   
-  
-  // departing?: string;
-  // arriving?: string;
-  // departureDate?: Date;
-  // isRoundTrip?: boolean;
-  // returnDate?: Date;
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
   flightFormData: Flight = new Flight();

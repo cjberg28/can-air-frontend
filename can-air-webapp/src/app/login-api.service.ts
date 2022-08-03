@@ -10,20 +10,22 @@ import { Person } from './models/Person';
 })
 export class LoginAPIService {
 
-  baseUrl: string = 'localhost:8080'
+  baseUrl: string = 'http://localhost:8080/users'
   constructor(private http: HttpClient) { }
 
   //post request to /users returns person object
   authenticateUser(loginCreds: LoginCreds){
-    return this.http.post(`${this.baseUrl}/users`, loginCreds);
+    console.log(loginCreds)
+    console.log(JSON.stringify(loginCreds))
+    return this.http.post(this.baseUrl, loginCreds);
   }
 
   getPersonByUserId(user: User): Observable<any> {
-    return this.http.get(`${this.baseUrl}/users/${user.userId}`)
+    return this.http.get(`${this.baseUrl}/${user.userId}`)
   }
 
   getPersonByPersonId(person: Person): Observable<any> {
-    return this.http.get(`${this.baseUrl}/users?pId=${person.personId}`)
+    return this.http.get(`${this.baseUrl}?pId=${person.personId}`)
   }
   
 }

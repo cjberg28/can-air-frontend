@@ -14,6 +14,8 @@ export class DataService {
   
   currentFlight = this.defaultFlight.asObservable();
   authorizedPerson = this.defaultPerson.asObservable();
+
+  person2 = new Person();
   constructor() { }
 
   //gets the current flight that is shared between components

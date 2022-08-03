@@ -1,20 +1,22 @@
 import { pipe } from "rxjs";
 
 export class Person {
-    personId: number;
+    dateOfBirth: Date;
+    email: string;
     firstName: string;
     lastName: string;
-    phone: string;
-    email: string;
-    DOB: Date;
+    personId: number;
+    phoneNumber: string;
+    
+    
 
-    constructor (id: number = 0, fName: string = '', lName: string = '',
-    phone: string = '', email: string = '', DOB: Date = new Date()){
+    constructor (dateOfBirth: Date = new Date(), email: string = '', id: number = 0, firstName: string = '', lastName: string = '',
+    phoneNumber: string = '',  ){
         this.personId = id;
-        this.firstName = fName;
-        this.lastName = lName;
-        this.phone = phone;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.DOB = DOB;
+        this.dateOfBirth = dateOfBirth;
     }
 }
