@@ -72,6 +72,14 @@ export class MyflightspageComponent implements OnInit {
       (resp) => (this.myBigReservation = resp)
     );
     console.log(this.myBigReservation);
+
+    this.mySmallReservation.flightId = this.myBigReservation.flightId;
+    this.mySmallReservation.reservationId = this.myBigReservation.reservationId;
+    this.mySmallReservation.reservationFirstName = this.myBigReservation.firstName;
+    this.mySmallReservation.reservationLastName = this.myBigReservation.lastName;
+    this.mySmallReservation.reservationPhone = this.myBigReservation.phone;
+    this.mySmallReservation.reservationEmail = this.myBigReservation.email;
+    this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob;
     /*
      - since User & Person are in one to one and we have cascading primary keys
      - we can assume that userId = personId
@@ -122,15 +130,7 @@ export class MyflightspageComponent implements OnInit {
   }
 
   confirmedUpdate() {
-    this.mySmallReservation.flightId = this.myBigReservation.flightId;
-    this.mySmallReservation.reservationId = this.myBigReservation.reservationId;
-    this.mySmallReservation.reservationFirstName =
-      this.myBigReservation.firstName;
-    this.mySmallReservation.reservationLastName =
-      this.myBigReservation.lastName;
-    this.mySmallReservation.reservationPhone = this.myBigReservation.phone;
-    this.mySmallReservation.reservationEmail = this.myBigReservation.email;
-    this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob;
+    
     this.res
       .updateReservation(this.mySmallReservation)
       .subscribe((resp: any) => (this.isUpdateSuccessful = resp));
