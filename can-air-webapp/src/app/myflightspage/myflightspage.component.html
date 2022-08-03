@@ -7,7 +7,7 @@
 
   <div style="margin: 20px">
     <p-card >
-        <p-table #itemTable [columns]="cols" [value]="myReservations" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+        <p-table #itemTable [columns]="cols" [value]="myBigReservations" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
         [filterDelay]="0" [globalFilterFields]="['flightNumber', 'departing', 'arriving', 'zoneId']"
         [totalRecords]="totalRecords" [pageLinks]="3"  >
             <ng-template pTemplate="header">
@@ -108,7 +108,8 @@
                 <tr>
                     <td>
                         <div class="flex justify-content-center align-items-center">
-                            <p-splitButton label="CAN {{flight.flightId}}" [model]="this.flightOptions" (click)="onSelect(flight)"></p-splitButton>
+                            <p-splitButton label="CAN {{flight.flightId}}" 
+                            styleClass="p-button-raised" [model]="this.flightOptions" (click)="onSelect(flight)"></p-splitButton>
                         </div>
                     </td>
                     <td>
@@ -139,7 +140,7 @@
                                       </ng-template>
                                   </p-overlayPanel>
                                     
-                                    <p-button label="{{flight.firstName}} {{flight.lastName}}" (click)="op.toggle($event)"></p-button>
+                                    <p-button styleClass="p-button-raised" label="{{flight.firstName}} {{flight.lastName}}" (click)="op.toggle($event)"></p-button>
                                   </div>
 
                             </div>
@@ -196,5 +197,50 @@
               </ng-template>   
         </p-table>
       </p-card>
+      <div *ngIf="clickedUpdate2">
+        <p-dialog header="Update Information" [(visible)]="displayModal2" [modal]="true" [style]="{width: '25vw'}"
+        [draggable]="false" [resizable]="false" [closable]="isCloseable">
+        
+            <ng-template pTemplate="header">
+                <div class="text-xl">Passenger Information</div>
+            </ng-template> 
+            <ng-template pTemplate="body">
+                <p-card class="card-info" header="Passenger Information">
+                    <div>
+                        <div style="margin: 10px;">
+                          <span style="margin: 10px;">
+                            <input type="text" pInputText placeholder="First Name" [(ngModel)]="mySmallReservation.reservationFirstName">
+                          </span>
+                          <span style="margin: 10px;">
+                            <input type="text" pInputText placeholder="Last Name" [(ngModel)]="mySmallReservation.reservationLastName">
+                          </span>
+                        </div>
+                        <div style="margin: 10px;">
+                          <span style="margin: 10px;">
+                            <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="mySmallReservation.reservationPhone">
+                          </span>
+                          <span style="margin: 10px;">
+                            <input type="email" pInputText placeholder="Email" [(ngModel)]="mySmallReservation.reservationEmail">
+                          </span>
+                        </div>
+                        <div style="margin: 10px;">
+                          <span style="margin: 10px;">
+                            <p-calendar [required]="true" placeholder="Date of Birth" [(ngModel)]="mySmallReservation.reservationDateOfBirth"></p-calendar>
+                          </span>
+                          <span style="margin: 10px;"></span>
+                        </div>
+                    </div>
+                    <div>               
+                      <div style="padding-right: 30px;">
+                        <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
+                      </div>
+                      <p-button label="Update" (click)="confirmedUpdate()"></p-button>
+                    </div>
+                  </p-card>
+
+            </ng-template>
+        
+        </p-dialog>
+      </div>
   </div>
 </div>

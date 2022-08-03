@@ -83,11 +83,22 @@ export class ReserveflightpageComponent implements OnInit {
     this.reservation.email = this.authorizedPerson.email;
     this.reservation.phone = this.authorizedPerson.phoneNumber;
     this.reservation.dob = this.authorizedPerson.dateOfBirth;
+
+    /* 
+      - setting the reservation's userId = authorizedPerson's personId because they are assumed to be equal
+      - saves us an extra call to the DB to get the userId based on personId
+    */
+    this.reservation.userId = this.authorizedPerson.personId;
   }
 
   
   reserveFlight(){
     this.flightFormDataFromHome.seatsRemaining --;
+
+    // set the current big reservation's flight id, user id, and other fields
+    this.reservation.flightId = this.flightFormDataFromHome.flightId;
+    this.reservation.reservationId = 10;
+    
     this.sendData();
     // console.log(this.reservation)
    

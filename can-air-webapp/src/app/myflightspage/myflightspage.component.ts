@@ -8,76 +8,144 @@ import { FlightApiService } from '../flight-api.service';
 import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
 import { Reservation } from '../models/Reservation';
+import { SmallReservation } from '../models/SmallReservation';
 import { ReservationApiService } from '../reservation-api.service';
 import { UserAuthService } from '../user-auth.service';
 
 @Component({
   selector: 'app-myflightspage',
   templateUrl: './myflightspage.component.html',
-  styleUrls: ['./myflightspage.component.css']
+  styleUrls: ['./myflightspage.component.css'],
 })
 export class MyflightspageComponent implements OnInit {
   flightFormDataFromHome!: Flight;
 
-  subscription!: Subscription
+  subscription!: Subscription;
 
   // myFlights: Array<Flight> = []
   flightOptions!: Array<MenuItem>;
-  cols :any[] = [];
+  cols: any[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
 
-  myReservation: Reservation = new Reservation();
-  myReservations!: Array<Reservation>;
+  //actual reservation object matching the DB
+  mySmallReservation: SmallReservation = new SmallReservation();
+
+  //big reservation object to capture big reservation JSON
+  myBigReservation: Reservation = new Reservation();
+  myBigReservations!: Array<Reservation>;
 
   authorizedPerson: Person;
-  
-  constructor(private router: Router,  private data: DataService, private auth: UserAuthService, private res: ReservationApiService, private currentRes: CurrentReservationDetailsService) {
+
+  isUpdateSuccessful: any = false;
+  isDeleteSuccessful: any = false;
+
+  displayModal2: boolean = false;
+  isCloseable: boolean = false;
+  clickedUpdate2: boolean = false;
+
+  constructor(
+    private router: Router,
+    private data: DataService,
+    private auth: UserAuthService,
+    private res: ReservationApiService,
+    private currentRes: CurrentReservationDetailsService
+  ) {
     this.authorizedPerson = new Person();
-   }
+  }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp; console.log(resp)})
-    
-    
-    // this.myReservations.push(testRes);
+    this.subscription = this.data.currentFlight.subscribe((resp) => {
+      this.flightFormDataFromHome = resp;
+      console.log(resp);
+    });
+
+    // this.myBigReservations.push(testRes);
 
     // get authorizedPerson from previous component
-    this.subscription = this.auth.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
-    console.log(this.authorizedPerson)
+    this.subscription = this.auth.authorizedPerson.subscribe(
+      (resp) => (this.authorizedPerson = resp)
+    );
+    console.log(this.authorizedPerson);
     // get currentReservation from previous component
-    this.subscription = this.currentRes.currentReservation.subscribe(resp => this.myReservation = resp)
-    console.log(this.myReservation)
-     /*
+    this.subscription = this.currentRes.currentReservation.subscribe(
+      (resp) => (this.myBigReservation = resp)
+    );
+    console.log(this.myBigReservation);
+    /*
      - since User & Person are in one to one and we have cascading primary keys
      - we can assume that userId = personId
      - so that we can pass in the personId as the userId in order to get the big reservation details object
      - this call gets all reservations for a given userId
     */
-     this.res.getBigReservationDetails(this.authorizedPerson.personId).subscribe(resp => {this.myReservations = resp; console.log(resp)})
+    this.res
+      .getBigReservationDetails(this.authorizedPerson.personId)
+      .subscribe((resp) => {
+        this.myBigReservations = resp;
+        console.log(resp);
+      });
 
+    this.flightOptions = [
+      {
+        label: 'Update Reservation',
+        icon: 'pi pi-replay',
+        command: () => {
+          this.clickedUpdate();
 
-
+          console.log('ngOnInit small res: ' + this.mySmallReservation);
+          console.log('ngOnInIt big res: ' + this.myBigReservation)
+        },
+      },
+      {
+        label: 'Cancel Reservation',
+        icon: 'pi pi-times',
+        command: () => {},
+      },
+    ];
   }
 
   onSelect(selectedFlight: Flight) {
     this.flightFormDataFromHome = selectedFlight;
     console.log(selectedFlight);
-    console.log(this.flightFormDataFromHome)
+    console.log(this.flightFormDataFromHome);
     this.sendData();
   }
 
+  
+
+  clickedUpdate() {
+    this.clickedUpdate2 = true;
+  }
+
+  cancelUpdate() {
+    this.displayModal2 = false;
+  }
+
+  confirmedUpdate() {
+    this.mySmallReservation.flightId = this.myBigReservation.flightId;
+    this.mySmallReservation.reservationId = this.myBigReservation.reservationId;
+    this.mySmallReservation.reservationFirstName =
+      this.myBigReservation.firstName;
+    this.mySmallReservation.reservationLastName =
+      this.myBigReservation.lastName;
+    this.mySmallReservation.reservationPhone = this.myBigReservation.phone;
+    this.mySmallReservation.reservationEmail = this.myBigReservation.email;
+    this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob;
+    this.res
+      .updateReservation(this.mySmallReservation)
+      .subscribe((resp: any) => (this.isUpdateSuccessful = resp));
+    this.displayModal2 = false;
+  }
+
+  cancelReservation(smallRes: SmallReservation) {}
+
   sendData() {
     this.data.getFlightFromHome(this.flightFormDataFromHome);
-    
   }
 
   sendAuthUser() {
     this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
-  sendReservation() {
-    
-  }
-
+  sendReservation() {}
 }

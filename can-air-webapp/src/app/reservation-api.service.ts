@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Reservation } from './models/Reservation';
+import { SmallReservation } from './models/SmallReservation';
 import { User } from './models/User';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class ReservationApiService {
     return this.http.post(this.baseUrl, reservation).pipe(catchError(this.handleError))
   }
 
-  updateReservation(reservation: Reservation){
+  updateReservation(reservation: SmallReservation){
     return this.http.put(this.baseUrl, reservation).pipe(catchError(this.handleError))
   }
 
