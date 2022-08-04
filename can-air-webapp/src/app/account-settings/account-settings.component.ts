@@ -15,7 +15,14 @@ export class AccountSettingsComponent implements OnInit {
   user: User;
   subscription!: Subscription;
   stateOptions: Array<any>;
-  value1: string = 'off'
+  newPurchase: string = 'on'
+  refunds: string = 'off'
+  accountUpdates: string = 'off'
+  weeklyNewsletter: string = 'on'
+  weeklyPromotions: string = 'on'
+  carAndHotelPromotions: string = 'off'
+  flightStatus: string = 'off'
+
   constructor(private auth: UserAuthService) {
     this.stateOptions = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
     this.user = new User(0, 0, '', '')
