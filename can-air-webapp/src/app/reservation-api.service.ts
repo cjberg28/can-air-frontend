@@ -26,7 +26,7 @@ export class ReservationApiService {
     return this.http.get(`${this.baseUrl}?userId=${userId}`);
   }
 
-  saveReservation(reservation: Reservation){
+  saveReservation(reservation: SmallReservation){
     return this.http.post(this.baseUrl, reservation).pipe(catchError(this.handleError))
   }
 
