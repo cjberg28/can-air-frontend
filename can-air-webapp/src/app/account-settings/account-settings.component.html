@@ -1,0 +1,123 @@
+<div id="account-settings-image">
+    <div id="tab" class="flex justify-content-center">
+        <p-tabView  [ngStyle]="{width: '40vw', margin: '5vh 0 0 0'}">
+            <p-tabPanel header="Profile">
+                <p-card>
+                   
+                    <p-card header="Login Credentials">
+
+                        <ng-template pTemplate="body">
+                            <span style="margin: 5px;">
+                                <input id="username" type="text" pInputText placeholder="Username" [(ngModel)]="user.username" style="margin: 0 40px 0 40px; width: 14vw;"> 
+                                <!-- <label for="float-input">Username</label> -->
+                            </span>
+                            <span style="margin: 5px;">
+                                <input id="password" type="password" pInputText placeholder="Password" [(ngModel)]="user.password" (keydown.enter)="changePassword()" style="width: 14vw;"> 
+                                <!-- <label for="float-input">Password</label> -->
+                            </span>
+
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <div class="flex justify-content-end">               
+                                <!-- <div style="padding-right: 30px;">
+                                  <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
+                                </div> -->
+                                <p-button label="Change Password" (click)="changePassword()" style="margin: 0 20px 0 0"></p-button>
+                              </div>
+                        </ng-template>
+
+                    </p-card>
+                    <p-card id="Account Details" header="Account Details" [ngStyle]="{margin: '10vh'}">
+                        <ng-template pTemplate="body">
+                            <div>
+                                <div>
+                                    <div style="margin: 10px;" class="grid">
+                                        <span class="col-3 align-item-center" style="margin: 22px 0 0 0">
+                                            Name: 
+                                        </span>
+                                      <span style="margin: 10px;"  class="col-4 align">
+                                        <input type="text" pInputText placeholder="First Name" [(ngModel)]="authorizedPerson.firstName">
+                                      </span>
+                                      <span style="margin: 10px;"  class="col-4">
+                                        <input type="text" pInputText placeholder="Last Name" [(ngModel)]="authorizedPerson.lastName">
+                                      </span>
+                                    </div>
+                                    <div style="margin: 10px;" class="grid">
+                                        <span class="col-3 align-item-center" style="margin: 22px 0 0 0">Contact Info: </span>
+                                        
+                                      <span style="margin: 10px;" class="col-4">
+                                        <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="authorizedPerson.phoneNumber">
+                                      </span>
+                                      <span style="margin: 10px;" class="col-4">
+                                        <input type="email" pInputText placeholder="Email" [(ngModel)]="authorizedPerson.email">
+                                      </span>
+                                    </div>
+                                    <div style="margin: 10px;" class="grid">
+                                        <span class="col-3 align-item-center" style="margin: 22px 0 0 0">Date of Birth: </span>
+                                      <span style="margin: 10px;" class="col-4">
+                                        <p-calendar [required]="true" placeholder="Date of Birth" [(ngModel)]="authorizedPerson.dateOfBirth"></p-calendar>
+                                      </span>
+                                      <span style="margin: 10px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <div class="flex justify-content-end">               
+                                <!-- <div style="padding-right: 30px;">
+                                  <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
+                                </div> -->
+                                <p-button label="Update Info" (click)="confirmedUpdate()" style="margin: 0 20px 0 0"></p-button>
+                              </div>
+                        </ng-template>
+                    </p-card>
+                </p-card>
+            </p-tabPanel>
+            
+            
+            <p-tabPanel header="Notifications">
+                <p-card header="Email Settings">
+                    <div class="grid">
+                        
+                        <span class="col-6">
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >New Purchase</div>
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >Refunds</div>
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >Account Updated</div>
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Weekly Newsletter</div>
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Weekly Promotions</div>
+                            
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Weekly Newsletter</div>
+                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Flight Status</div>
+
+                        </span>
+                        <span class="col-6">
+                            <div [ngStyle]="{margin: '0 0 50px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" ></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" ></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                            <div [ngStyle]="{height: '5vh', margin: '0 0 0 0'}">
+                                <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                        </span>
+                    </div>
+                    
+                </p-card>
+            </p-tabPanel>
+            
+        </p-tabView>
+    </div>
+</div>

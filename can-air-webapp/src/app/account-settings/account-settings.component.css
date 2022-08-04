@@ -1,0 +1,12 @@
+#account-settings-image {
+    background-size:auto;
+    background-image: url('../../assets/airplane-at-terminal.jpg');
+    
+    width: auto;
+    height: auto;
+    background-position: center;
+}
+
+#tab {
+    border-radius: 20px;
+}

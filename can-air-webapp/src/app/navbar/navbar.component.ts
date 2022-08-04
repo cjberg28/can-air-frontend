@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit {
             label: 'Account Settings',
             icon: 'pi pi-cog',
             command: () => {
-              
+              this.clickedAccountSettings();
             }
           },
           {
@@ -130,6 +130,12 @@ export class NavbarComponent implements OnInit {
     this.isUserLoggedIn = true;//this.isUserLoggedIn = !this.isUserLoggedIn;
     
     return this.isUserLoggedIn;
+  }
+
+  clickedAccountSettings() {
+    if(this.authorizedPerson.personId != 0){
+      this.router.navigate(['account'])
+    }
   }
 
   showModalDialog(): void {

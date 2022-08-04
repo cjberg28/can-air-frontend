@@ -33,7 +33,9 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { DatePipe } from '@angular/common';
 import { Validators } from '@angular/forms';
-
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import {TabViewModule} from 'primeng/tabview';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 
 @NgModule({
@@ -44,12 +46,14 @@ import { Validators } from '@angular/forms';
     MyflightspageComponent,
     SearchresultspageComponent,
     ReserveflightpageComponent,
+    AccountSettingsComponent,
     
     
     
   ],
   imports: [
-    
+    SelectButtonModule,
+    TabViewModule,
     DatePipe,
     HttpClientModule,
     OverlayPanelModule,

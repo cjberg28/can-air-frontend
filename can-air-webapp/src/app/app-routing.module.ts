@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MyflightspageComponent } from './myflightspage/myflightspage.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'my-flights', component: MyflightspageComponent},
   { path: 'flights', component: SearchresultspageComponent},
   { path: 'reserve', component: ReserveflightpageComponent},
-  { path: '', component: HomepageComponent}
+  { path: '', component: HomepageComponent},
+  { path: 'account', component: AccountSettingsComponent}
 ];
 
 @NgModule({
