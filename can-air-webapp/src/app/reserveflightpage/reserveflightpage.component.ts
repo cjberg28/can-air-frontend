@@ -99,11 +99,11 @@ export class ReserveflightpageComponent implements OnInit {
     this.reservation.flightId = this.flightFormDataFromHome.flightId;
     this.reservation.reservationId = 10;
     
-    this.sendData();
-    // console.log(this.reservation)
-   
+    this.sendData();   
     this.sendAuthUser();
     this.sendReservation();
+
+    console.log(this.reservation)
     this.router.navigate(['my-flights']);
   }
 

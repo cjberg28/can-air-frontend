@@ -33,7 +33,8 @@ export class MyflightspageComponent implements OnInit {
 
   //big reservation object to capture big reservation JSON
   myBigReservation: Reservation = new Reservation();
-  myBigReservations!: Array<Reservation>;
+  myBigReservationIdToDelete!: number;
+  myBigReservationsArray!: Array<Reservation>;
 
   authorizedPerson: Person;
 
@@ -48,7 +49,7 @@ export class MyflightspageComponent implements OnInit {
     private router: Router,
     private data: DataService,
     private auth: UserAuthService,
-    private res: ReservationApiService,
+    private reservationService: ReservationApiService,
     private currentRes: CurrentReservationDetailsService
   ) {
     this.authorizedPerson = new Person();
@@ -59,8 +60,6 @@ export class MyflightspageComponent implements OnInit {
       this.flightFormDataFromHome = resp;
       console.log(resp);
     });
-
-    // this.myBigReservations.push(testRes);
 
     // get authorizedPerson from previous component
     this.subscription = this.auth.authorizedPerson.subscribe(
@@ -81,18 +80,18 @@ export class MyflightspageComponent implements OnInit {
     this.mySmallReservation.reservationEmail = this.myBigReservation.email;
     this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob;
     /*
-     - since User & Person are in one to one and we have cascading primary keys
+     - since User & Person are in a one-to-one relationship and we have cascading primary keys
      - we can assume that userId = personId
      - so that we can pass in the personId as the userId in order to get the big reservation details object
      - this call gets all reservations for a given userId
     */
-    this.res
-      .getBigReservationDetails(this.authorizedPerson.personId)
-      .subscribe((resp) => {
-        this.myBigReservations = resp;
+    this.reservationService.getBigReservationDetails(this.authorizedPerson.personId).subscribe((resp) => {
+      //resp here is an array of person objects
+        this.myBigReservationsArray = resp;
         console.log(resp);
       });
 
+      console.log("big reservation after getBigRes " + this.myBigReservation)
     this.flightOptions = [
       {
         label: 'Update Reservation',
@@ -107,15 +106,14 @@ export class MyflightspageComponent implements OnInit {
       {
         label: 'Cancel Reservation',
         icon: 'pi pi-times',
-        command: () => {},
+        command: () => {this.cancelReservation},
       },
     ];
   }
 
-  onSelect(selectedFlight: Flight) {
-    this.flightFormDataFromHome = selectedFlight;
-    console.log(selectedFlight);
-    console.log(this.flightFormDataFromHome);
+  onSelect(selectedReservation: Reservation) {
+    this.myBigReservationIdToDelete = selectedReservation.reservationId
+    console.log(this.myBigReservationIdToDelete);
     this.sendData();
   }
 
@@ -131,16 +129,19 @@ export class MyflightspageComponent implements OnInit {
   }
 
   confirmedUpdate() {
-    
-    this.res
-      .updateReservation(this.mySmallReservation)
-      .subscribe((resp: any) => {this.isUpdateSuccessful = resp; console.log('Resp after sending put request: ' + resp)});
+    console.log(this.mySmallReservation.reservationEmail)
+    this.reservationService.updateReservation(this.mySmallReservation).subscribe((resp: any) => {
+      this.isUpdateSuccessful = resp; 
+      console.log('Resp after sending put request: ' + resp);
+      console.log(this.mySmallReservation.reservationEmail)
+    });
       // console.log('small reservation after put'+ this.mySmallReservation)
     this.displayModal2 = false;
     this.ngOnInit();
   }
 
-  cancelReservation(smallRes: SmallReservation) {
+  cancelReservation(reservationId: number) {
+    this.reservationService.deleteReservation(this.myBigReservationIdToDelete).subscribe()
     this.ngOnInit();
   }
 
@@ -152,5 +153,7 @@ export class MyflightspageComponent implements OnInit {
     this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
-  sendReservation() {}
+  sendReservation() {
+    
+  }
 }
