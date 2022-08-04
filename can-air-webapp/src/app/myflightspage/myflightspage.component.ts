@@ -45,6 +45,8 @@ export class MyflightspageComponent implements OnInit {
   isCloseable: boolean = true;
   clickedUpdate2: boolean = false;
 
+ 
+  
   constructor(
     private router: Router,
     private data: DataService,
@@ -54,6 +56,10 @@ export class MyflightspageComponent implements OnInit {
   ) {
     this.authorizedPerson = new Person();
   }
+
+// -------------------------------------------------------------------------------------//
+// ngOnInit --------------------------
+//-------------------------------------------------------------------------------------//
 
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe((resp) => {
@@ -106,7 +112,7 @@ export class MyflightspageComponent implements OnInit {
       {
         label: 'Cancel Reservation',
         icon: 'pi pi-times',
-        command: () => {this.cancelReservation},
+        command: () => {this.cancelReservation(this.myBigReservationIdToDelete)},
       },
     ];
   }
@@ -141,8 +147,13 @@ export class MyflightspageComponent implements OnInit {
   }
 
   cancelReservation(reservationId: number) {
-    this.reservationService.deleteReservation(this.myBigReservationIdToDelete).subscribe()
-    this.ngOnInit();
+    this.reservationService.deleteReservation(reservationId).subscribe(resp => console.log(resp))
+    this.flightFormDataFromHome.seatsRemaining ++;  //if reservation is cancelled, a seat opens up
+    this.router.navigate(['my-flights'])
+    
+    this.sendData();
+    this.sendAuthUser();
+    
   }
 
   sendData() {
@@ -153,7 +164,7 @@ export class MyflightspageComponent implements OnInit {
     this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
 
-  sendReservation() {
-    
+  sendReservation(reservation: Reservation) {
+    this.currentRes.getCurrentReservation(this.myBigReservation)
   }
 }
