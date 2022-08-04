@@ -8,6 +8,7 @@ import { Airports } from '../models/Airports';
 import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
 import { Reservation } from '../models/Reservation';
+import { SmallReservation } from '../models/SmallReservation';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ReservationApiService } from '../reservation-api.service';
 import { UserAuthService } from '../user-auth.service';
@@ -29,6 +30,19 @@ export class ReserveflightpageComponent implements OnInit {
   authorizedPerson!: Person;
 
   reservation: Reservation = new Reservation();
+
+  smallReservation: SmallReservation = new SmallReservation();
+
+  objectReturnedAfterSaveReservation: any;
+  /* 
+    this object will be:
+    {
+      reservationId : 12,
+      flightId: 7,
+      userId : 3
+    }
+    once you get the reservationId back after a successful reservation, assign this reservationId to the current reservation
+  */
 
   airportMapFlipped: Map<number, string> = new Map<number, string>([
     [1, "MSP - Minneapolis/St. Paul"],
@@ -63,7 +77,7 @@ export class ReserveflightpageComponent implements OnInit {
     new Airports(7, "LHR - London") ];
 
   constructor(private router: Router, private data: DataService, 
-    private auth: UserAuthService, private res: ReservationApiService,
+    private auth: UserAuthService, private reservationService: ReservationApiService,
     private currentRes: CurrentReservationDetailsService)
     {
     
@@ -97,8 +111,13 @@ export class ReserveflightpageComponent implements OnInit {
 
     // set the current big reservation's flight id, user id, and other fields
     this.reservation.flightId = this.flightFormDataFromHome.flightId;
-    this.reservation.reservationId = 10;
     
+    
+    this.reservationService.saveReservation(this.smallReservation).subscribe(resp => this.objectReturnedAfterSaveReservation = resp)
+
+    //assign current reservation's Id to the reservationId returned after save()
+    this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
+
     this.sendData();   
     this.sendAuthUser();
     this.sendReservation();
