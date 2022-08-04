@@ -33,7 +33,7 @@ export class ReserveflightpageComponent implements OnInit {
 
   smallReservation: SmallReservation = new SmallReservation();
 
-  objectReturnedAfterSaveReservation: Object = {
+  objectReturnedAfterSaveReservation: any = {
     "reservationId": 0,
     "flightId": 0,
     "userId": 0
@@ -111,16 +111,24 @@ export class ReserveflightpageComponent implements OnInit {
 
   
   reserveFlight(){
-    this.flightFormDataFromHome.seatsRemaining --;
+    // this.flightFormDataFromHome.seatsRemaining --;
 
     // set the current big reservation's flight id, user id, and other fields
     this.reservation.flightId = this.flightFormDataFromHome.flightId;
     
+    this.smallReservation.flightId = this.reservation.flightId;
+    this.smallReservation.reservationId = this.reservation.reservationId;
+    this.smallReservation.userId = this.reservation.userId;
+    this.smallReservation.reservationFirstName = this.reservation.firstName;
+    this.smallReservation.reservationLastName = this.reservation.lastName;
+    this.smallReservation.reservationEmail = this.reservation.email;
+    this.smallReservation.reservationPhone = this.reservation.phone;
     
-    // this.reservationService.saveReservation(this.smallReservation).subscribe(resp => {console.log(resp); this.objectReturnedAfterSaveReservation = resp;})
+    this.reservationService.saveReservation(this.smallReservation).subscribe(resp => {console.log(resp); this.objectReturnedAfterSaveReservation = resp;})
 
     //assign current reservation's Id to the reservationId returned after save()
-    // this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
+    this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
+    console.log(this.objectReturnedAfterSaveReservation);
 
     this.sendData();   
     this.sendAuthUser();

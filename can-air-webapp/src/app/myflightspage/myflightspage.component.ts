@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { CurrentReservationDetailsService } from '../current-reservation-details.service';
@@ -27,6 +27,7 @@ export class MyflightspageComponent implements OnInit {
   cols: any[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
+  // isTableOn: boolean = true;
 
   //actual reservation object matching the DB
   mySmallReservation: SmallReservation = new SmallReservation();
@@ -55,6 +56,16 @@ export class MyflightspageComponent implements OnInit {
     private currentRes: CurrentReservationDetailsService
   ) {
     this.authorizedPerson = new Person();
+    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // };
+    // this.subscription = this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     // Here is the dashing line comes in the picture.
+    //     // You need to tell the router that, you didn't visit or load the page previously, so mark the navigated flag to false as below.
+    //     this.router.navigated = false;
+    //   }
+    // });
   }
 
 // -------------------------------------------------------------------------------------//
@@ -133,20 +144,29 @@ export class MyflightspageComponent implements OnInit {
       {
         label: 'Cancel Reservation',
         icon: 'pi pi-times',
-        command: () => {this.cancelReservation(this.myBigReservationIdToDelete)},
+        command: () => {this.cancelReservation(this.mySmallReservation.reservationId)},
       },
     ];
   }
 
   onSelect(selectedReservation: Reservation) {
-    this.myBigReservationIdToDelete = selectedReservation.reservationId
-    console.log(this.myBigReservationIdToDelete);
+    // this.myBigReservationIdToDelete = selectedReservation.reservationId
+    // console.log(this.myBigReservationIdToDelete);
+    this.mySmallReservation.flightId = selectedReservation.flightId;
+    this.mySmallReservation.reservationId = selectedReservation.reservationId;
+    this.mySmallReservation.userId = selectedReservation.userId;
+    this.mySmallReservation.reservationDateOfBirth = selectedReservation.dob;
+    this.mySmallReservation.reservationEmail = selectedReservation.email;
+    this.mySmallReservation.reservationFirstName = selectedReservation.firstName;
+    this.mySmallReservation.reservationLastName = selectedReservation.lastName;
+    this.mySmallReservation.reservationPhone = selectedReservation.phone;
     this.sendData();
   }
 
   
 
   clickedUpdate() {
+    // this.isTableOn = false;
     this.clickedUpdate2 = true;
   }
 
@@ -172,7 +192,9 @@ export class MyflightspageComponent implements OnInit {
     });
       // console.log('small reservation after put'+ this.mySmallReservation)
     this.displayModal2 = false;
-    this.ngOnInit();
+    // this.ngOnInit();
+    // this.router.navigate(['my-flights']);
+    // this.isTableOn = true;
   }
 
   cancelReservation(reservationId: number) {
@@ -196,4 +218,11 @@ export class MyflightspageComponent implements OnInit {
   sendReservation(reservation: Reservation) {
     this.currentRes.getCurrentReservation(this.myBigReservation)
   }
+
+  // ngOnDestroy() {
+  //   if (this.subscription) {
+  //     this.subscription.unsubscribe();
+  //   }
+  // }
+
 }
