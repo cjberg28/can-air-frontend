@@ -33,7 +33,11 @@ export class ReserveflightpageComponent implements OnInit {
 
   smallReservation: SmallReservation = new SmallReservation();
 
-  objectReturnedAfterSaveReservation: any;
+  objectReturnedAfterSaveReservation: Object = {
+    "reservationId": 0,
+    "flightId": 0,
+    "userId": 0
+  };
   /* 
     this object will be:
     {
@@ -113,10 +117,10 @@ export class ReserveflightpageComponent implements OnInit {
     this.reservation.flightId = this.flightFormDataFromHome.flightId;
     
     
-    this.reservationService.saveReservation(this.smallReservation).subscribe(resp => this.objectReturnedAfterSaveReservation = resp)
+    // this.reservationService.saveReservation(this.smallReservation).subscribe(resp => {console.log(resp); this.objectReturnedAfterSaveReservation = resp;})
 
     //assign current reservation's Id to the reservationId returned after save()
-    this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
+    // this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
 
     this.sendData();   
     this.sendAuthUser();

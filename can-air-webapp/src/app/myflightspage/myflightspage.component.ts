@@ -74,17 +74,38 @@ export class MyflightspageComponent implements OnInit {
     console.log(this.authorizedPerson);
     // get currentReservation from previous component
     this.subscription = this.currentRes.currentReservation.subscribe(
-      (resp) => (this.myBigReservation = resp)
+      (resp) => {(this.myBigReservation = resp);
+        console.log(resp);//Weird - logs current date and time!
+        console.log(resp.userId);//0
+        console.log(resp.flightId);//0
+        console.log(resp.reservationId);//0
+        console.log(resp.firstName);//""
+        console.log(resp.lastName);//""
+        console.log(resp.phone);//""
+        console.log(resp.email);//""
+        console.log(resp.dob);//null
+      
+      
+      } 
     );
-    console.log(this.myBigReservation);
+    console.log(this.myBigReservation); //Dates and times work, has a return date when one-way flight?
+    console.log(this.myBigReservation.userId); //0
+    console.log(this.myBigReservation.flightId); //0
+    console.log(this.myBigReservation.reservationId); //0
+    console.log(this.myBigReservation.firstName); //""
+    console.log(this.myBigReservation.lastName); //""
+    console.log(this.myBigReservation.phone); //""
+    console.log(this.myBigReservation.email); //""
+    console.log(this.myBigReservation.dob); //null
 
-    this.mySmallReservation.flightId = this.myBigReservation.flightId;
-    this.mySmallReservation.reservationId = this.myBigReservation.reservationId;
-    this.mySmallReservation.reservationFirstName = this.myBigReservation.firstName;
-    this.mySmallReservation.reservationLastName = this.myBigReservation.lastName;
-    this.mySmallReservation.reservationPhone = this.myBigReservation.phone;
-    this.mySmallReservation.reservationEmail = this.myBigReservation.email;
-    this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob;
+    this.mySmallReservation.userId = this.myBigReservation.userId; //
+    this.mySmallReservation.flightId = this.myBigReservation.flightId; //0
+    this.mySmallReservation.reservationId = this.myBigReservation.reservationId; //0
+    this.mySmallReservation.reservationFirstName = this.myBigReservation.firstName; //""
+    this.mySmallReservation.reservationLastName = this.myBigReservation.lastName; //""
+    this.mySmallReservation.reservationPhone = this.myBigReservation.phone; // ""
+    this.mySmallReservation.reservationEmail = this.myBigReservation.email; // ""
+    this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob; // null
     /*
      - since User & Person are in a one-to-one relationship and we have cascading primary keys
      - we can assume that userId = personId
@@ -135,7 +156,15 @@ export class MyflightspageComponent implements OnInit {
   }
 
   confirmedUpdate() {
-    console.log(this.mySmallReservation.reservationEmail)
+    console.log(this.mySmallReservation) //Everything is empty in this specific console log?
+    console.log(this.mySmallReservation.flightId)//0
+    console.log(this.mySmallReservation.userId)//0          // THESE IDS ARE 0
+    console.log(this.mySmallReservation.reservationId)//0
+    console.log(this.mySmallReservation.reservationFirstName)//Works!
+    console.log(this.mySmallReservation.reservationLastName)//Works!
+    console.log(this.mySmallReservation.reservationPhone)//Works!
+    console.log(this.mySmallReservation.reservationDateOfBirth)//Works!
+    console.log(this.mySmallReservation.reservationEmail)//Works!
     this.reservationService.updateReservation(this.mySmallReservation).subscribe((resp: any) => {
       this.isUpdateSuccessful = resp; 
       console.log('Resp after sending put request: ' + resp);
