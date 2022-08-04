@@ -39,7 +39,7 @@ export class MyflightspageComponent implements OnInit {
 
   authorizedPerson: Person;
 
-  isUpdateSuccessful: any = false;
+  isUpdateSuccessful: any;
   isDeleteSuccessful: any = false;
 
   displayModal2: boolean = true;
