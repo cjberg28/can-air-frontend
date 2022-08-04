@@ -9,6 +9,7 @@ import { Flight } from '../models/Flight';
 import { Person } from '../models/Person';
 import { Reservation } from '../models/Reservation';
 import { SmallReservation } from '../models/SmallReservation';
+import { SpecialReservation } from '../models/SpecialReservation';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ReservationApiService } from '../reservation-api.service';
 import { UserAuthService } from '../user-auth.service';
@@ -32,6 +33,7 @@ export class ReserveflightpageComponent implements OnInit {
   reservation: Reservation = new Reservation();
 
   smallReservation: SmallReservation = new SmallReservation();
+  specialReservation: SpecialReservation = new SpecialReservation();
 
   objectReturnedAfterSaveReservation: any = {
     "reservationId": 0,
@@ -116,15 +118,18 @@ export class ReserveflightpageComponent implements OnInit {
     // set the current big reservation's flight id, user id, and other fields
     this.reservation.flightId = this.flightFormDataFromHome.flightId;
     
-    this.smallReservation.flightId = this.reservation.flightId;
-    this.smallReservation.reservationId = this.reservation.reservationId;
-    this.smallReservation.userId = this.reservation.userId;
-    this.smallReservation.reservationFirstName = this.reservation.firstName;
-    this.smallReservation.reservationLastName = this.reservation.lastName;
-    this.smallReservation.reservationEmail = this.reservation.email;
-    this.smallReservation.reservationPhone = this.reservation.phone;
-    
-    this.reservationService.saveReservation(this.smallReservation).subscribe(resp => {console.log(resp); this.objectReturnedAfterSaveReservation = resp;})
+    this.specialReservation.flightId = this.reservation.flightId;
+    //this.specialReservation.reservationId = this.reservation.reservationId;
+    this.specialReservation.userId = this.reservation.userId;
+    this.specialReservation.reservationFirstName = this.reservation.firstName;
+    this.specialReservation.reservationLastName = this.reservation.lastName;
+    this.specialReservation.reservationEmail = this.reservation.email;
+    this.specialReservation.reservationPhone = this.reservation.phone;
+    //added user and flight objects because we need this for create reservation due to constrains by Hibernate
+    this.specialReservation.user = {userId: this.reservation.userId};
+    this.specialReservation.flight = {flightId: this.reservation.flightId};
+    //
+    this.reservationService.saveReservation(this.specialReservation).subscribe(resp => {console.log(resp); this.objectReturnedAfterSaveReservation = resp;})
 
     //assign current reservation's Id to the reservationId returned after save()
     this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;

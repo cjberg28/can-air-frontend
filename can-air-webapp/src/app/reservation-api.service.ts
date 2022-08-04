@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Reservation } from './models/Reservation';
 import { SmallReservation } from './models/SmallReservation';
+import { SpecialReservation } from './models/SpecialReservation';
 import { User } from './models/User';
 
 @Injectable({
@@ -26,7 +27,7 @@ export class ReservationApiService {
     return this.http.get(`${this.baseUrl}?userId=${userId}`);
   }
 
-  saveReservation(reservation: SmallReservation){
+  saveReservation(reservation: SpecialReservation){
     return this.http.post(this.baseUrl, reservation).pipe(catchError(this.handleError))
   }
 
