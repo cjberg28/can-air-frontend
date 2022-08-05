@@ -62,7 +62,7 @@ export class AccountSettingsComponent implements OnInit {
 
   addSuccessMessage(): void {
     this.updateMessage = [
-        {severity:'success', summary:'Success', detail:'Message Content'},
+        {severity:'success', summary:'Success', detail:'Information updated!'},
       ];
     this.isAccountUpdateSuccessful = true;
     this.sendUser(this.authorizedPerson)
