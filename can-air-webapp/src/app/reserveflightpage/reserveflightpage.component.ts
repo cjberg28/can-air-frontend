@@ -35,6 +35,8 @@ export class ReserveflightpageComponent implements OnInit {
   smallReservation: SmallReservation = new SmallReservation();
   specialReservation: SpecialReservation = new SpecialReservation();
 
+  anyFieldEmpty: boolean = true;
+
   objectReturnedAfterSaveReservation: any = {
     "reservationId": 0,
     "flightId": 0,
@@ -109,6 +111,16 @@ export class ReserveflightpageComponent implements OnInit {
       - saves us an extra call to the DB to get the userId based on personId
     */
     this.reservation.userId = this.authorizedPerson.personId;
+
+    // check if all fields have a value that is different from the default values
+    // if(this.reservation.userId != 0 &&
+    //   this.reservation.firstName != '' &&
+    //   this.reservation.lastName != '' && 
+    //   this.reservation.phone != '' &&
+    //   this.reservation.email != '' &&
+    //   this.reservation.dob != null){
+    //     this.anyFieldEmpty = false;
+    //   }
   }
 
   
@@ -125,6 +137,7 @@ export class ReserveflightpageComponent implements OnInit {
     this.specialReservation.reservationLastName = this.reservation.lastName;
     this.specialReservation.reservationEmail = this.reservation.email;
     this.specialReservation.reservationPhone = this.reservation.phone;
+    this.specialReservation.reservationDateOfBirth = this.reservation.dob;
     //added user and flight objects because we need this for create reservation due to constrains by Hibernate
     this.specialReservation.user = {userId: this.reservation.userId};
     this.specialReservation.flight = {flightId: this.reservation.flightId};

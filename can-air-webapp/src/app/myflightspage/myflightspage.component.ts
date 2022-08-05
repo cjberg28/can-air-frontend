@@ -193,6 +193,11 @@ export class MyflightspageComponent implements OnInit {
       // console.log('small reservation after put'+ this.mySmallReservation)
     this.displayModal2 = false;
     // this.ngOnInit();
+    this.reservationService.getBigReservationDetails(this.authorizedPerson.personId).subscribe((resp) => {
+      //resp here is an array of person objects
+        this.myBigReservationsArray = resp;
+        console.log(resp);
+      });
     // this.router.navigate(['my-flights']);
     // this.isTableOn = true;
   }
