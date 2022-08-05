@@ -124,7 +124,7 @@ export class MyflightspageComponent implements OnInit {
      - this call gets all reservations for a given userId
     */
     this.reservationService.getBigReservationDetails(this.authorizedPerson.personId).subscribe((resp) => {
-      //resp here is an array of person objects
+      //resp here is an array of BigReservation objects
         this.myBigReservationsArray = resp;
         console.log(resp);
       });
@@ -144,7 +144,7 @@ export class MyflightspageComponent implements OnInit {
       {
         label: 'Cancel Reservation',
         icon: 'pi pi-times',
-        command: () => {this.cancelReservation(this.mySmallReservation.reservationId)},
+        command: () => {this.cancelReservation(this.mySmallReservation.reservationId, this.mySmallReservation.flightId)},
       },
     ];
   }
@@ -198,9 +198,9 @@ export class MyflightspageComponent implements OnInit {
     // this.isTableOn = true;
   }
 
-  cancelReservation(reservationId: number) {
-    this.reservationService.deleteReservation(reservationId).subscribe(resp => console.log(resp))
-    this.flightFormDataFromHome.seatsRemaining ++;  //if reservation is cancelled, a seat opens up
+  cancelReservation(reservationId: number, flightId: number) {
+    this.reservationService.deleteReservation(reservationId, flightId).subscribe(resp => console.log(resp))
+    // this.flightFormDataFromHome.seatsRemaining ++;  //This is handled in the back end, since the database must be updated
     this.router.navigate(['my-flights'])
     
     this.sendData();
