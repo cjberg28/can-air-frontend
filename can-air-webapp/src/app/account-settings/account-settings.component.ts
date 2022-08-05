@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Person } from '../models/Person';
 import { User } from '../models/User';
+import { UserApiService } from '../user-api.service';
 import { UserAuthService } from '../user-auth.service';
 
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
-  styleUrls: ['./account-settings.component.css']
+  styleUrls: ['./account-settings.component.css'],
+  providers: [MessageService]
 })
 export class AccountSettingsComponent implements OnInit {
 
@@ -23,15 +26,23 @@ export class AccountSettingsComponent implements OnInit {
   carAndHotelPromotions: string = 'off'
   flightStatus: string = 'off'
 
-  constructor(private auth: UserAuthService) {
+  isAccountUpdateSuccessful: boolean;
+  updateMessage: Message[] = [];
+
+  constructor(private auth: UserAuthService, private userService: UserApiService) {
     this.stateOptions = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
-    this.user = new User(0, 0, '', '')
+    this.user = new User(0, 0, '', '');
+    this.isAccountUpdateSuccessful = false;
    }
 
   
   
   ngOnInit(): void {
-    this.subscription = this.auth.authorizedPerson.subscribe(resp => this.authorizedPerson = resp)
+    this.subscription = this.auth.authorizedPerson.subscribe(resp => this.authorizedPerson = resp);
+    this.updateMessage = [
+      {severity:'success', summary:'Success', detail:'Account Information Updated Successfully'},
+      {severity:'info', summary:'Info', detail:'Message Content'},
+    ]
   }
 
 
@@ -40,8 +51,22 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   confirmedUpdate() {
+    this.userService.updateUser(this.authorizedPerson).subscribe(resp => {
+      if(resp == true){
+        this.addSuccessMessage()
+      }  
+    });
+    
     this.ngOnInit()
   }
+
+  addSuccessMessage(): void {
+    this.updateMessage = [
+        {severity:'success', summary:'Success', detail:'Message Content'},
+      ];
+    this.isAccountUpdateSuccessful = true;
+    this.sendUser(this.authorizedPerson)
+    }
 
   changePassword(){
 
@@ -52,6 +77,6 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   sendUser(authorizedPerson: Person) {
-    this.auth.getAuthorizedPerson(this.authorizedPerson)
+    this.auth.getAuthorizedPerson(authorizedPerson)
   }
 }

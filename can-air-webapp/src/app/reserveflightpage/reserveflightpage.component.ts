@@ -156,9 +156,7 @@ export class ReserveflightpageComponent implements OnInit {
     
     if(this.objectReturnedAfterSaveReservation.flightId == 0){
       this.concurrency = true;
-      // setTimeout(() => {
-      //   this.router.navigate(['home'])
-      // }, 2500)
+     
     }else {
       this.sendData();   
       this.sendAuthUser();

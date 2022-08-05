@@ -73,7 +73,9 @@
                                   <p-button label="Cancel" (click)="cancelUpdate()"></p-button>
                                 </div> -->
                                 <p-button label="Update Info" (click)="confirmedUpdate()" style="margin: 0 20px 0 0"></p-button>
-                              </div>
+                                
+                            </div>
+                            <p-messages *ngIf="isAccountUpdateSuccessful" [(value)]="updateMessage" [enableService]="false"></p-messages>
                         </ng-template>
                     </p-card>
                 </p-card>

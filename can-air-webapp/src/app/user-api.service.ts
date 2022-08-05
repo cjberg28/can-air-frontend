@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './models/User';
 import { LoginCreds} from './models/LoginCreds'
+import { Person } from './models/Person';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserApiService {
-  baseUrl = 'localhost:8080/users'
+  baseUrl = 'http://localhost:8080/users'
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<any> {
@@ -23,9 +24,12 @@ export class UserApiService {
     return this.http.post(this.baseUrl, user);
   }
 
-  updateUser(user: User) {
-    return this.http.put(this.baseUrl, user);
+  //pass in Person object to users endpoint thru a put request
+  updateUser(authPerson: Person) {
+    return this.http.put(this.baseUrl, authPerson);
   }
+
+  
 
   deleteUser(user: User) {
     return this.http.delete(`${this.baseUrl}/${user.userId}`)

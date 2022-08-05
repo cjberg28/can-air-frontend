@@ -36,6 +36,8 @@ import { Validators } from '@angular/forms';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import {TabViewModule} from 'primeng/tabview';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 
 @NgModule({
@@ -52,6 +54,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     
   ],
   imports: [
+    MessagesModule,
+    MessageModule,
     SelectButtonModule,
     TabViewModule,
     DatePipe,
