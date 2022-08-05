@@ -16,10 +16,10 @@
     
 </p-menubar></div>
 <div *ngIf="clickedLogin()">
-    <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '25vw'}"
+    <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '300px'}"
         [draggable]="false" [resizable]="false" [closable]="isCloseable">
         <ng-template pTemplate="header">
-            <div class="text-xl font-bold" style="margin: 0 0 0 8px">
+            <div class="flex justify-content-center text-xl font-bold" style="margin: 0 0 0 8px">
                 Login
             </div>
         </ng-template>

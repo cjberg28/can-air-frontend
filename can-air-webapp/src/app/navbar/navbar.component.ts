@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   loginCreds: LoginCreds;
   subscription!: Subscription;
   
-  authorizedPerson!: Person;
+  authorizedPerson: Person;
 
   testPerson: Person = new Person();
 
@@ -36,19 +36,21 @@ export class NavbarComponent implements OnInit {
 
   //progress spinner boolean
   isProgressSpinner: boolean = false;
-  isCloseable: boolean = true;
+  isCloseable: boolean;
   
   constructor(private router: Router, private loginService: LoginAPIService, 
     private auth: UserAuthService) {
     this.loginCreds = new LoginCreds();
-    
+    this.authorizedPerson = new Person(); //add authPerson on mount to stop it from updating itself on init
+    this.isCloseable = true;
   }
 
   ngOnInit(): void {
     //get default authorizedPerson from user auth service
-    this.auth.authorizedPerson.subscribe((resp: any) => {this.authorizedPerson = resp})
-  
-
+    //this.auth.authorizedPerson.subscribe((resp: any) => {this.authorizedPerson = resp})
+    //the above code actually loads the authPerson again on init since it is being sent by this component, 
+    //which is causing the "Hello _____" to always appear after the first user login and logout
+    this.isCloseable = true;
     
     this.items = [
       {
@@ -67,7 +69,9 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Login',
         icon: 'pi pi-lock',
-        command: () => { this.giveLoginDialogBox(); }
+        command: () => { if(this.authorizedPerson.personId == 0){
+          this.giveLoginDialogBox();
+        } }
       },
       {
         label: this.getUsername(),
@@ -113,7 +117,8 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     // alert('Logging out');
 
-    this.authorizedPerson = new Person();
+    this.authorizedPerson = new Person()
+    console.log(this.authorizedPerson)
     this.displayModal = false;
     this.isUserLoggedOut = true;
     this.displayModal2 = true;

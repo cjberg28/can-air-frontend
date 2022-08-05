@@ -37,6 +37,10 @@ export class ReserveflightpageComponent implements OnInit {
 
   anyFieldEmpty: boolean = true;
 
+  concurrency: boolean;
+  displayModal: boolean;
+
+
   objectReturnedAfterSaveReservation: any = {
     "reservationId": 0,
     "flightId": 0,
@@ -88,7 +92,8 @@ export class ReserveflightpageComponent implements OnInit {
     private auth: UserAuthService, private reservationService: ReservationApiService,
     private currentRes: CurrentReservationDetailsService)
     {
-    
+      this.concurrency = false;
+      this.displayModal = true;
    }
 
   ngOnInit(): void {
@@ -124,7 +129,7 @@ export class ReserveflightpageComponent implements OnInit {
   }
 
   
-  reserveFlight(){
+  reserveFlight(): void{
     // this.flightFormDataFromHome.seatsRemaining --;
 
     // set the current big reservation's flight id, user id, and other fields
@@ -148,12 +153,20 @@ export class ReserveflightpageComponent implements OnInit {
     this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;
     console.log(this.objectReturnedAfterSaveReservation);
 
-    this.sendData();   
-    this.sendAuthUser();
-    this.sendReservation();
+    
+    if(this.objectReturnedAfterSaveReservation.flightId == 0){
+      this.concurrency = true;
+      // setTimeout(() => {
+      //   this.router.navigate(['home'])
+      // }, 2500)
+    }else {
+      this.sendData();   
+      this.sendAuthUser();
+      this.sendReservation();
 
-    console.log(this.reservation)
-    this.router.navigate(['my-flights']);
+      this.router.navigate(['my-flights']);
+    }
+
   }
 
   cancelToGoHome() {

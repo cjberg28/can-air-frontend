@@ -1,6 +1,6 @@
 <div id="account-settings-image">
     <div id="tab" class="flex justify-content-center">
-        <p-tabView  [ngStyle]="{width: '45vw', margin: '5vh 0 0 0'}">
+        <p-tabView  [ngStyle]="{width: '800px', margin: '5vh 0 0 0'}">
             <p-tabPanel header="Profile">
                 <p-card>
                    
@@ -8,15 +8,15 @@
 
                         <ng-template pTemplate="body">
                             <span style="margin: 5px;">
-                                <input id="username" type="text" pInputText placeholder="Username" [(ngModel)]="user.username" style="margin: 0 10px 0 38px; width: 10vw;"> 
+                                <input id="username" type="text" pInputText placeholder="Username" [(ngModel)]="user.username" style="margin: 0 10px 0 38px; width: 185px;"> 
                                 <!-- <label for="float-input">Username</label> -->
                             </span>
                             <span style="margin: 5px;">
-                                <input id="username" type="password" pInputText placeholder="Old Password" [(ngModel)]="user.username" style="margin: 0 10px 0 10px; width: 10vw;"> 
+                                <input id="username" type="password" pInputText placeholder="Old Password" [(ngModel)]="user.username" style="margin: 0 10px 0 10px; width: 185px;"> 
                                 <!-- <label for="float-input">Username</label> -->
                             </span>
                             <span style="margin: 5px;">
-                                <input id="password" type="password" pInputText placeholder="New Password" style="margin: 0 10px 0 10px; width: 10vw;"
+                                <input id="password" type="password" pInputText placeholder="New Password" style="margin: 0 10px 0 10px; width: 185px;"
                                 [(ngModel)]="user.password" (keydown.enter)="changePassword()"> 
                                 <!-- <label for="float-input">Password</label> -->
                             </span>

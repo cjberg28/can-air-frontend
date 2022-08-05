@@ -87,7 +87,21 @@
           </div>
         </p-card>
       </div>
-      
+      <!--  -->
+      <div *ngIf="concurrency">
+        <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '20vw'}" [closable]="false">
+          <div style="margin: 20px 0 20px 0; padding-top: 20px;">
+           <span class="text-xl font-smibold">Sorry, you cannot reserve the flight. No seats remaining</span>
+          </div>
+          
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <p-button label="OK" (click)="cancelToGoHome()"></p-button>
+            </div>
+          </ng-template>
+        </p-dialog>
+      </div>
+    <!--  -->
 
     </div>
 
