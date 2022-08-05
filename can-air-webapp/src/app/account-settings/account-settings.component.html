@@ -82,42 +82,51 @@
             
             <p-tabPanel header="Notifications">
                 <p-card header="Email Settings">
-                    <div class="grid">
-                        
-                        <span class="col-6">
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >New Purchase</div>
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >Refunds</div>
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}" >Account Updated</div>
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Weekly Newsletter</div>
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Weekly Promotions</div>
-                            
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Car & Hotel Promotions</div>
-                            <div [ngStyle]="{height: '9vh', margin: '12px 0 0 20px'}">Flight Status</div>
-
-                        </span>
-                        <span class="col-6">
-                            <div [ngStyle]="{margin: '0 0 50px 0'}">
+                    <div id="card-container" >
+                                                
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold" >New Purchase</span>
+                            <span >
                                 <p-selectButton [options]="stateOptions" [(ngModel)]="newPurchase" optionLabel="label" optionValue="value" ></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="refunds" optionLabel="label" optionValue="value"></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="accountUpdates" optionLabel="label" optionValue="value"></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyNewsletter" optionLabel="label" optionValue="value" ></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyPromotions" optionLabel="label" optionValue="value"></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 49px 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="carAndHotelPromotions" optionLabel="label" optionValue="value"></p-selectButton>
-                            </div>
-                            <div [ngStyle]="{height: '5vh', margin: '0 0 0 0'}">
-                                <p-selectButton [options]="stateOptions" [(ngModel)]="flightStatus" optionLabel="label" optionValue="value"></p-selectButton>
-                            </div>
+                            </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold"  >Refunds</span>
+                        <span >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="refunds" optionLabel="label" optionValue="value"></p-selectButton>
                         </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold"  >Account Updated</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="accountUpdates" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold" >Weekly Newsletter</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyNewsletter" optionLabel="label" optionValue="value" ></p-selectButton>
+                        </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold" >Weekly Promotions</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyPromotions" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold" >Car & Hotel Promotions</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="carAndHotelPromotions" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div class="grid" style="margin: 0 0 35px 35px;">
+                            <span class="col-6 text-xl font-semibold">Flight Status</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="flightStatus" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>                 
+                        
                     </div>
                     
                 </p-card>
@@ -126,3 +135,44 @@
         </p-tabView>
     </div>
 </div>
+
+
+<!-- 
+    <div>
+                            <span >Refunds</span>
+                        <span >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="refunds" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div>
+                            <span >Account Updated</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="accountUpdates" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div>
+                            <span >Weekly Newsletter</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyNewsletter" optionLabel="label" optionValue="value" ></p-selectButton>
+                        </span>
+                        </div>
+                        <div>
+                            <span >Weekly Promotions</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="weeklyPromotions" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div>
+                            <span >Car & Hotel Promotions</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="carAndHotelPromotions" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+                        <div>
+                            <span >Flight Status</span>
+                        <span  >
+                            <p-selectButton [options]="stateOptions" [(ngModel)]="flightStatus" optionLabel="label" optionValue="value"></p-selectButton>
+                        </span>
+                        </div>
+
+ -->

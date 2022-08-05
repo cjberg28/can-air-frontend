@@ -89,9 +89,10 @@
       </div>
       <!--  -->
       <div *ngIf="concurrency">
-        <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '20vw'}" [closable]="false">
-          <div style="margin: 20px 0 20px 0; padding-top: 20px;">
-           <span class="text-xl font-smibold">Sorry, you cannot reserve the flight. No seats remaining</span>
+        <p-dialog header="Sorry..." [(visible)]="displayModal" [modal]="true" [style]="{width: '20vw'}" [closable]="false">
+          <div style="margin: 10px 0 10px 0; padding-top: 10px;">
+           <span class="text-lg font-smibold">You cannot reserve this flight.</span>
+           <div class="text-lg font-smibold">There are no seats remaining.</div>
           </div>
           
           <ng-template pTemplate="footer">
