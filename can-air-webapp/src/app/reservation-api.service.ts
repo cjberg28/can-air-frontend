@@ -11,7 +11,7 @@ import { User } from './models/User';
 })
 export class ReservationApiService {
 
-  baseUrl: string = 'http://localhost:8080/reservations'
+  baseUrl: string = 'http://Canair-env.eba-jmrq7r5v.us-east-2.elasticbeanstalk.com/reservations'
   constructor(private http: HttpClient) { }
 
   getAllReservations(): Observable<any> {

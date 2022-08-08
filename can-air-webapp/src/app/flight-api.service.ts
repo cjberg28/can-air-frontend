@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 export class FlightApiService {
 
   
-  baseUrl: string = "http://localhost:8080/flights"
+  baseUrl: string = "http://Canair-env.eba-jmrq7r5v.us-east-2.elasticbeanstalk.com/flights"
   airportMap: Map<string, number> = new Map<string, number>([
     ["MSP", 1],
     ["LAX", 2],

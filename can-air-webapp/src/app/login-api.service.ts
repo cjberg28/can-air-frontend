@@ -10,7 +10,7 @@ import { Person } from './models/Person';
 })
 export class LoginAPIService {
 
-  baseUrl: string = 'http://localhost:8080/users'
+  baseUrl: string = 'http://Canair-env.eba-jmrq7r5v.us-east-2.elasticbeanstalk.com/users'
   constructor(private http: HttpClient) { }
 
   //post request to /users returns person object

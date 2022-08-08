@@ -9,7 +9,7 @@ import { Person } from './models/Person';
   providedIn: 'root'
 })
 export class UserApiService {
-  baseUrl = 'http://localhost:8080/users'
+  baseUrl = 'http://Canair-env.eba-jmrq7r5v.us-east-2.elasticbeanstalk.com/users'
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<any> {
