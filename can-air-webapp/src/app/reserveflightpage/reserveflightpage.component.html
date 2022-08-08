@@ -102,6 +102,20 @@
           </ng-template>
         </p-dialog>
       </div>
+      <div *ngIf="userNotLoggedIn">
+        <p-dialog header="Sorry..." [(visible)]="displayModal" [modal]="true" [style]="{width: '20vw'}" [closable]="false">
+          <div style="margin: 10px 0 10px 0; padding-top: 10px;">
+           <span class="text-lg font-smibold">You cannot reserve this flight.</span>
+           <div class="text-lg font-smibold">You must be logged in to book a flight.</div>
+          </div>
+          
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <p-button label="OK" (click)="cancelToGoHome()"></p-button>
+            </div>
+          </ng-template>
+        </p-dialog>
+      </div>
     <!--  -->
 
     </div>

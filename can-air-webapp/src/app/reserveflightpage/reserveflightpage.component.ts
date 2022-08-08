@@ -40,6 +40,8 @@ export class ReserveflightpageComponent implements OnInit {
   concurrency: boolean;
   displayModal: boolean;
 
+  userNotLoggedIn: boolean;
+
 
   objectReturnedAfterSaveReservation: any = {
     "reservationId": 0,
@@ -94,6 +96,7 @@ export class ReserveflightpageComponent implements OnInit {
     {
       this.concurrency = false;
       this.displayModal = true;
+      this.userNotLoggedIn = false;
    }
 
   ngOnInit(): void {
@@ -139,56 +142,62 @@ export class ReserveflightpageComponent implements OnInit {
    *  - redirects to my-flights if concurrency hits
    */
   reserveFlight(): void{
-    // this.flightFormDataFromHome.seatsRemaining --;
+    if (this.authorizedPerson.personId == 0) {
+      this.userNotLoggedIn = true;
+    } else {
+      this.userNotLoggedIn = false;
 
-    // set the current big reservation's flight id, user id, and other fields
-    this.reservation.flightId = this.flightFormDataFromHome.flightId;
+      // set the current big reservation's flight id, user id, and other fields
+      this.reservation.flightId = this.flightFormDataFromHome.flightId;
+      
+      this.specialReservation.flightId = this.reservation.flightId;
+      //this.specialReservation.reservationId = this.reservation.reservationId;
+      this.specialReservation.userId = this.reservation.userId;
+      this.specialReservation.reservationFirstName = this.reservation.firstName;
+      this.specialReservation.reservationLastName = this.reservation.lastName;
+      this.specialReservation.reservationEmail = this.reservation.email;
+      this.specialReservation.reservationPhone = this.reservation.phone;
+      this.specialReservation.reservationDateOfBirth = this.reservation.dob;
+      //added user and flight objects because we need this for create reservation due to constrains by Hibernate
+      this.specialReservation.user = {userId: this.reservation.userId};
+      this.specialReservation.flight = {flightId: this.reservation.flightId};
+
+      //resp could be null if the save failed
+      this.reservationService.saveReservation(this.specialReservation).subscribe(resp => {console.log(resp);
+        if (resp != null && resp.hasOwnProperty('flightId')) {//If a successful save occurred... (else it would be null)
+          let respAny :any = resp as any;
+          console.log(respAny);
+          this.objectReturnedAfterSaveReservation.reservationId = respAny.reservationId;
+          this.objectReturnedAfterSaveReservation.flightId = respAny.flightId;
+          this.objectReturnedAfterSaveReservation.userId = respAny.userId;
+          this.objectReturnedAfterSaveReservation.reservationFirstName = respAny.reservationFirstName;
+          this.objectReturnedAfterSaveReservation.reservationLastName = respAny.reservationLastName;
+          this.objectReturnedAfterSaveReservation.reservationPhone = respAny.reservationPhone;
+          this.objectReturnedAfterSaveReservation.reservationEmail = respAny.reservationEmail;
+          this.objectReturnedAfterSaveReservation.reservationDateOfBirth = respAny.reservationDateOfBirth;
+          console.log(this.objectReturnedAfterSaveReservation.reservationPhone);//Valid phone number
+        } else {//null returned - save failed due to no seats remaining
+          this.concurrencyOccurred();
+          console.log("Concurrency Variable inside subscribe block: " + this.concurrency);//true
+        }
+
+        //assign current reservation's Id to the reservationId returned after save()
+        this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
+        console.log(this.objectReturnedAfterSaveReservation.flightId);//0
+        console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
+
+        console.log("Concurrency Variable: " + this.concurrency);//false
+        if(!this.concurrency) {//Successful save occurred
+          this.sendData();   
+          this.sendAuthUser();
+          this.sendReservation();
+
+          this.router.navigate(['my-flights']);
+        }
+      });
+    }
+
     
-    this.specialReservation.flightId = this.reservation.flightId;
-    //this.specialReservation.reservationId = this.reservation.reservationId;
-    this.specialReservation.userId = this.reservation.userId;
-    this.specialReservation.reservationFirstName = this.reservation.firstName;
-    this.specialReservation.reservationLastName = this.reservation.lastName;
-    this.specialReservation.reservationEmail = this.reservation.email;
-    this.specialReservation.reservationPhone = this.reservation.phone;
-    this.specialReservation.reservationDateOfBirth = this.reservation.dob;
-    //added user and flight objects because we need this for create reservation due to constrains by Hibernate
-    this.specialReservation.user = {userId: this.reservation.userId};
-    this.specialReservation.flight = {flightId: this.reservation.flightId};
-
-    //resp could be null if the save failed
-    this.reservationService.saveReservation(this.specialReservation).subscribe(resp => {console.log(resp);
-      if (resp != null && resp.hasOwnProperty('flightId')) {//If a successful save occurred... (else it would be null)
-        let respAny :any = resp as any;
-        console.log(respAny);
-        this.objectReturnedAfterSaveReservation.reservationId = respAny.reservationId;
-        this.objectReturnedAfterSaveReservation.flightId = respAny.flightId;
-        this.objectReturnedAfterSaveReservation.userId = respAny.userId;
-        this.objectReturnedAfterSaveReservation.reservationFirstName = respAny.reservationFirstName;
-        this.objectReturnedAfterSaveReservation.reservationLastName = respAny.reservationLastName;
-        this.objectReturnedAfterSaveReservation.reservationPhone = respAny.reservationPhone;
-        this.objectReturnedAfterSaveReservation.reservationEmail = respAny.reservationEmail;
-        this.objectReturnedAfterSaveReservation.reservationDateOfBirth = respAny.reservationDateOfBirth;
-        console.log(this.objectReturnedAfterSaveReservation.reservationPhone);//Valid phone number
-      } else {//null returned - save failed due to no seats remaining
-        this.concurrencyOccurred();
-        console.log("Concurrency Variable inside subscribe block: " + this.concurrency);//true
-      }
-
-      //assign current reservation's Id to the reservationId returned after save()
-      this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
-      console.log(this.objectReturnedAfterSaveReservation.flightId);//0
-      console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
-
-      console.log("Concurrency Variable: " + this.concurrency);//false
-      if(!this.concurrency) {//Successful save occurred
-        this.sendData();   
-        this.sendAuthUser();
-        this.sendReservation();
-
-        this.router.navigate(['my-flights']);
-      }
-    });
   }
 
   concurrencyOccurred() {
