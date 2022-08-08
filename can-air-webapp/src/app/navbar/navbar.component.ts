@@ -141,6 +141,7 @@ export class NavbarComponent implements OnInit {
     //redirect to Homepage
     setTimeout(() =>{
       this.ngOnInit();
+      this.sendAuthUser();
       this.router.navigate(['home'])
       this.displayModal2 = false;
     }, 2000);
