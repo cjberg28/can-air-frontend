@@ -36,7 +36,9 @@ export class AccountSettingsComponent implements OnInit {
    }
 
   
-  
+  /** 
+   * Initialize an authorized person by utilizing UserAuthService to get the updated data
+   */
   ngOnInit(): void {
     this.subscription = this.auth.authorizedPerson.subscribe(resp => this.authorizedPerson = resp);
     this.updateMessage = [
@@ -45,12 +47,18 @@ export class AccountSettingsComponent implements OnInit {
     ]
   }
 
-
+  //may be unused
   cancelUpdate() {
     this.ngOnInit();
   }
 
-  confirmedUpdate() {
+  /**
+   * This method is called when the user hits the Update Info button on the pop up modal
+   * that has all the input fields.
+   * It calls UserApiService's updateUser method
+   * @returns void
+   */
+  confirmedUpdate(): void {
     this.userService.updateUser(this.authorizedPerson).subscribe(resp => {
       if(resp == true){
         this.addSuccessMessage()
@@ -60,6 +68,12 @@ export class AccountSettingsComponent implements OnInit {
     this.ngOnInit()
   }
 
+  /**
+   * This method is called inside this.confirmedUpdate()
+   * Adds success message to message array
+   * Sets isAccountUpdateSuccessful variable to true which flips the ngIf to display the p-message
+   * Sends updated authorized person out from component
+   */
   addSuccessMessage(): void {
     this.updateMessage = [
         {severity:'success', summary:'Success', detail:'Information updated!'},
@@ -67,15 +81,21 @@ export class AccountSettingsComponent implements OnInit {
     this.isAccountUpdateSuccessful = true;
     this.sendUser(this.authorizedPerson)
     }
-
+  
+  /**
+   * This method is called when the user hits Change Password button
+   * It calls updatePassword method of UserApiService
+   * It displays success message
+   */
   changePassword(){
 
   }
   
-  updateAccountInformation(){
-
-  }
-
+  /**
+   * 
+   * @param authorizedPerson - the updated authorizedPerson object passed out from this component
+   * after the user updates information
+   */
   sendUser(authorizedPerson: Person) {
     this.auth.getAuthorizedPerson(authorizedPerson)
   }

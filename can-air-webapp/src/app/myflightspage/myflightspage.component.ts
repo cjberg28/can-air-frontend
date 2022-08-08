@@ -29,15 +29,15 @@ export class MyflightspageComponent implements OnInit {
   loading: boolean = true;
   // isTableOn: boolean = true;
 
-  //actual reservation object matching the DB
+  //actual reservation object matching the fields in the database
   mySmallReservation: SmallReservation = new SmallReservation();
 
-  //big reservation object to capture big reservation JSON
+  //big reservation object to capture big reservation JSON sent by API
   myBigReservation: Reservation = new Reservation();
   myBigReservationIdToDelete!: number;
   myBigReservationsArray!: Array<Reservation>;
 
-  authorizedPerson: Person;
+  authorizedPerson: Person; //contains the authorizedPerson object/user details after successful login
 
   isUpdateSuccessful: any;
   isDeleteSuccessful: any = false;
@@ -56,22 +56,17 @@ export class MyflightspageComponent implements OnInit {
     private currentRes: CurrentReservationDetailsService
   ) {
     this.authorizedPerson = new Person();
-    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
-    //   return false;
-    // };
-    // this.subscription = this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     // Here is the dashing line comes in the picture.
-    //     // You need to tell the router that, you didn't visit or load the page previously, so mark the navigated flag to false as below.
-    //     this.router.navigated = false;
-    //   }
-    // });
   }
 
 // -------------------------------------------------------------------------------------//
 // ngOnInit --------------------------
 //-------------------------------------------------------------------------------------//
-
+/**
+ * Initialize the flightFormData sent from homepage component
+ * Contains the search criteria (departing, arriving, roundtrip, depDate and retDate)
+ * 
+ * Initialize the authorizedPerson object sent from navbar component's login using UserAuthService
+ */
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe((resp) => {
       this.flightFormDataFromHome = resp;
@@ -86,29 +81,20 @@ export class MyflightspageComponent implements OnInit {
     // get currentReservation from previous component
     this.subscription = this.currentRes.currentReservation.subscribe(
       (resp) => {(this.myBigReservation = resp);
-        console.log(resp);//Weird - logs current date and time!
-        console.log(resp.userId);//0
-        console.log(resp.flightId);//0
-        console.log(resp.reservationId);//0
-        console.log(resp.firstName);//""
-        console.log(resp.lastName);//""
-        console.log(resp.phone);//""
-        console.log(resp.email);//""
-        console.log(resp.dob);//null
-      
-      
-      } 
-    );
-    console.log(this.myBigReservation); //Dates and times work, has a return date when one-way flight?
-    console.log(this.myBigReservation.userId); //0
-    console.log(this.myBigReservation.flightId); //0
-    console.log(this.myBigReservation.reservationId); //0
-    console.log(this.myBigReservation.firstName); //""
-    console.log(this.myBigReservation.lastName); //""
-    console.log(this.myBigReservation.phone); //""
-    console.log(this.myBigReservation.email); //""
-    console.log(this.myBigReservation.dob); //null
-
+      });
+    // console.log(this.myBigReservation); //Dates and times work, has a return date when one-way flight?
+    // console.log(this.myBigReservation.userId); //0
+    // console.log(this.myBigReservation.flightId); //0
+    // console.log(this.myBigReservation.reservationId); //0
+    // console.log(this.myBigReservation.firstName); //""
+    // console.log(this.myBigReservation.lastName); //""
+    // console.log(this.myBigReservation.phone); //""
+    // console.log(this.myBigReservation.email); //""
+    // console.log(this.myBigReservation.dob); //null
+    
+    /**
+     * Each row in the table is one myBigReservation. 
+     */
     this.mySmallReservation.userId = this.myBigReservation.userId; //
     this.mySmallReservation.flightId = this.myBigReservation.flightId; //0
     this.mySmallReservation.reservationId = this.myBigReservation.reservationId; //0
@@ -117,6 +103,7 @@ export class MyflightspageComponent implements OnInit {
     this.mySmallReservation.reservationPhone = this.myBigReservation.phone; // ""
     this.mySmallReservation.reservationEmail = this.myBigReservation.email; // ""
     this.mySmallReservation.reservationDateOfBirth = this.myBigReservation.dob; // null
+
     /*
      - since User & Person are in a one-to-one relationship and we have cascading primary keys
      - we can assume that userId = personId
@@ -128,8 +115,12 @@ export class MyflightspageComponent implements OnInit {
         this.myBigReservationsArray = resp;
         console.log(resp);
       });
+      // console.log("big reservation after getBigRes " + this.myBigReservation)
 
-      console.log("big reservation after getBigRes " + this.myBigReservation)
+    /**
+     * The options for the drop down on the split-button that is each reservation's flight
+     * Clicking Update Reservation button calls this.clickedUpdate() --> 
+     */
     this.flightOptions = [
       {
         label: 'Update Reservation',
@@ -149,6 +140,12 @@ export class MyflightspageComponent implements OnInit {
     ];
   }
 
+  /**
+   * This method is called when the user clicks on the dropdown on the split-button
+   * @param selectedReservation - the captured Big Reservation on click since we have that value inside ngFor="flight of myBigReservationsArray
+   * It can now be passed back to the component as selectedReservation and set to a Small Reservation object
+   * Which can be used to send back updated reservation object for the put request"
+   */
   onSelect(selectedReservation: Reservation) {
     // this.myBigReservationIdToDelete = selectedReservation.reservationId
     // console.log(this.myBigReservationIdToDelete);
@@ -160,31 +157,44 @@ export class MyflightspageComponent implements OnInit {
     this.mySmallReservation.reservationFirstName = selectedReservation.firstName;
     this.mySmallReservation.reservationLastName = selectedReservation.lastName;
     this.mySmallReservation.reservationPhone = selectedReservation.phone;
+
+    //send updated reservation details to the next component
     this.sendData();
   }
 
   
 
+  /**
+   * boolean flip for ngIf
+   */
   clickedUpdate() {
     // this.isTableOn = false;
     this.clickedUpdate2 = true;
   }
 
+  /**
+   * This method is called when user clicks on Cancel on the pop up modal with all the input fields
+   * boolean flip for ngIf
+   */
   cancelUpdate() {
     this.displayModal2 = false;
     this.ngOnInit();
   }
-
+  
+  /**
+   * This method is called when user clicks Confirm
+   */
   confirmedUpdate() {
-    console.log(this.mySmallReservation) //Everything is empty in this specific console log?
-    console.log(this.mySmallReservation.flightId)//0
-    console.log(this.mySmallReservation.userId)//0          // THESE IDS ARE 0
-    console.log(this.mySmallReservation.reservationId)//0
-    console.log(this.mySmallReservation.reservationFirstName)//Works!
-    console.log(this.mySmallReservation.reservationLastName)//Works!
-    console.log(this.mySmallReservation.reservationPhone)//Works!
-    console.log(this.mySmallReservation.reservationDateOfBirth)//Works!
-    console.log(this.mySmallReservation.reservationEmail)//Works!
+    // console.log(this.mySmallReservation) //Everything is empty in this specific console log?
+    // console.log(this.mySmallReservation.flightId)//0
+    // console.log(this.mySmallReservation.userId)//0          // THESE IDS ARE 0
+    // console.log(this.mySmallReservation.reservationId)//0
+    // console.log(this.mySmallReservation.reservationFirstName)//Works!
+    // console.log(this.mySmallReservation.reservationLastName)//Works!
+    // console.log(this.mySmallReservation.reservationPhone)//Works!
+    // console.log(this.mySmallReservation.reservationDateOfBirth)//Works!
+    // console.log(this.mySmallReservation.reservationEmail)//Works!
+
     this.reservationService.updateReservation(this.mySmallReservation).subscribe((resp: any) => {
       this.isUpdateSuccessful = resp; 
       console.log('Resp after sending put request: ' + resp);
@@ -194,15 +204,24 @@ export class MyflightspageComponent implements OnInit {
     this.displayModal2 = false;
     this.ngOnInit();
     
+    //don't need to do this
     // this.router.navigate(['my-flights']);
     // this.isTableOn = true;
   }
 
+  /**
+   * This method is called when the user clicks on the Cancel Reservation button on the split-button
+   * Sends delete request to the API via ReservationApiService
+   * Need to figure out a way to dynamically show changes in the table
+   * @param reservationId 
+   * @param flightId 
+   */
   cancelReservation(reservationId: number, flightId: number) {
     this.reservationService.deleteReservation(reservationId, flightId).subscribe(resp => console.log(resp))
     // this.flightFormDataFromHome.seatsRemaining ++;  //This is handled in the back end, since the database must be updated
     this.router.navigate(['my-flights'])
     
+    //send updated flightFormData and authorizedPerson to other components
     this.sendData();
     this.sendAuthUser();
     
@@ -225,5 +244,4 @@ export class MyflightspageComponent implements OnInit {
   //     this.subscription.unsubscribe();
   //   }
   // }
-
 }

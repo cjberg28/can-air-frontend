@@ -22,7 +22,7 @@ import { UserAuthService } from '../user-auth.service';
 })
 export class ReserveflightpageComponent implements OnInit {
 
-  
+ 
   flightsFromHome: Array<Flight> = [];
   flightFormDataFromHome!: Flight;
   cardNumber: number = 0;
@@ -128,7 +128,16 @@ export class ReserveflightpageComponent implements OnInit {
     //   }
   }
 
-  
+  /**
+   * This method is called when the user clicks the confirm button on the credit card info modal
+   * Makes a post request via ReservationApiService and gets back a SpecialReservation object
+   * SpecialReservation has an extra user: {userId: } and flight: {flightId: } fields
+   *  as well as all other fields of SmallReservation.
+   * It first sets the user details into it via the currentReservation object being passed around the components
+   *  as well as the FlightFormData.
+   * It checks for concurrency and flips a boolean for an *ngIf
+   *  - redirects to my-flights if concurrency hits
+   */
   reserveFlight(): void{
     // this.flightFormDataFromHome.seatsRemaining --;
 
@@ -165,42 +174,21 @@ export class ReserveflightpageComponent implements OnInit {
         this.concurrencyOccurred();
         console.log("Concurrency Variable inside subscribe block: " + this.concurrency);//true
       }
-
-      //assign current reservation's Id to the reservationId returned after save()
-      this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Coudl break.
-      console.log(this.objectReturnedAfterSaveReservation.flightId);//
-      console.log(this.objectReturnedAfterSaveReservation.reservationId);//
-
-      console.log("Concurrency Variable: " + this.concurrency);//
-      if(!this.concurrency) {//Successful save occurred
-        this.sendData();   
-        this.sendAuthUser();
-        this.sendReservation();
-
-        this.router.navigate(['my-flights']);
-      }
-
-
-
-
-
-
-
     });
 
-    // //assign current reservation's Id to the reservationId returned after save()
-    // this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
-    // console.log(this.objectReturnedAfterSaveReservation.flightId);//0
-    // console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
+    //assign current reservation's Id to the reservationId returned after save()
+    this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
+    console.log(this.objectReturnedAfterSaveReservation.flightId);//0
+    console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
 
-    // console.log("Concurrency Variable: " + this.concurrency);//false
-    // if(!this.concurrency) {//Successful save occurred
-    //   this.sendData();   
-    //   this.sendAuthUser();
-    //   this.sendReservation();
+    console.log("Concurrency Variable: " + this.concurrency);//false
+    if(!this.concurrency) {//Successful save occurred
+      this.sendData();   
+      this.sendAuthUser();
+      this.sendReservation();
 
-    //   this.router.navigate(['my-flights']);
-    // }
+      this.router.navigate(['my-flights']);
+    }
 
   }
 
@@ -212,6 +200,7 @@ export class ReserveflightpageComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
+  // Send out the FlightFormData, authorizedPerson, and currentReservation to other components as an Observable
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
     

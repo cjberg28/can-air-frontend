@@ -18,7 +18,7 @@ import { Person } from '../models/Person';
  
 })
 export class HomepageComponent implements OnInit {
-  
+ 
   
   airports: string[] = [];
   isProgressSpinnerActivated: boolean = false;
@@ -28,7 +28,7 @@ export class HomepageComponent implements OnInit {
   authorizedPerson: Person;
   
 
-  //to parse names and ids... not sure what to do with this though
+  //convert destinationIds to airport names and vice versa
   airportMap: Map<string, number> = new Map<string, number>([
     ["MSP - Minneapolis/St. Paul", 1],
     ["LAX - Los Angeles", 2],
@@ -52,28 +52,40 @@ export class HomepageComponent implements OnInit {
     this.authorizedPerson = new Person();
     
    }
-
+  
+  /**
+   * Initialize the currentFlight object in order to maintain current flight details
+   * when redirected back from reserveFlight component if concurrency is true
+   */
   ngOnInit(): void {    
     this.data.currentFlight.subscribe(resp => this.flightFormData = resp)
     // this.data.authorizedPerson.subscribe(resp => this.authorizedPerson)
   }
   
+  /**
+   * This method is called when the user hits the Search button after all input fields have been
+   * given the appropriate values.
+   */
   searchFlights() {
     
     if(this.searchDisabled == true){
 
     }
     else{
+      //cause 2 second timeout to allow for loading transition
       this.isProgressSpinnerActivated = true;
-    setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 2000);
+      setTimeout(() => {this.sendData(); this.router.navigate(['flights']);}, 2000);
     }
-  
-    
-    // console.log(this.flightFormData.departureLocation);
-    // console.log(this.flightFormData.arrivalLocation);
   }
 
+  /**
+   * This method returns true if all fields are filled, false if not
+   * @returns isDisabled: boolean
+   */
   requiredFieldsFilled() {
+
+    //Making today and yesterday variables to compare flightFormData's default return date
+    //which is set to yesterday's date
     let today = new Date();
     today.setDate(today.getDate());
     let yesterday = new Date(today);
@@ -81,8 +93,6 @@ export class HomepageComponent implements OnInit {
     let isDisabled: boolean = true;
     
 
-    //Making today and yesterday variables to compare flightFormData's default return date
-    //which is set to yesterday's date
     
     if(this.flightFormData.departureLocation != '' && this.flightFormData.arrivalLocation != '' 
       && this.flightFormData.departureDate > yesterday && this.flightFormData.roundTrip != true){
@@ -107,6 +117,9 @@ export class HomepageComponent implements OnInit {
     return isDisabled;
   }
 
+  /**
+   * send out flightFormData to other components
+   */
   sendData(){
     
     this.data.getFlightFromHome(this.flightFormData);

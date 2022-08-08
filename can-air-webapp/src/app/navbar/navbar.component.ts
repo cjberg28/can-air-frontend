@@ -17,7 +17,6 @@ import { UserAuthService } from '../user-auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   items: MenuItem[] = [];
   
   isUserLoggedIn: boolean = false;
@@ -52,6 +51,12 @@ export class NavbarComponent implements OnInit {
     //which is causing the "Hello _____" to always appear after the first user login and logout
     this.isCloseable = true;
     
+    /**
+     * This is the menu bar main items like Home, My Flights, Login, and Hello.../Not Signed In
+     * Checks if personId == 0 to see if the user is logged in
+     * since the personId of a default new Person() = 0, this will check if the personId has been updated --> logged in
+     * 
+     */
     this.items = [
       {
       label: 'Home',
@@ -98,7 +103,13 @@ export class NavbarComponent implements OnInit {
       }];
   }
 
-// METHODS 
+// METHODS --------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
+
+  /**
+   * This method is called when the user clicks Login on the menu bar
+   * Calls ngOnInit to reload the name to say Hello ... instead of Not Signed In
+   */
   giveLoginDialogBox(): void {
     
     this.showModalDialog();
@@ -106,6 +117,10 @@ export class NavbarComponent implements OnInit {
     this.ngOnInit();
   }
 
+  /**
+   * 
+   * @returns :string Either "Not Signed In" or "Hello ..."
+   */
   getUsername(): string {
     if (this.authorizedPerson.personId == 0 ) {//If the user hasn't logged in...
       return "Not Signed In";
@@ -122,6 +137,8 @@ export class NavbarComponent implements OnInit {
     this.displayModal = false;
     this.isUserLoggedOut = true;
     this.displayModal2 = true;
+    //timeout of 2 seconds for transition animation
+    //redirect to Homepage
     setTimeout(() =>{
       this.ngOnInit();
       this.router.navigate(['home'])
@@ -149,6 +166,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * This method is called when the user puts in their credentials and clicks Login button on the modal.
+   * Sets the authorizedPerson's details from the response of authenticateUser method 
+   * from the LoginApiService.
+   * Sends updated authorizedPerson object to the next components. It is the launch point for this object
+   */
   login() {
     //on the backend, check if username and password match
     //if they do, return the full user
@@ -196,10 +219,6 @@ export class NavbarComponent implements OnInit {
   sendAuthUser() {
     this.auth.getAuthorizedPerson(this.authorizedPerson);
   }
-
-  
-
-
 
 
 }

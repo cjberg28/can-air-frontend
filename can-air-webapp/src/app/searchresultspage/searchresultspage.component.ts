@@ -48,15 +48,6 @@ export class SearchresultspageComponent implements OnInit {
     [7, "LHR - London"]
   ]);
 
-  // airportMap: Map<string, number> = new Map<string, number>([
-  //   ["MSP - Minneapolis/St. Paul", 1],
-  //   ["LAX - Los Angeles", 2],
-  //   ["DTW - Detroit", 3],
-  //   ["YYZ - Toronto", 4],
-  //   ["PHL - Philadelphia", 5],
-  //   ["ORD - Chicago", 6],
-  //   ["LHR - London", 7]
-  // ]);
 
   constructor(private router: Router, service: FlightApiService, private data: DataService) {
     this.flightService = service;
@@ -64,7 +55,13 @@ export class SearchresultspageComponent implements OnInit {
     this.authorizedPerson = new Person();
     
    }
-
+  
+  
+  /**
+   * Initialize the table to hold different flights that match the criteria
+   * Initialize variables for pagination and column mapping
+   * 
+   */
   ngOnInit(): void {
     this.subscription = this.data.currentFlight.subscribe(resp => {this.flightFormDataFromHome = resp;})
     
@@ -100,13 +97,14 @@ export class SearchresultspageComponent implements OnInit {
 
   findAllFlights(): void{
     this.flightService.getAll().subscribe(resp => {this.flights = resp;})
-    // console.log(this.flights)
+    
   }
 
   findFlightsByCriteria(): void {
-    // console.log(this.flightFormDataFromHome)
+    //make the get request to the API via FlightService and get an array of all flights matching criteria
     this.flightService.getFlightsMatchingCriteria(this.flightFormDataFromHome).subscribe(resp => {
-      
+      //resp returned is of type {boolean, Array<flight object>}. the first element of the array is true, then the second
+      // element is an array of flights
       if(resp[0] == true){
         this.flights = resp[1];
       }
@@ -117,6 +115,10 @@ export class SearchresultspageComponent implements OnInit {
     
   }
 
+  /**
+   * Comes from an onClick from the drop down of the split-button on the flight number
+   * @param selectedFlight - The flight the user selects by clicking on the drop down of the split-button
+   */
   onSelect(selectedFlight: Flight) {
     this.flightFormDataFromHome = selectedFlight;
     console.log(selectedFlight);
@@ -125,6 +127,7 @@ export class SearchresultspageComponent implements OnInit {
     
   }
 
+  //Send out an updated FlightFormData 
   sendData(){
     this.data.getFlightFromHome(this.flightFormDataFromHome);
     
