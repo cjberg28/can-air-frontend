@@ -174,22 +174,21 @@ export class ReserveflightpageComponent implements OnInit {
         this.concurrencyOccurred();
         console.log("Concurrency Variable inside subscribe block: " + this.concurrency);//true
       }
+
+      //assign current reservation's Id to the reservationId returned after save()
+      this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
+      console.log(this.objectReturnedAfterSaveReservation.flightId);//0
+      console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
+
+      console.log("Concurrency Variable: " + this.concurrency);//false
+      if(!this.concurrency) {//Successful save occurred
+        this.sendData();   
+        this.sendAuthUser();
+        this.sendReservation();
+
+        this.router.navigate(['my-flights']);
+      }
     });
-
-    //assign current reservation's Id to the reservationId returned after save()
-    this.reservation.reservationId = this.objectReturnedAfterSaveReservation.reservationId;//Still set to 0 yet code works
-    console.log(this.objectReturnedAfterSaveReservation.flightId);//0
-    console.log(this.objectReturnedAfterSaveReservation.reservationId);//0
-
-    console.log("Concurrency Variable: " + this.concurrency);//false
-    if(!this.concurrency) {//Successful save occurred
-      this.sendData();   
-      this.sendAuthUser();
-      this.sendReservation();
-
-      this.router.navigate(['my-flights']);
-    }
-
   }
 
   concurrencyOccurred() {
