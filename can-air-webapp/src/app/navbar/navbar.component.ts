@@ -133,6 +133,8 @@ export class NavbarComponent implements OnInit {
     // alert('Logging out');
 
     this.authorizedPerson = new Person()
+    this.loginCreds.username = "";//Reset username and password.
+    this.loginCreds.password = "";
     console.log(this.authorizedPerson)
     this.displayModal = false;
     this.isUserLoggedOut = true;
