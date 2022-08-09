@@ -47,7 +47,16 @@ export class MyflightspageComponent implements OnInit {
   clickedUpdate2: boolean = false;
 
  
-  
+  airportMapFlipped: Map<number, string> = new Map<number, string>([
+    [1, "MSP - Minneapolis/St. Paul"],
+    [2, "LAX - Los Angeles"],
+    [3, "DTW - Detroit"],
+    [4, "YYZ - Toronto"],
+    [5, "PHL - Philadelphia"],
+    [6, "ORD - Chicago"],
+    [7, "LHR - London"]
+  ]);
+
   constructor(
     private router: Router,
     private data: DataService,
